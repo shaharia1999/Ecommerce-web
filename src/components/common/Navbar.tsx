@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
         <div className="flex items-center">
           {/* Example logo, replace src as needed */}
           <Link href="/">
-            <img src="" alt="Logo" className="h-10 w-10" />
+            <Image src="" alt="Logo" className="h-10 w-10" />
           </Link>
         </div>
         {/* Middle: Navigation Links */}
