@@ -1,0 +1,17 @@
+import SpecialBrandCard from '../cards/SpecialBrandCard';
+import specialBrandsData from '../../data/specialBrandsData';
+
+const SpecialBrandsSection = () => {
+  return (
+    <section className="my-10">
+      <h2 className="text-2xl font-bold mb-4">Special Brands</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {specialBrandsData.map(item => (
+          <SpecialBrandCard key={item.id} {...item} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default SpecialBrandsSection;
