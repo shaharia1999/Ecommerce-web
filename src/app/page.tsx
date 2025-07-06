@@ -9,7 +9,7 @@ import Banner from '../components/banner/MainBanner';
 
 export default function HomePage() {
   return (
-    <div className="pt-1"> {/* pt-20 because Navbar is fixed */}
+    <div className="pt-1 p-6"> {/* pt-20 because Navbar is fixed */}
       <Banner></Banner>
       <BannerSection />
       <FlashSaleSection />

@@ -1,8 +1,32 @@
 const bestSellersData = [
-  { id: 1, title: "Best Seller 1", price: 300, salesCount: 150, image: "/images/best1.jpg" },
-  { id: 2, title: "Best Seller 2", price: 350, salesCount: 200, image: "/images/best2.jpg" },
-  { id: 3, title: "Best Seller 3", price: 280, salesCount: 180, image: "/images/best3.jpg" },
-  { id: 4, title: "Best Seller 4", price: 320, salesCount: 170, image: "/images/best4.jpg" },
+  {
+    id: 1,
+    title: "Men’s Trendy Casual Shoes",
+    price: 89,
+    oldPrice: 120,
+    image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 2,
+    title: "Kid’s Western Party Dress",
+    price: 75,
+    oldPrice: 99,
+    image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 3,
+    title: "Men’s Casual Winter Jacket",
+    price: 60,
+    oldPrice: 65,
+    image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
+
+export const bestSellerBanner = {
+  title: "Best Sales Discount An...",
+  price: 89,
+  oldPrice: 120,
+  image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+};
 
 export default bestSellersData;

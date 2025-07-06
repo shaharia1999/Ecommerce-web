@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -9,18 +9,20 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   return (
     <nav className={`fixed top-0 left-0 right-0 bg-purple-50 shadow-md w-full ${className}`}>
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 py-3">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 py-4">
         {/* Left: Logo/Icon */}
         <div className="flex items-center">
           {/* Example logo, replace src as needed */}
           <Link href="/">
-            <Image src="" alt="Logo" className="h-10 w-10" />
+            {/* <Image  alt="Logo" className="h-10 w-10" /> */}
+
           </Link>
         </div>
         {/* Middle: Navigation Links */}
         <div className="flex-grow flex justify-center space-x-8">
           <Link href="/" className="text-purple-700 font-semibold hover:text-purple-900 transition">Home</Link>
           <Link href="/dress" className="text-gray-700 hover:text-purple-700 transition">Dress</Link>
+          <Link href="/shop" className="text-gray-700 hover:text-purple-700 transition">Shop</Link>
           <Link href="/toy" className="text-gray-700 hover:text-purple-700 transition">Toy</Link>
           <Link href="/fashion" className="text-gray-700 hover:text-purple-700 transition">Fashion</Link>
         </div>

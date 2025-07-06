@@ -1,8 +1,12 @@
 const newArrivalsData = [
-  { id: 1, title: "New Arrival 1", price: 120, image: "/images/n1.jpg" },
-  { id: 2, title: "New Arrival 2", price: 140, image: "/images/n2.jpg" },
-  { id: 3, title: "New Arrival 3", price: 110, image: "/images/n3.jpg" },
-  { id: 4, title: "New Arrival 4", price: 130, image: "/images/n4.jpg" },
+  { id: 1, title: "Full Sleeve Hoodie Jacket", price: 88, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 5, reviews: 22, colors: ["#D32F2F", "#388E3C", "#1976D2", "#FFB300"] },
+  { id: 2, title: "Men’s Premium Formal Shirt", price: 46, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4, reviews: 17, colors: ["#D32F2F", "#FFB300", "#388E3C"] },
+  { id: 3, title: "Cherry Fabric Western Tops", price: 46, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4, reviews: 22, colors: ["#D32F2F", "#388E3C", "#1976D2", "#FFB300"] },
+  { id: 4, title: "Comfortable Sports Sneakers", price: 75, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 5, reviews: 58, colors: ["#D32F2F", "#388E3C"] },
+  { id: 5, title: "Classic Denim Jacket", price: 99, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4, reviews: 12, colors: ["#388E3C", "#1976D2"] },
+  { id: 6, title: "Trendy Women's Kurti", price: 120, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 5, reviews: 33, colors: ["#D32F2F", "#FFB300"] },
+  { id: 7, title: "Men's Polo T-Shirt", price: 55, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4, reviews: 19, colors: ["#388E3C", "#FFB300"] },
+  { id: 8, title: "Women's Stylish Saree", price: 130, image: "https://images.unsplash.com/photo-1517472292914-9570a594783b?q=80&w=1133&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 5, reviews: 40, colors: ["#D32F2F", "#FFB300"] },
 ];
 
 export default newArrivalsData;
