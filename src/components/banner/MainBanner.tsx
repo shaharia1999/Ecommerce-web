@@ -18,7 +18,8 @@ const Banner = () => {
       {/* Middle Image */}
       <div className="relative w-full md:w-[400px] h-[300px] md:h-auto">
         <Image
-          src="/shopping-girl.png" // your image here
+          // src="/shopping-girl.png" // your image here
+            src="/images/cat1.jpg"
           alt="Fashion Girl"
           layout="fill"
           objectFit="contain"
@@ -37,7 +38,8 @@ const Banner = () => {
 
         <div className="relative w-[200px] h-[250px] mt-4">
           <Image
-            src="/cool-girl.png" // 2nd image here
+            // src="/cool-girl.png" // 2nd image here
+              src="/images/cat1.jpg" // 2nd image here
             alt="Cool Girl"
             layout="fill"
             objectFit="contain"
