@@ -1,3 +1,5 @@
+'use client';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // Updated Types according to NEW backend requirements
@@ -47,14 +49,6 @@ export interface Product {
   quantity?: number;
 }
 
-export interface Payment {
-  method: string;
-  subtotal: number;
-  deliveryCharge: number;
-  total: number;
-  promoCode?: string;
-}
-
 // API Configuration - FIXED
 export const API_CONFIG = {
   BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
@@ -65,11 +59,25 @@ export const API_CONFIG = {
   }
 };
 
-// Utility function to generate product ID (temporary - replace with real IDs)
-export const generateProductId = (title: string): string => {
-  // This is a temporary solution - you should get real product IDs from your backend
-  return btoa(title).replace(/[^a-zA-Z0-9]/g, '').substring(0, 24).padEnd(24, '0');
-};
+// ✅ NEW: Backend Product Interface - Real structure
+export interface BackendProduct {
+  _id: string;                    // ✅ Real MongoDB ObjectId
+  title: string;
+  slug: string;
+  description?: string;
+  category: string;
+  price: number;
+  discount?: number;
+  stock: number;
+  mainImage: string;
+  images?: string[];
+  filters?: ProductFilters;
+  rating?: number;
+  reviews?: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 // API functions using fetch - FIXED
 export const orderAPI = {
@@ -178,6 +186,32 @@ export const orderAPI = {
   }
 };
 
+// ✅ NEW: Product API
+export const productAPI = {
+  getProductBySlug: async (slug: string): Promise<BackendProduct> => {
+    const url = `${API_CONFIG.BASE_URL}/products/${slug}`;
+    
+    console.log('🚀 Fetching product from:', url);
+    
+    try {
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('✅ Product data with real ID:', data);
+      console.log('Real Product ID:', data._id);
+      return data;
+      
+    } catch (error) {
+      console.error('❌ Product fetch error:', error);
+      throw error;
+    }
+  }
+};
+
 // React Query Keys
 export const QUERY_KEYS = {
   ORDERS: 'orders',
@@ -225,5 +259,14 @@ export const useUpdateOrderStatus = () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDER, variables.orderId] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] });
     },
+  });
+};
+
+// ✅ NEW: Product Query Hook
+export const useProduct = (slug: string, enabled = true) => {
+  return useQuery({
+    queryKey: ['product', slug],
+    queryFn: () => productAPI.getProductBySlug(slug),
+    enabled: enabled && !!slug,
   });
 };

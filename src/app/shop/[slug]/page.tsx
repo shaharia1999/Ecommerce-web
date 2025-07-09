@@ -1,8 +1,24 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState, Suspense, useCallback  } from 'react';
+import {  useState, Suspense  } from 'react';
 import Image from 'next/image';
+import { useProduct } from '../../../utils/productApi';
+
+// interface ProductData {
+//   id: string;
+//   title: string;
+//   category: string;
+//   originalPrice: number;
+//   discountedPrice: number;
+//   mainImg: string;
+//   stock: number;
+//   slug: string;
+//   description?: string;
+//   images?: string[];
+//   rating?: number;
+//   reviews?: number;
+// }
 
 interface ProductData {
   id: string;
@@ -17,74 +33,78 @@ interface ProductData {
   images?: string[];
   rating?: number;
   reviews?: number;
+  // Add these for checkout
+  selectedSize?: string;
+  selectedColor?: string;
+  quantity?: number;
 }
 
 function ShopContent() {
   const params = useParams();
   const router = useRouter();
-  const [productData, setProductData] = useState<ProductData | null>(null);
-  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  // Use React Query to fetch product
+  const { 
+    data: product, 
+    isLoading, 
+    isError 
+  
+  } = useProduct(params.slug as string);
+console.log(product);
+  // Transform product data to match your interface - FIXED
+  const productData: ProductData | null = product ? {
+    id: product._id,
+    title: product.title,
+    category: product.category,
+    // Fix the price calculation
+    originalPrice: Number(product.price) || 0,
+    discountedPrice: Number(product.price) * (1 - (Number(product.discount) || 0) / 100) || 0,
+    mainImg: product.mainImage,
+    stock: product.stock,
+    slug: product.slug || params.slug as string,
+    description: product.description,
+    images: product.images || [product.mainImage],
+    rating: product.rating || 4.5,
+    reviews: product.reviews || 0
+  } : null;
 
-const fetchProductData = useCallback(async () => {
-  try {
-    setLoading(true);
-    // Debug করার জন্য console log
-    console.log('Fetching product with slug:', params.slug);
-    
-    // Temporary: Mock data for testing
-    const mockProduct = {
-      id: "686be7a556179a6b3ae462bc",
-      title: "Quis quia atque 19",
-      category: "Amet reprehenderit",
-      originalPrice: 400,
-      discountedPrice: 400,
-      mainImg: "https://images.pexels.com/photos/1055691/pexels-photo-1055691.jpeg",
-      stock: 4,
-      slug: "quis-quia-atque-19",
-      description: "High quality product with excellent features and durability.",
-      rating: 4.5,
-      reviews: 120
-    };
-    
-    setProductData(mockProduct);
-    setLoading(false);
-    
-    // Real API call (comment out for now)
-    // const response = await fetch(`/api/products/${params.slug}`);
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   setProductData(data);
-    // } else {
-    //   console.error('Product not found');
-    // }
-  } catch (error) {
-    console.error('Error fetching product:', error);
-    setLoading(false);
+  // Debug করার জন্য console log যোগ করুন
+  console.log('=== PRICE CALCULATION DEBUG ===');
+  console.log('Original product.price:', product?.price, typeof product?.price);
+  console.log('Original product.discount:', product?.discount, typeof product?.discount);
+  if (productData) {
+    console.log('Calculated originalPrice:', productData.originalPrice);
+    console.log('Calculated discountedPrice:', productData.discountedPrice);
   }
-}, [params.slug]);
 
-useEffect(() => {
-  fetchProductData();
-}, [fetchProductData]);
-// ...existing code...
+  // api fetch new
+
 
   const handleBuyNow = () => {
     if (productData) {
       const checkoutData = {
         ...productData,
+        // ✅ Real product ID backend থেকে
+        id: product?._id, // Real MongoDB ObjectId
+        price: productData.discountedPrice,
+        originalPrice: productData.originalPrice,
         selectedSize,
         selectedColor: colorOptions[selectedColor],
         quantity
       };
+      
+      console.log('=== CHECKOUT DATA WITH REAL ID ===');
+      console.log('Product ID from backend:', product?._id);
+      console.log('Checkout data:', checkoutData);
+      
       router.push(`/checkout?product=${encodeURIComponent(JSON.stringify(checkoutData))}`);
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -95,7 +115,7 @@ useEffect(() => {
     );
   }
 
-  if (!productData) {
+  if (isError || !productData) {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="pt-20 flex items-center justify-center h-96">
@@ -116,7 +136,9 @@ useEffect(() => {
 
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const colorOptions = ['#FF0000', '#FFA500', '#008000', '#000000'];
-  const discountPercentage = Math.round(((productData.originalPrice - productData.discountedPrice) / productData.originalPrice) * 100);
+  
+  // Fix discount percentage calculation
+  const discountPercentage = productData ? Number(product?.discount) || 0 : 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -191,11 +213,15 @@ useEffect(() => {
                 </span>
               </div>
 
-              {/* Price */}
+              {/* Price - FIXED */}
               <div className="flex items-center space-x-4 mb-6">
-                <span className="text-4xl font-bold text-gray-800">${productData.discountedPrice}</span>
-                {productData.originalPrice !== productData.discountedPrice && (
-                  <span className="text-xl text-gray-400 line-through">${productData.originalPrice}</span>
+                <span className="text-4xl font-bold text-gray-800">
+                  ${productData.discountedPrice.toFixed(2)}
+                </span>
+                {discountPercentage > 0 && (
+                  <span className="text-xl text-gray-400 line-through">
+                    ${productData.originalPrice.toFixed(2)}
+                  </span>
                 )}
                 {discountPercentage > 0 && (
                   <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
