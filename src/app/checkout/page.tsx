@@ -210,13 +210,19 @@ function CheckoutContent() {
               
               {/* Product */}
               <div className="flex items-start space-x-4 pb-4 border-b border-gray-200">
-                <Image
-                  src={productData.mainImage}
-                  alt={productData.title}
-                  width={80}
-                  height={80}
-                  className="object-contain bg-gray-50 rounded-lg p-2"
-                />
+                {productData.mainImage ? (
+                  <Image
+                    src={productData.mainImage}
+                    alt={productData.title}
+                    width={80}
+                    height={80}
+                    className="object-contain bg-gray-50 rounded-lg p-2"
+                  />
+                ) : (
+                  <div className="w-20 h-20 flex items-center justify-center bg-gray-200 text-gray-400 text-xs rounded">
+                    No Image
+                  </div>
+                )}
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-800 text-sm mb-1">
                     {productData.title}

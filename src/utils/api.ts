@@ -209,6 +209,44 @@ export const productAPI = {
       console.error('❌ Product fetch error:', error);
       throw error;
     }
+  },
+
+  // ✅ NEW: Get products with category filtering
+  getProducts: async (params?: {
+    category?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<{
+    total: number;
+    page: number;
+    pages: number;
+    products: BackendProduct[];
+  }> => {
+    const queryParams = new URLSearchParams();
+    
+    if (params?.category) queryParams.append('category', params.category);
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+
+    const url = `${API_CONFIG.BASE_URL}/products${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
+    
+    console.log('🚀 Fetching products from:', url);
+    
+    try {
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('✅ Products data:', data);
+      return data;
+      
+    } catch (error) {
+      console.error('❌ Products fetch error:', error);
+      throw error;
+    }
   }
 };
 
@@ -216,6 +254,8 @@ export const productAPI = {
 export const QUERY_KEYS = {
   ORDERS: 'orders',
   ORDER: 'order',
+  PRODUCTS: 'products', // ✅ NEW
+  PRODUCT: 'product',   // ✅ NEW
 } as const;
 
 // TanStack Query Hooks - FIXED
@@ -262,10 +302,23 @@ export const useUpdateOrderStatus = () => {
   });
 };
 
-// ✅ NEW: Product Query Hook
+// ✅ NEW: Products Query Hook
+export const useProducts = (params?: {
+  category?: string;
+  page?: number;
+  limit?: number;
+}, enabled = true) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.PRODUCTS, params],
+    queryFn: () => productAPI.getProducts(params),
+    enabled: enabled,
+  });
+};
+
+// ✅ UPDATE: Product Query Hook (existing এর key update করুন)
 export const useProduct = (slug: string, enabled = true) => {
   return useQuery({
-    queryKey: ['product', slug],
+    queryKey: [QUERY_KEYS.PRODUCT, slug], // Updated key
     queryFn: () => productAPI.getProductBySlug(slug),
     enabled: enabled && !!slug,
   });
