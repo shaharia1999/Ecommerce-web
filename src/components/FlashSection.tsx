@@ -1,3 +1,4 @@
+// updated code for FlashSection component
 'use client';
 
 import { useProducts } from '../utils/api';
