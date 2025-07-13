@@ -127,7 +127,7 @@ export default function FlashSection({
             <FlashCard key={product.id || product._id} product={product as any} />
           ))}
         </div>
-
+{/*  */}
         {/* View More Button */}
         {data.total > data.products.length && (
           <div className="text-center mt-10">
