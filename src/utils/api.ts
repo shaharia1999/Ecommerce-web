@@ -61,22 +61,25 @@ export const API_CONFIG = {
 
 // ✅ NEW: Backend Product Interface - Real structure
 export interface BackendProduct {
-  _id: string;                    // ✅ Real MongoDB ObjectId
+  id: string;
   title: string;
   slug: string;
-  description?: string;
-  category: string;
-  price: number;
-  discount?: number;
   stock: number;
-  mainImage: string;
+  category: string;
+  originalPrice: number;
+  discountedPrice: number;
+  mainImg: string;
+  description?: string;
   images?: string[];
-  filters?: ProductFilters;
   rating?: number;
   reviews?: number;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  discount?: number;
+  size?: string[];
+  color?: string[];
+  filters?: {
+    size?: string[];
+    color?: string[];
+  };
 }
 
 // API functions using fetch - FIXED

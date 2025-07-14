@@ -1,12 +1,25 @@
 // import Image from 'next/image';
+'use client';
 import Link from 'next/link';
 import React from 'react';
+import { usePathname } from 'next/navigation';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/dress', label: 'Dress' },
+  { href: '/shop', label: 'Shop' },
+  { href: '/toy', label: 'Toy' },
+  { href: '/fashion', label: 'Fashion' },
+  { href: '/FlashSaleCardDiscount', label: 'FLash Discount' },
+];
 
 interface NavbarProps {
   className?: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
+  const pathname = usePathname();
+
   return (
     <nav className={`fixed top-0 left-0 right-0 bg-purple-50 shadow-md w-full ${className}`}>
       <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 py-4">
@@ -20,11 +33,19 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
         </div>
         {/* Middle: Navigation Links */}
         <div className="flex-grow flex justify-center space-x-8">
-          <Link href="/" className="text-purple-700 font-semibold hover:text-purple-900 transition">Home</Link>
-          <Link href="/dress" className="text-gray-700 hover:text-purple-700 transition">Dress</Link>
-          <Link href="/shop" className="text-gray-700 hover:text-purple-700 transition">Shop</Link>
-          <Link href="/toy" className="text-gray-700 hover:text-purple-700 transition">Toy</Link>
-          <Link href="/fashion" className="text-gray-700 hover:text-purple-700 transition">Fashion</Link>
+          {navLinks.map((nav) => (
+            <Link
+              key={nav.href}
+              href={nav.href}
+              className={`font-semibold transition ${
+                pathname === nav.href
+                  ? 'text-purple-700 underline underline-offset-4'
+                  : 'text-gray-700 hover:text-purple-700'
+              }`}
+            >
+              {nav.label}
+            </Link>
+          ))}
         </div>
         {/* Right: Icons & Profile Dropdown */}
         <div className="flex items-center space-x-4">

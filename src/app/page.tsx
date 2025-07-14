@@ -10,7 +10,7 @@ import FlashSection from '../components/FlashSection';
 
 export default function HomePage() {
   return (
-    <div className="pt-1 p-6"> {/* pt-20 because Navbar is fixed */}
+    <div className="pt-1 p-6 max-w-[1285px] mx-auto"> {/* pt-20 because Navbar is fixed */}
       <Banner></Banner>
       <BannerSection />
       <FlashSaleSection />
@@ -27,7 +27,7 @@ export default function HomePage() {
   limit={8}
 />
         <FlashSection 
-          title="Fashion Items" 
+          title="Fashion Items"
           category="fashion" 
           limit={6}
         />

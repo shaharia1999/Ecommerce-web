@@ -5,23 +5,31 @@ import { useProducts } from '../utils/api';
 import FlashCard from './FlashCard';
 
 interface FlashSectionProps {
-  title: string;
+  //  id: string;
+  //   title: string;
+  //   slug: string;
+  //   category: string;
+  //   originalPrice: number;
+  //   discountedPrice: number;
+  //   mainImg: string;
+  //   stock: number;
+  //   rating?: number;
+  // limit?: number;
+  // className?: string;
+
+    title: string;
   category?: string;
   limit?: number;
   className?: string;
+  
 }
 
-export default function FlashSection({ 
-  title, 
-  category, 
-  limit = 8,
-  className = ""
-}: FlashSectionProps) {
-  const { 
-    data, 
-    isLoading, 
-    isError, 
-    error 
+export default function FlashSection({ title, category, limit = 8, className = "" }: FlashSectionProps) {
+  const {
+    data,
+    isLoading,
+    isError,
+    error
   } = useProducts({
     category,
     limit,
@@ -31,9 +39,9 @@ export default function FlashSection({
   if (isLoading) {
     return (
       <section className={`py-12 ${className}`}>
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 ">
           {/* Section Header */}
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 ">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
               {title}
             </h2>
@@ -115,7 +123,7 @@ export default function FlashSection({
               Browse our {category} collection
             </p>
           )}
-          
+
           {/* Results count */}
           <p className="text-sm text-gray-500 mt-2">
             Showing {data.products.length} of {data.total} products
@@ -125,10 +133,10 @@ export default function FlashSection({
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {data.products.map((product) => (
-            <FlashCard key={product.id || product._id} product={product as any} />
+            <FlashCard key={product.id} product={product} />
           ))}
         </div>
-{/*  */}
+        {/*  */}
         {/* View More Button */}
         {data.total > data.products.length && (
           <div className="text-center mt-10">

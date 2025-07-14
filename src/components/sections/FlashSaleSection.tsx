@@ -4,48 +4,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { useEffect, useState } from 'react';
-
-// Product type define করুন
-interface Product {
-  id: string;
-  title: string;
-  description?: string;
-  category: string;
-  originalPrice: number;
-  discountedPrice: number;
-  mainImg: string;
-  stock: number;
-  slug: string;
-  images?: string[];
-  rating?: number;
-  reviews?: number;
-  discount?: number;
-  size?: string[];
-  color?: string[];
-}
+import Link from 'next/link';
+import { useProducts } from '../../utils/api';
 
 const FlashSaleSection = () => {
-  const [products, setProducts] = useState<Product[]>([]); // Type add করুন
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, isError } = useProducts();
 
-  useEffect(() => {
-    // Debug route দিয়ে check করুন
-    fetch("http://localhost:5000/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products || data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching products:', error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="my-10 px-4 text-center">Loading...</div>;
   }
+  if (isError || !data) {
+    return <div className="my-10 px-4 text-center text-red-500">Failed to load products</div>;
+  }
+
+  const products = data.products || [];
 
   return (
     <section className="my-10 px-4">
@@ -61,15 +33,14 @@ const FlashSaleSection = () => {
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <span>⏰</span>
           <span>Limited Time Offer</span>
+          <Link href="/FlashSaleCardDiscount" className="text-blue-600 hover:underline">View All-</Link>
         </div>
       </div>
 
-      {/* Show product count for debugging */}
       <div className="mb-4 text-sm text-gray-500">
         Products loaded: {products.length}
       </div>
 
-      {/* Swiper Container */}
       {products.length > 0 ? (
         <div className="relative">
           <Swiper
@@ -94,24 +65,29 @@ const FlashSaleSection = () => {
               1280: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {products.map((product: Product, index: number) => (
-              <SwiperSlide key={product.id || index}>
+            {products.map((product, index) => (
+              <SwiperSlide key={product.id  || index}>
                 <FlashSaleCard
                   title={product.title}
                   description={product.description}
                   category={product.category}
                   price={product.discountedPrice}
-                  discount={product.discount || Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100)}
+                  discount={
+                    product.discount ??
+                    (product.originalPrice
+                      ? Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100)
+                      : 0)
+                  }
                   stock={product.stock}
                   slug={product.slug}
-                  mainImage={product.mainImg}
+                  mainImg={product.mainImg }
                   images={product.images || []}
                   oldPrice={product.originalPrice}
                   rating={product.rating || 4}
                   reviews={product.reviews || 0}
                   filters={{
-                    size: product.size || [],
-                    color: product.color || []
+                    size: product.filters?.size || [],
+                    color: product.filters?.color || []
                   }}
                 />
               </SwiperSlide>
@@ -124,7 +100,6 @@ const FlashSaleSection = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          
           <button className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center text-gray-600 hover:text-orange-500 hover:shadow-xl transition-all duration-300 -mr-6 hover:bg-amber-200">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

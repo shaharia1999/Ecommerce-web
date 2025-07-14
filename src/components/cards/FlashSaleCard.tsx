@@ -9,7 +9,7 @@ type Props = {
   price: number;
   discount?: number;
   stock?: number;
-  mainImage: string;
+  mainImg: string; 
   images?: string[];
   filters?: {
     size: string[];
@@ -21,6 +21,7 @@ type Props = {
   rating?: number;
   reviews?: number;
   slug?: string; // এটা add করুন
+  
 };
 
 const FlashSaleCard = ({
@@ -29,7 +30,7 @@ const FlashSaleCard = ({
   price,
   discount = 0,
 
-  mainImage,
+  mainImg,
 
   filters,
   oldPrice,
@@ -78,7 +79,7 @@ const FlashSaleCard = ({
 
   return (
     <div
-      className="border rounded-2xl p-4 shadow hover:scale-105 transition bg-white max-w-xs mx-auto"
+      className="border rounded-2xl p-4 shadow hover:scale-100 transition bg-white  h-[420px] flex flex-col "
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
@@ -98,11 +99,11 @@ const FlashSaleCard = ({
           </span>
         )}
         <Image
-          src={mainImage}
+          src={mainImg}
           alt={title}
           width={160}
           height={160}
-          className="h-40 object-contain"
+          className="h-40 object-contain hover:scale-105 rounded-lg overflow-hidden transition-transform duration-300 "
         />
         {/* Dropdown Icons */}
         <div
