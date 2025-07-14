@@ -1,6 +1,7 @@
 // updated code for FlashSection component
 'use client';
 
+import Link from 'next/link';
 import { useProducts } from '../utils/api';
 import FlashCard from './FlashCard';
 
@@ -138,13 +139,18 @@ export default function FlashSection({ title, category, limit = 8, className = "
         </div>
         {/*  */}
         {/* View More Button */}
-        {data.total > data.products.length && (
-          <div className="text-center mt-10">
-            <button className="bg-orange-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-orange-600 transition-all duration-300">
-              View More Products ({data.total - data.products.length} more)
-            </button>
-          </div>
-        )}
+        {/* import Link from 'next/link';
+// ...existing code... */}
+
+{data.total > data.products.length && (
+  <div className="text-center mt-10">
+    <Link href={`/${category ? category : 'products'}`}>
+      <button className="bg-orange-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-orange-600 transition-all duration-300">
+        View More Products ({data.total - data.products.length} more)
+      </button>
+    </Link>
+  </div>
+)}
       </div>
     </section>
   );

@@ -21,18 +21,18 @@ export default function HomePage() {
       <TopCategoriesSection />
       <main>
         {/* অন্যান্য সেকশন */}
-      <FlashSection 
-  title="Electronics Collection"
-  category="Electronics Collection" // ঠিক spelling, ক্যাপিটালাইজেশন, স্পেস সহ
-  limit={8}
-/>
-        <FlashSection 
-          title="Fashion Items"
-          category="fashion" 
+        <FlashSection
+          title="Electronics Collection"
+          category="Electronics" // ঠিক spelling, ক্যাপিটালাইজেশন, স্পেস সহ
+          limit={8}
+        />
+        <FlashSection
+          title="Apparel Items"
+          category="Apparel"
           limit={6}
         />
-        <FlashSection 
-          title="All Latest Products" 
+        <FlashSection
+          title="All Latest Products"
           limit={12}
         />
       </main>
