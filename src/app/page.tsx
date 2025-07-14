@@ -20,7 +20,7 @@ export default function HomePage() {
       <NewArrivalsSection />
       <TopCategoriesSection />
       <main>
-        {/* অন্যান্য সেকশন */}
+        {/* অন্যান্য সেকশন   */}
         <FlashSection
           title="Electronics Collection"
           category="Electronics" // ঠিক spelling, ক্যাপিটালাইজেশন, স্পেস সহ
