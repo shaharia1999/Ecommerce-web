@@ -1,53 +1,43 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image?: string;
-}
+import { useCart } from '../../context/CartContext';
+import { useRouter } from 'next/navigation';
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-const handleCheckout = () => {
-  // Save cart items to localStorage (already done on load)
-  // localStorage.setItem('cart', JSON.stringify(cartItems));
-  window.location.href = '/checkout'; // Navigate to checkout
-};
-  useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
-    }
-  }, []);
+  const {
+    cart,
+    removeFromCart,
+    updateQuantity,
+    subtotal,
+  } = useCart();
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    if (cart.length === 0) return;
+    router.push('/checkout');
+  };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
       <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
 
-      {cartItems.length === 0 ? (
+      {cart.length === 0 ? (
         <p className="text-gray-500 text-center py-10">Your cart is empty.</p>
       ) : (
         <ul>
-          {cartItems.map((item) => (
+          {cart.map((item) => (
             <li
               key={item.id}
               className="flex items-center justify-between py-4 border-b"
             >
               <div className="flex items-center space-x-4">
                 {/* Product Image */}
-                {item.image ? (
+                { item.mainImg ? (
                   <Image
-                    src={item.image}
-                    alt={item.name}
+                    src={ item.mainImg}
+                    alt={ item.title}
                     width={64}
                     height={64}
                     className="object-cover rounded border"
@@ -60,12 +50,46 @@ const handleCheckout = () => {
 
                 {/* Product Info */}
                 <div>
-                  <div className="font-semibold text-lg">{item.name}</div>
-                  <div className="text-gray-500 text-sm">
-                    Quantity: {item.quantity}
+                  <div className="font-semibold text-lg">
+                    { item.title}
                   </div>
                   <div className="text-gray-500 text-sm">
-                    Unit Price: ৳ {item.price}
+                    ৳ {item.price} x {item.quantity}
+                  </div>
+                  <div className="flex items-center mt-1 space-x-2">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                      className="bg-gray-200 px-2 rounded hover:bg-gray-300"
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className="bg-gray-200 px-2 rounded hover:bg-gray-300"
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="ml-2 text-red-500 hover:text-red-700"
+                      title="Remove item"
+                    >
+                      {/* Trash icon */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M6 4a2 2 0 012-2h4a2 2 0 012 2v1h3a1 1 0 110 2h-1v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7H3a1 1 0 110-2h3V4zm2 1v10h2V5H8zm4 0v10h2V5h-2z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -79,18 +103,19 @@ const handleCheckout = () => {
         </ul>
       )}
 
+      {/* Subtotal */}
       <div className="mt-6 font-semibold text-right">
-        Total: <span className="text-purple-700">৳ {total}</span>
+        Total: <span className="text-purple-700">৳ {subtotal}</span>
       </div>
 
       {/* Checkout Button */}
-    <button
-  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold transition"
-  disabled={cartItems.length === 0}
-  onClick={handleCheckout}
->
-  Proceed to Checkout
-</button>
+      <button
+        className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold transition mt-4"
+        disabled={cart.length === 0}
+        onClick={handleCheckout}
+      >
+        Proceed to Checkout
+      </button>
     </div>
   );
 };

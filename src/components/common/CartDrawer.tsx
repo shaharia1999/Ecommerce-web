@@ -50,7 +50,7 @@ export default function CartDrawer() {
             <span>Subtotal</span>
             <span>৳{subtotal}</span>
           </div>
-          <Link href="/order">
+          <Link href="/Shopping_cart">
             <button
               className="w-full bg-orange-500 text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition"
               onClick={() => setOpen(false)}

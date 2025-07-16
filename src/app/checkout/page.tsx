@@ -75,6 +75,7 @@ export default function CheckoutContent() {
     createOrderMutation.mutate(orderData, {
       onSuccess: () => {
         alert('🎉 অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
+            localStorage.removeItem('cart');
         router.push('/order-success');
       },
       onError: () => {
