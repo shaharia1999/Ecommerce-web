@@ -5,11 +5,11 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Link from 'next/link';
-import { useProducts } from '../../utils/api';
-
+import { useProducts } from '@/src/utils/useproducts';
+// import { useProducts } from '../../utils/api';
 const FlashSaleSection = () => {
-  const { data, isLoading, isError } = useProducts();
-
+  // const { data, isLoading, isError } = useProducts();
+  const { data, isLoading ,isError} = useProducts({discount: true});
   if (isLoading) {
     return <div className="my-10 px-4 text-center">Loading...</div>;
   }
@@ -18,7 +18,6 @@ const FlashSaleSection = () => {
   }
 
   const products = data.products || [];
-
   return (
     <section className="my-10 px-4">
       {/* Header Section */}
@@ -65,9 +64,10 @@ const FlashSaleSection = () => {
               1280: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {products.map((product, index) => (
-              <SwiperSlide key={product.id  || index}>
+            {products.map((product:any, index:any) => (
+              <SwiperSlide key={product._id  || index}>
                 <FlashSaleCard
+                  id={product._id || product.id}
                   title={product.title}
                   description={product.description}
                   category={product.category}

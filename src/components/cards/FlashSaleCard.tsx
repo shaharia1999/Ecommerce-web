@@ -2,8 +2,11 @@ import Image from "next/image";
 import { useState } from "react"; // useEffect remove করুন কারণ use হচ্ছে না
 import { useRouter } from "next/navigation";
 import { useCart } from "@/src/context/CartContext";
+import { useHandleBuyNow } from "@/src/utils/commonfunction";
+// import { handleBuyNow } from "@/src/utils/commonfunction";
 
 type Props = {
+  id: string; // এটা add করুন
   title: string;
   description?: string;
   category?: string;
@@ -21,13 +24,13 @@ type Props = {
   isNew?: boolean;
   rating?: number;
   reviews?: number;
-  slug?: string; // এটা add করুন
+  slug: string; // এটা add করুন
   
 };
 
 const FlashSaleCard = ({
   title,
-
+  id,
   price,
   discount = 0,
 
@@ -44,23 +47,21 @@ const FlashSaleCard = ({
   const [hovered, setHovered] = useState(false);
   const router = useRouter();
 const { addToCart } = useCart();
+const handleBuyNow = useHandleBuyNow(); 
   // Generate slug from title if not provided
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)+/g, '');
-  };
+  // const generateSlug = (title: string) => {
+  //   return title
+  //     .toLowerCase()
+  //     .replace(/[^a-z0-9]+/g, '-')
+  //     .replace(/(^-|-$)+/g, '');
+  // };
 
-  // Handle buy now click - parameter remove করুন
-  const handleBuyNow = () => {
-    // Use provided slug or generate from title
-    const productSlug = slug || generateSlug(title);
-    
-    console.log('Product slug:', productSlug); // Debug করার জন্য
-    router.push(`/shop/${productSlug}`);
-  };
-
+  // // Handle buy now click - parameter remove করুন
+  // const handleBuyNow = () => {
+  //   const productSlug = slug || generateSlug(title);
+  //   console.log('Product slug:', productSlug); // Debug করার জন্য
+  //   router.push(`/shop/${productSlug}`);
+  // };
   // Helper to render stars
   const renderStars = (rating: number) => {
     const stars = [];
@@ -125,7 +126,7 @@ const { addToCart } = useCart();
       onClick={() => {
         if (icon === "cart") {
           addToCart({
-            id: slug || title,
+            id,
             title,
             price,
             mainImg,
@@ -177,8 +178,9 @@ const { addToCart } = useCart();
       </div>
       <div className="mt-4">
         <button
-          onClick={handleBuyNow} // parameter remove করুন
-          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+      
+         onClick={() => handleBuyNow({ title, slug })}
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           Buy Now
           <span className="text-sm">🛒</span>

@@ -1,34 +1,44 @@
-import { useQuery } from '@tanstack/react-query';
+import { BackendProduct, ProductQueryParams } from './type';
 
-export interface Product {
-  _id: string;
-  title: string;
-  category: string;
-  price: number;
-  discount?: number;
-  stock: number;
-  mainImage: string;
-  images?: string[];
-  description?: string;
-  rating?: number;
-  reviews?: number;
-  slug?: string;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+export const productAPI = {
+  getProductBySlug: async (slug: string): Promise<BackendProduct> => {
+    const res = await fetch(`${BASE_URL}/products/${slug}`);
+    if (!res.ok) throw new Error(`Failed to fetch product ${slug}`);
+    return res.json();
+  },
+
+getProducts: async (params?: ProductQueryParams) => {
+  const query = new URLSearchParams();
+
+  // Add string or number params if they have a value (including 0)
+  if (params?.search) query.append('search', params.search);
+  if (params?.category) query.append('category', params.category);
+  if (params?.color) query.append('color', params.color);
+  if (params?.size) query.append('size', params.size);
+  if (params?.priceMin !== undefined && params.priceMin !== '') query.append('priceMin', String(params.priceMin));
+  if (params?.priceMax !== undefined && params.priceMax !== '') query.append('priceMax', String(params.priceMax));
+  if (params?.createdAfter) query.append('createdAfter', params.createdAfter);
+  if (params?.createdBefore) query.append('createdBefore', params.createdBefore);
+
+  // Sort params with defaults
+  query.append('sortBy', params?.sortBy ?? 'createdAt');
+  query.append('sortOrder', params?.sortOrder ?? 'desc');
+
+  // Pagination with defaults
+  query.append('page', String(params?.page ?? 1));
+  query.append('limit', String(params?.limit ?? 10));
+
+  // Discount boolean, only add if true
+  if (params?.discount) query.append('discount', 'true');
+
+  const url = `${BASE_URL}/products${query.toString() ? `?${query.toString()}` : ''}`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch products`);
+
+  return res.json();
 }
 
-const apiFetch = async <T>(endpoint: string): Promise<T> => {
-  const response = await fetch(`http://localhost:5000/${endpoint}`);
-  
-  if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
-  }
-  
-  return response.json();
-};
-
-export const useProduct = (slug: string) => {
-  return useQuery<Product, Error>({
-    queryKey: ['product', slug],
-    queryFn: () => apiFetch<Product>(`products/${slug}`),
-    enabled: !!slug,
-  });
 };

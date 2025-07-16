@@ -12,7 +12,11 @@ interface CartItem {
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
+const handleCheckout = () => {
+  // Save cart items to localStorage (already done on load)
+  // localStorage.setItem('cart', JSON.stringify(cartItems));
+  window.location.href = '/checkout'; // Navigate to checkout
+};
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -80,15 +84,13 @@ const CartPage = () => {
       </div>
 
       {/* Checkout Button */}
-      <div className="mt-6">
-        <button
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold transition"
-          disabled={cartItems.length === 0}
-          onClick={() => alert('Checkout functionality coming soon!')}
-        >
-          Proceed to Checkout
-        </button>
-      </div>
+    <button
+  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold transition"
+  disabled={cartItems.length === 0}
+  onClick={handleCheckout}
+>
+  Proceed to Checkout
+</button>
     </div>
   );
 };

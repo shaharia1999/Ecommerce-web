@@ -3,7 +3,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import {  useState, Suspense  } from 'react';
 import Image from 'next/image';
-import { useProduct } from '../../../utils/productApi';
+import { useProduct } from '@/src/utils/useproducts';
+// import { useProducts } from '../../../utils/productApi';
 
 // interface ProductData {
 //   id: string;
@@ -60,20 +61,20 @@ console.log(product);
     title: product.title,
     category: product.category,
     // Fix the price calculation
-    originalPrice: Number(product.price) || 0,
-    discountedPrice: Number(product.price) * (1 - (Number(product.discount) || 0) / 100) || 0,
-    mainImg: product.mainImage,
+    originalPrice: Number(product.originalPrice) || 0,
+    discountedPrice: Number(product.discountedPrice) * (1 - (Number(product.discount) || 0) / 100) || 0,
+    mainImg: product.mainImg,
     stock: product.stock,
     slug: product.slug || params.slug as string,
     description: product.description,
-    images: product.images || [product.mainImage],
+    images: product.images || [product.mainImg],
     rating: product.rating || 4.5,
     reviews: product.reviews || 0
   } : null;
 
   // Debug করার জন্য console log যোগ করুন
   console.log('=== PRICE CALCULATION DEBUG ===');
-  console.log('Original product.price:', product?.price, typeof product?.price);
+  console.log('Original product.price:', product?.originalPrice, typeof product?.originalPrice);
   console.log('Original product.discount:', product?.discount, typeof product?.discount);
   if (productData) {
     console.log('Calculated originalPrice:', productData.originalPrice);
