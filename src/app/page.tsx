@@ -1,13 +1,9 @@
 import FlashSaleSection from '../components/sections/FlashSaleSection';
-import TrendingProductsSection from '../components/sections/TrendingProductsSection';
 import SpecialBrandsSection from '../components/sections/SpecialBrandsSection';
 import NewArrivalsSection from '../components/sections/NewArrivalsSection';
-import BestSellersSection from '../components/sections/BestSellersSection';
-import TopCategoriesSection from '../components/sections/TopCategoriesSection';
 import BannerSection from '../components/sections/BannerSection';
 import Banner from '../components/banner/MainBanner';
-import FlashSection from '../components/FlashSection';
-
+import TopCategoriesWithProducts from '../components/sections/TopCategoriesSection';
 export default function HomePage() {
   return (
     <div className="pt-1 p-6 max-w-[1285px] mx-auto"> {/* pt-20 because Navbar is fixed */}
@@ -15,27 +11,9 @@ export default function HomePage() {
       <BannerSection />
       <FlashSaleSection />
       <SpecialBrandsSection />
-      <TrendingProductsSection />
-      <BestSellersSection />
       <NewArrivalsSection />
-      <TopCategoriesSection />
-      <main>
-        {/* অন্যান্য সেকশন   */}
-        <FlashSection
-          title="Electronics Collection"
-          category="Electronics" // ঠিক spelling, ক্যাপিটালাইজেশন, স্পেস সহ
-          limit={8}
-        />
-        <FlashSection
-          title="Apparel Items"
-          category="Apparel"
-          limit={6}
-        />
-        <FlashSection
-          title="All Latest Products"
-          limit={12}
-        />
-      </main>
+      <TopCategoriesWithProducts/>
+    
     </div>
   );
 }

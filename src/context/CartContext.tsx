@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export interface CartItem {
   id: string;
   title: string;
+  selectedSize?:string;
   price: number;
   mainImg: string;
   quantity: number;
@@ -42,20 +43,22 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (item: CartItem) => {
-    setCart((prev) => {
-      const found = prev.find((p) => p.id === item.id);
-      if (found) {
-        return prev.map((p) =>
-          p.id === item.id
-            ? { ...p, quantity: Math.min(p.quantity + 1, p.stock) }
-            : p
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
-    setOpen(true);
-  };
+const addToCart = (item: CartItem) => {
+  setCart((prev) => {
+    const found = prev.find((p) => p.id === item.id);
+    if (found) {
+      if (found.quantity >= found.stock) return prev; // Prevent over-adding
+      return prev.map((p) =>
+        p.id === item.id
+          ? { ...p, quantity: Math.min(p.quantity + item.quantity, p.stock) }
+          : p
+      );
+    }
+    return [...prev, { ...item }];
+  });
+  setOpen(true);
+};
+
 
   const removeFromCart = (id: string) => setCart((prev) => prev.filter((p) => p.id !== id));
   const updateQuantity = (id: string, quantity: number) =>
