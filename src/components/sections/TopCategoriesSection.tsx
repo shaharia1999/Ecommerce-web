@@ -23,7 +23,7 @@ const TopCategoriesWithProducts = () => {
 
   useEffect(() => {
     setActiveCategory(selectedCategory);
-  }, [selectedCategory]);
+  }, [selectedCategory,searchParams]);
 
   const handleCategoryClick = (category: string) => {
     const params = new URLSearchParams(window.location.search);

@@ -2,18 +2,16 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
-// import { useCart } from '../../context/CartContext';
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/FlashSaleCardDiscount', label: 'Flash Discount' },
-  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Fashion&limit=14', label: 'Fashion' },
-  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Trending&limit=14', label: 'Trending' },
-  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Sports&limit=14', label: 'Sports' },
-  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Electronics&limit=14', label: 'Electronics' },
-
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Fashion&limit=14', label: 'Fashion', category: 'Fashion' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Trending&limit=14', label: 'Trending', category: 'Trending' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Sports&limit=14', label: 'Sports', category: 'Sports' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Electronics&limit=14', label: 'Electronics', category: 'Electronics' },
 ];
 
 interface NavbarProps {
@@ -22,7 +20,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   const pathname = usePathname();
-  // const { setOpen } = useCart(); // ✅ এটা নিতে ভুলবেন না
+  const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category');
 
   return (
     <nav className={` fixed top-0 left-0 right-0 bg-purple-50 shadow-md w-full z-50 ${className}`}>
@@ -35,27 +34,33 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
         </div>
         {/* Middle: Navigation Links */}
         <div className="flex-grow flex justify-center space-x-8">
-          {navLinks.map((nav) => (
-            <Link
-              key={nav.href}
-              href={nav.href}
-              className={`font-semibold transition ${pathname === nav.href
-                  ? 'text-purple-700 underline underline-offset-4'
-                  : 'text-gray-700 hover:text-purple-700'
-                }`}
-            >
-              {nav.label}
-            </Link>
-          ))}
+          {navLinks
+            // Hide all /Viewall* links if current path is /Viewall
+            .filter(nav => !(pathname === '/Viewall' && nav.href.startsWith('/Viewall')))
+            .map((nav) => {
+              const isActive =
+                nav.href === pathname ||
+                (pathname === '/Viewall' && nav.category === currentCategory);
+
+              return (
+                <Link
+                  key={nav.href}
+                  href={nav.href}
+                  className={`font-semibold transition ${
+                    isActive
+                      ? 'text-purple-700 underline underline-offset-4'
+                      : 'text-gray-700 hover:text-purple-700'
+                  }`}
+                >
+                  {nav.label}
+                </Link>
+              );
+            })}
         </div>
         {/* Right: Cart Icon & Profile Dropdown */}
         <div className="flex items-center space-x-4">
           <Link
             href="/Shopping_cart"
-            // onClick={e => {
-            //   e.preventDefault();
-            //   setOpen(true); // ✅ Cart Drawer খুলবে
-            // }}
             className="text-gray-700 hover:text-purple-700 transition"
           >
             <span className="material-icons">shopping_cart</span>

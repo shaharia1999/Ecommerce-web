@@ -72,16 +72,19 @@ export default function CheckoutContent() {
       status: 'pending',
     };
 
-    createOrderMutation.mutate(orderData, {
-      onSuccess: () => {
-        alert('🎉 অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
-            localStorage.removeItem('cart');
-        router.push('/order-success');
-      },
-      onError: () => {
-        alert('❌ অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
-      },
-    });
+   createOrderMutation.mutate(orderData, {
+  onSuccess: () => {
+    alert('🎉 অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
+    localStorage.removeItem('cart');
+    router.push('/order-success');
+  },
+  onError: (error: any) => {
+    console.error('Mutation Error:', error); // Optional: log the full error
+    const message = error?.response?.data?.message || error?.message || '❌ অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+    alert(`❌ ${message}`);
+  },
+});
+
   };
 
   const districts = [
