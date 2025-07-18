@@ -9,8 +9,11 @@ import CartDrawer from './CartDrawer';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/FlashSaleCardDiscount', label: 'Flash Discount' },
-  { href: '/Electronics', label: 'Electronics' },
-  { href: '/Apparel', label: 'Apparel' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Fashion&limit=14', label: 'Fashion' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Trending&limit=14', label: 'Trending' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Sports&limit=14', label: 'Sports' },
+  { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Electronics&limit=14', label: 'Electronics' },
+
 ];
 
 interface NavbarProps {
