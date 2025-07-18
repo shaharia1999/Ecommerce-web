@@ -50,8 +50,10 @@ const FilterSidebar = ({ params, onChange }: Props) => {
           className="w-full border p-2 rounded"
         >
           <option value="">All</option>
-          <option value="coat">Coats</option>
-          <option value="jacket">Jackets</option>
+          <option value="Trending">Trending</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Sports">Sports</option>
+          <option value="Electronics">Electronics</option>
           {/* Add more */}
         </select>
       </div>
