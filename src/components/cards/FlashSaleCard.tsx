@@ -3,7 +3,7 @@ import { useState } from "react"; // useEffect remove করুন কারণ 
 import { useRouter } from "next/navigation";
 import { useCart } from "@/src/context/CartContext";
 import { useHandleBuyNow } from "@/src/utils/commonfunction";
-// import { handleBuyNow } from "@/src/utils/commonfunction";
+import { useWishlist } from "@/src/context/WishlistContext"; // Add this
 
 type Props = {
   id: string; // এটা add করুন
@@ -13,7 +13,7 @@ type Props = {
   price: number;
   discount?: number;
   stock?: number;
-  mainImg: string; 
+  mainImg: string;
   images?: string[];
   filters?: {
     size: string[];
@@ -25,7 +25,7 @@ type Props = {
   rating?: number;
   reviews?: number;
   slug: string; // এটা add করুন
-  
+
 };
 
 const FlashSaleCard = ({
@@ -42,27 +42,14 @@ const FlashSaleCard = ({
   rating = 0,
   reviews = 0,
   slug, // এটা add করুন
-  stock = 1, 
+  stock = 1,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   const router = useRouter();
-const { addToCart } = useCart();
-const handleBuyNow = useHandleBuyNow(); 
-  // Generate slug from title if not provided
-  // const generateSlug = (title: string) => {
-  //   return title
-  //     .toLowerCase()
-  //     .replace(/[^a-z0-9]+/g, '-')
-  //     .replace(/(^-|-$)+/g, '');
-  // };
+  const { addToCart } = useCart();
+  const handleBuyNow = useHandleBuyNow();
+  const { addToWishlist } = useWishlist(); // Add this
 
-  // // Handle buy now click - parameter remove করুন
-  // const handleBuyNow = () => {
-  //   const productSlug = slug || generateSlug(title);
-  //   console.log('Product slug:', productSlug); // Debug করার জন্য
-  //   router.push(`/shop/${productSlug}`);
-  // };
-  // Helper to render stars
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -81,7 +68,7 @@ const handleBuyNow = useHandleBuyNow();
   };
 
   return (
-    
+
     <div
       className="border rounded-2xl p-4 shadow hover:scale-100 transition bg-white  h-[420px] flex flex-col "
       onMouseEnter={() => setHovered(true)}
@@ -111,43 +98,45 @@ const handleBuyNow = useHandleBuyNow();
         />
         {/* Dropdown Icons */}
         <div
-          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${
-            hovered
+          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${hovered
               ? "opacity-100 translate-x-0"
               : "opacity-0 translate-x-5 pointer-events-none"
-          }`}
+            }`}
         >
-
-
-{["shuffle", "love", "cart"].map((icon) => (
-  <div key={icon} className="relative group">
-    <button
-      className="bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center hover:bg-orange-300 hover:text-white transition-all duration-500 ease-in-out"
-      onClick={() => {
-        if (icon === "cart") {
-          addToCart({
-            id,
-            title,
-            price,
-            mainImg,
-            quantity: 1,
-            stock: stock ?? 1,
-          });
-        }
-      }}
-      title={icon === "cart" ? "Add to Cart" : ""}
-    >
-      {icon === "shuffle" && <span>🔄</span>}
-      {icon === "love" && <span>❤️</span>}
-      {icon === "cart" && <span>🛒</span>}
-    </button>
-  </div>
-))}
-
-
-
-
-
+          {/* Icons */}
+          {["shuffle", "love", "cart"].map((icon) => (
+            <div key={icon} className="relative group">
+              <button
+                className="bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center hover:bg-orange-300 hover:text-white transition-all duration-500 ease-in-out"
+                onClick={() => {
+                  if (icon === "cart") {
+                    addToCart({
+                      id,
+                      title,
+                      price,
+                      mainImg,
+                      quantity: 1,
+                      stock: stock ?? 1,
+                    });
+                  }
+                  if (icon === "love") {
+                    addToWishlist({
+                      id,
+                      title,
+                      price,
+                      mainImg,
+                      stock: stock ?? 1,
+                    });
+                  }
+                }}
+                title={icon === "cart" ? "Add to Cart" : icon === "love" ? "Add to Wishlist" : ""}
+              >
+                {icon === "shuffle" && <span>🔄</span>}
+                {icon === "love" && <span>❤️</span>}
+                {icon === "cart" && <span>🛒</span>}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
       <h3 className="font-bold text-lg mb-1">{title}</h3>
@@ -178,8 +167,8 @@ const handleBuyNow = useHandleBuyNow();
       </div>
       <div className="mt-4">
         <button
-      
-         onClick={() => handleBuyNow({ title, slug })}
+
+          onClick={() => handleBuyNow({ title, slug })}
           className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           Buy Now

@@ -4,6 +4,10 @@ import Link from 'next/link';
 import React from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
+import { GiShoppingCart } from "react-icons/gi";
+import { useCart } from "@/src/context/CartContext"; // import add korun
+import { FaRegHeart } from "react-icons/fa";
+
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -22,14 +26,21 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
+  const { cart } = useCart(); // cart state nite hobe
 
+  // Total quantity calculation (optional: all items quantity sum)
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+
+
+  // "w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
   return (
-    <nav className={` fixed top-0 left-0 right-0 bg-purple-50 shadow-md w-full z-50 ${className}`}>
+    <nav className={` fixed top-0 left-0 right-0 bg-gradient-to-r from-orange-400 to-orange-500 shadow-md w-full z-50 ${className}`}>
       <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 py-4">
         {/* Left: Logo */}
         <div className="flex items-center">
           <Link href="/">
-            <span className="font-bold text-xl text-purple-700">Logo</span>
+            <span className=" text-xl  text-white font-semibold">Logo</span>
           </Link>
         </div>
         {/* Middle: Navigation Links */}
@@ -46,11 +57,10 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
                 <Link
                   key={nav.href}
                   href={nav.href}
-                  className={`font-semibold transition ${
-                    isActive
-                      ? 'text-purple-700 underline underline-offset-4'
-                      : 'text-gray-700 hover:text-purple-700'
-                  }`}
+                  className={`text-white font-medium transition ${isActive
+                      ? 'text-gray-200 underline underline-offset-4'
+                      : 'text-gray-200 hover:text-gray-200'
+                    }`}
                 >
                   {nav.label}
                 </Link>
@@ -61,10 +71,24 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
         <div className="flex items-center space-x-4">
           <Link
             href="/Shopping_cart"
-            className="text-gray-700 hover:text-purple-700 transition"
+            className="text-gray-700 hover:text-purple-700 transition relative"
           >
-            <span className="material-icons">shopping_cart</span>
+            <div className='text-2xl '>
+              <GiShoppingCart />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </div>
           </Link>
+
+          <Link href="/wishlist" className="text-gray-700 hover:text-purple-700 transition">
+            <div className='text-2xl'>
+              <FaRegHeart />
+            </div>
+          </Link>
+
           <CartDrawer />
           {/* Profile Dropdown */}
           <div className="relative group">
