@@ -50,79 +50,154 @@ console.log('token', token);
 <div>
 
   {/* // ...existing code... */}
-  <div className='flex justify-between items-center bg-white shadow-md p-4 w-full max-w-[1285px] mx-auto'>
-    {/* left */}
-   <div className=' '>
-  <Image 
-    src="/images/llogo-removebg-preview-main - Copy.png" 
-    alt="Logo" 
-    width={140} 
-    height={20} 
-  />
-</div>
-    {/* middle */}
-    <div className="flex w-1/2">
-      <input
-        className='p-3 border-1 border-gray-300  rounded-l-[30px] rounded-r-none w-full focus:outline-none '
-        type="search"
-        placeholder="I'm looking for..."
-      />
-      <button
-        className='bg-orange-500 text-gray-200 font-semibold px-6 py-2 rounded-r-[30px] rounded-l-none border-1 border-l-0 border-gray-300  transition-colors'
-      >
-        Search
-      </button>
+{/* Top Header */}
+{/* Top Header */}
+<div className="w-full bg-white shadow-md ">
+  <div className="max-w-[1285px] mx-auto px-4 py-3">
+    {/* Top Row: Desktop */}
+    <div className="hidden md:flex justify-between items-center">
+      {/* Logo */}
+      <div className="flex-shrink-0">
+        <Image 
+          src="/images/llogo-removebg-preview-main - Copy.png" 
+          alt="Logo" 
+          width={140} 
+          height={20} 
+        />
+      </div>
+
+      {/* Search */}
+      <div className="flex w-1/2">
+        <input
+          className="p-3 border border-gray-300 rounded-l-[30px] rounded-r-none w-full focus:outline-none"
+          type="search"
+          placeholder="I'm looking for..."
+        />
+        <button
+          className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-r-[30px] rounded-l-none border border-l-0 border-gray-300 transition-colors"
+        >
+          Search
+        </button>
+      </div>
+
+      {/* Icons */}
+      <div className="flex items-center space-x-4">
+        {/* Cart */}
+        <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
+          <GiShoppingCart />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </Link>
+
+        {/* Wishlist */}
+        <Link href="/wishlist" className="text-gray-400 text-2xl">
+          <FaRegHeart />
+        </Link>
+
+        <CartDrawer />
+
+        {/* ✅ Updated Profile Dropdown (from your second code) */}
+        <div className="relative group z-[9999]">
+          <button className="flex items-center text-gray-400 transition focus:outline-none text-2xl ">
+            <CgProfile />
+          </button>
+          <div className="absolute right-[-10px] mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 py-5 ">
+            {token ? (
+              <div>
+                <Link href="/user/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  Dashboard
+                </Link>
+                <p onClick={() => Delete()} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                  Log out
+                </p>
+              </div>
+            ) : (
+              <Link href="/user/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                Log in
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
 
-{/* right */}
-    <div className="z-60 flex items-center space-x-4">
-          <Link
-            href="/Shopping_cart"
-            className="text-gray-400 transition relative"
-          >
-            <div className='text-2xl '>
-              <GiShoppingCart />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </div>
+    {/* Mobile View */}
+    <div className="flex flex-col gap-3 md:hidden">
+      {/* Top Row: Logo + Icons */}
+      <div className="flex justify-between items-center">
+        <Image 
+          src="/images/llogo-removebg-preview-main - Copy.png" 
+          alt="Logo" 
+          width={120} 
+          height={20} 
+        />
+
+        <div className="flex items-center space-x-4">
+          {/* Cart */}
+          <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
+            <GiShoppingCart />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Link>
 
-          <Link href="/wishlist" className="text-gray-400 transition">
-            <div className='text-2xl'>
-              <FaRegHeart className=''/>
-            </div>
+          {/* Wishlist */}
+          <Link href="/wishlist" className="text-gray-400 text-2xl">
+            <FaRegHeart />
           </Link>
 
           <CartDrawer />
-          {/* Profile Dropdown */}
+
+          {/* ✅ Updated Mobile Profile Dropdown */}
           <div className="relative group">
-            <button className="flex items-center text-gray-400 transition focus:outline-none text-2xl">
+            <button className="flex items-center text-gray-400 text-2xl focus:outline-none">
               <CgProfile />
             </button>
-           
             <div className="absolute right-[-10px] mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 py-5">
-               {
-              token ? (
+              {token ? (
                 <div>
-                <Link href="/user/dashboard" className=" py-2 cursor-pointer ml-2 text-gray-400 hover:text-gray-600">
-                  Dashboard
-                </Link>
-                <p  onClick={()=>Delete()} className="ml-2 py-2 text-gray-400 hover:text-gray-600 cursor-pointer">
-                  Log out </p>
+                  <Link href="/user/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Dashboard
+                  </Link>
+                  <p onClick={() => Delete()} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
+                    Log out
+                  </p>
                 </div>
               ) : (
-                <Link href="/user/login" className="ml-2 py-2 text-gray-400 hover:text-gray-600 cursor-pointer">
+                <Link href="/user/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                   Log in
                 </Link>
-              )
-            }
+              )}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Search */}
+      <div className="w-full">
+        <div className="flex w-full">
+          <input
+            className="p-3 border border-gray-300 rounded-l-[30px] rounded-r-none w-full focus:outline-none"
+            type="search"
+            placeholder="I'm looking for..."
+          />
+          <button
+            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-r-[30px] rounded-l-none border border-l-0 border-gray-300 transition-colors"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
 {/* // ...existing code... */}
 
 
