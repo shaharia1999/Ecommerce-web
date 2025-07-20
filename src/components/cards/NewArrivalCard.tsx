@@ -37,7 +37,7 @@ const NewArrivalCard = ({
   const [hovered, setHovered] = useState(false);
   const { addToCart } = useCart();
   const handleBuyNow = useHandleBuyNow();
-console.log(id);
+// console.log(id);
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
