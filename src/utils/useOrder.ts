@@ -9,12 +9,11 @@ export const useCreateOrder = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] }),
   });
 };
-
-export const useOrder = (id: string, enabled = true) => {
+export const useOrder = ( token: string, enabled = true) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.ORDER, id],
-    queryFn: () => orderAPI.getOrderById(id),
-    enabled: enabled && !!id,
+    queryKey: [QUERY_KEYS.ORDER, token],
+    queryFn: () => orderAPI.getOrderById( token), // ⬅️ Pass the token here
+    enabled: enabled  && !!token,
   });
 };
 

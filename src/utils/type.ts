@@ -1,5 +1,6 @@
 export interface OrderData {
   user?: string;
+  _id?: string; // Optional, if you want to include user ID
   address: string;
   mobile: string;
   products: Array<{
@@ -48,5 +49,17 @@ export interface ProductQueryParams {
   page?: number;
   limit?: number;
   discount?: boolean;
+}
+
+export interface AuthResponse {
+  message: string;
+  token?: string;
+  userId?: string; // Optional, if your backend returns user ID
+}
+
+// Add types for user, login/register payloads, etc.
+export interface UserCredentials {
+  email: string;
+  password: string;
 }
 

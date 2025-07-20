@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
 import { GiShoppingCart } from "react-icons/gi";
@@ -9,6 +9,8 @@ import { useCart } from "@/src/context/CartContext"; // import add korun
 import { FaRegHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Image from 'next/image';
+import { GetCookies } from '@/src/utils/Cookies/Set-Cookies';
+import { Delete } from '@/src/utils/Cookies/Delete-Cookies';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -28,7 +30,19 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
   const { cart } = useCart(); // cart state nite hobe
+  // Check for token cookie on client side (simplified)
+const [token, setToken] = React.useState<string | null>(null);
 
+React.useEffect(() => {
+  async function fetchToken() {
+    const t = await GetCookies();  // assuming GetCookies is async
+    if (t) {
+      setToken(t);
+    }
+  }
+  fetchToken();
+}, []);
+console.log('token', token);
   // Total quantity calculation (optional: all items quantity sum)
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -88,10 +102,23 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
             <button className="flex items-center text-gray-400 transition focus:outline-none text-2xl">
               <CgProfile />
             </button>
-            <div className="absolute right-[-1] mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
-              <Link href="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</Link>
-              <Link href="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</Link>
-              <Link href="/logout" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</Link>
+           
+            <div className="absolute right-[-10px] mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 py-5">
+               {
+              token ? (
+                <div>
+                <Link href="/user/dashboard" className=" py-2 cursor-pointer ml-2 text-gray-400 hover:text-gray-600">
+                  Dashboard
+                </Link>
+                <p  onClick={()=>Delete()} className="ml-2 py-2 text-gray-400 hover:text-gray-600 cursor-pointer">
+                  Log out </p>
+                </div>
+              ) : (
+                <Link href="/user/login" className="ml-2 py-2 text-gray-400 hover:text-gray-600 cursor-pointer">
+                  Log in
+                </Link>
+              )
+            }
             </div>
           </div>
         </div>
