@@ -4,22 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { useProduct } from '@/src/utils/useproducts';
-// import { useProducts } from '../../../utils/productApi';
+import ZoomImage from './ZoomIn';
 
-// interface ProductData {
-//   id: string;
-//   title: string;
-//   category: string;
-//   originalPrice: number;
-//   discountedPrice: number;
-//   mainImg: string;
-//   stock: number;
-//   slug: string;
-//   description?: string;
-//   images?: string[];
-//   rating?: number;
-//   reviews?: number;
-// }
 
 interface ProductData {
   id: string;
@@ -71,11 +57,13 @@ function ShopContent() {
     images: product.images || [product.mainImg],
     rating: product.rating || 4.5,
     reviews: product.reviews || 0,
-    
+
     colors: product.filters?.color || [],   // <-- eta add korun
     sizes: product.filters?.size || [],     // <-- eta add korun
 
   } : null;
+
+  const [mainImage, setMainImage] = useState(productData?.mainImg || '');
 
   // Debug করার জন্য console log যোগ করুন
   console.log('=== PRICE CALCULATION DEBUG ===');
@@ -170,32 +158,27 @@ function ShopContent() {
           {/* Left: Product Images */}
           <div className="space-y-4">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="relative bg-gray-50 rounded-xl flex items-center justify-center h-96">
-                {discountPercentage > 0 && (
-                  <span className="absolute top-4 left-4 bg-red-500 text-white text-sm font-bold px-3 py-2 rounded-full z-10">
-                    -{discountPercentage}%
-                  </span>
-                )}
-                <Image
-                  src={productData.mainImg}
-                  alt={productData.title}
-                  width={300}
-                  height={300}
-                  className="object-contain max-h-80"
-                />
-              </div>
+
+              <ZoomImage src={mainImage || productData.mainImg} alt={productData.title} />
+
+
             </div>
 
-            {/* Thumbnail images */}
+
             <div className="flex space-x-4">
               {(productData.images || [productData.mainImg]).slice(0, 4).map((imgSrc, idx) => (
-                <div key={idx} className="bg-white rounded-lg p-2 shadow border-2 border-orange-200">
+                <div
+                  key={idx}
+                  onClick={() => setMainImage(imgSrc)}
+                  className={`cursor-pointer bg-white rounded-lg p-2 shadow border-2 ${mainImage === imgSrc ? 'border-orange-500' : 'border-orange-200'
+                    }`}
+                >
                   <Image
                     src={imgSrc}
                     alt={`${productData.title} ${idx + 1}`}
                     width={80}
                     height={80}
-                    className="object-contain"
+                    className="object-contain h-full"
                   />
                 </div>
               ))}
@@ -211,8 +194,8 @@ function ShopContent() {
               {/* Stock status */}
               <div className="flex items-center space-x-4 mb-4">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${productData.stock > 0
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
                   }`}>
                   {productData.stock > 0 ? 'In Stock' : 'Out of Stock'} ({productData.stock})
                 </span>
@@ -268,8 +251,8 @@ function ShopContent() {
                         key={size}
                         onClick={() => setSelectedSize(size)}
                         className={`px-4 py-2 border rounded-lg font-medium transition-all ${selectedSize === size
-                            ? 'bg-orange-500 text-white border-orange-500'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
+                          ? 'bg-orange-500 text-white border-orange-500'
+                          : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
                           }`}
                       >
                         {size}

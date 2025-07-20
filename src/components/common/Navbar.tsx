@@ -27,7 +27,7 @@ const Navbar = ({ className = '' }) => {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
   const { cart } = useCart();
-  const [token, setToken] = React.useState(null);
+  const [token, setToken] = React.useState<string|null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   useEffect(() => {
