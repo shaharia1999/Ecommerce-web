@@ -7,11 +7,11 @@ const Banner = () => {
 
 <div className="w-full max-w-[1285px] mx-auto h-[500px] bg-white rounded-xl shadow-md overflow-hidden flex items-center justify-center">
   <Image
-    src="/images/discount.png"
+    src="/images/banner.jpg"
     alt="Ecommerce Banner"
     width={1285}
     height={0}
-    className="w-full h-full object-contain"
+    className="w-full h-full object-cover"
     priority
   />
 </div>

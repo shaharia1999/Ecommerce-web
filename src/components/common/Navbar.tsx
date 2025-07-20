@@ -20,7 +20,7 @@ const navLinks = [
   { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Sports&limit=14', label: 'Sports', category: 'Sports' },
   { href: '/Viewall?sortBy=createdAt&sortOrder=desc&category=Electronics&limit=14', label: 'Electronics', category: 'Electronics' },
 ];
-// main
+// main added
 interface NavbarProps {
   className?: string;
 }
