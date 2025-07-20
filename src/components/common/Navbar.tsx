@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
 import { GiShoppingCart } from "react-icons/gi";
