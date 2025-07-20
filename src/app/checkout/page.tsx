@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useCreateOrder } from '@/src/utils/useOrder';
 import { OrderData } from '@/src/utils/type';
+import { GetCookiesId } from '@/src/utils/Cookies/Set-Cookies';
 
 interface FormData {
   name: string;
@@ -31,6 +32,17 @@ export default function CheckoutContent() {
 
   const deliveryCharge = 109;
   const total = (singleProduct?.price || subtotal) + deliveryCharge;
+const [userId, setUserId] = useState<string | null>(null);
+
+useEffect(() => {
+  const fetchUserId = async () => {
+    const id = await GetCookiesId();
+    if (id) {
+      setUserId(id);
+    }
+  };
+  fetchUserId();
+}, []);
 
   useEffect(() => {
     const encoded = searchParams.get('product');
@@ -70,6 +82,7 @@ export default function CheckoutContent() {
       totalAmount: total,
       deliveryCharge,
       status: 'pending',
+      user: userId || undefined, 
     };
 
    createOrderMutation.mutate(orderData, {

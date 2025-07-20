@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
 import { GiShoppingCart } from "react-icons/gi";
@@ -10,6 +10,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineMenu, HiX } from "react-icons/hi"; // menu icons
 import Image from 'next/image';
+import { GetCookies } from '@/src/utils/Cookies/Set-Cookies';
+import { Delete } from '@/src/utils/Cookies/Delete-Cookies';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -28,7 +30,9 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
-  const { cart } = useCart();
+  const { cart } = useCart(); // cart state nite hobe
+
+  // Total quantity calculation (optional: all items quantity sum)
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -125,7 +129,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
             <button className="flex items-center text-gray-400 text-2xl focus:outline-none">
               <CgProfile />
             </button>
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
+            <div className="absolute right-[-1] mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
               <Link href="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</Link>
               <Link href="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</Link>
               <Link href="/logout" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</Link>
