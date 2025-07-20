@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-  @apply mx-auto max-w-[1600px];
+  @apply mx-auto max-w-[1285px];
 }
 
 .hide-scrollbar {
