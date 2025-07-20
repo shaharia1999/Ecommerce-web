@@ -22,7 +22,7 @@ export default function FlashSaleCardPage() {
     discount: false,
   });
 
-  const [searchInput, setSearchInput] = useState(''); // for form controlled input
+  // const [searchInput, setSearchInput] = useState(''); // for form controlled input
   console.log(params)
   const [products, setProducts] = useState<any[]>([]); // Replace with your product type if available
 
@@ -48,10 +48,10 @@ export default function FlashSaleCardPage() {
   };
 
   // Handle search submit
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleParamChange({ search: searchInput });
-  };
+  // const handleSearchSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   handleParamChange({ search: searchInput });
+  // };
 
   if (isError || !data)
     return <div className="py-16 text-center text-lg text-red-500">Failed to load products</div>;
@@ -59,8 +59,8 @@ export default function FlashSaleCardPage() {
   const { limit } = params;
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center text-purple-700">All Flash Sale Products</h1>
+    <section className="py-10 px-4 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-12 text-center ">All Flash Sale Products</h1>
 
       <div className="flex gap-8">
         {/* Sidebar */}
@@ -98,10 +98,10 @@ export default function FlashSaleCardPage() {
 
           {/* Product Grid */}
           {!isLoading && products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
-                  key={product._id}
+                  key={product.id}
                   id={product._id}
                   title={product.title}
                   description={product.description || ''}

@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useState } from "react"; // useEffect remove করুন কারণ use হচ্ছে না
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+// import { useRouter } from "next/navigation";
 import { useCart } from "@/src/context/CartContext";
 import { useHandleBuyNow } from "@/src/utils/commonfunction";
-import { useWishlist } from "@/src/context/WishlistContext"; // Add this
+import { useWishlist } from "@/src/context/WishlistContext";
 
 type Props = {
-  id: string; // এটা add করুন
+  id: string;
   title: string;
   description?: string;
   category?: string;
@@ -19,13 +19,11 @@ type Props = {
     size: string[];
     color: string[];
   };
-  // Additional frontend props
   oldPrice?: number;
   isNew?: boolean;
   rating?: number;
   reviews?: number;
-  slug: string; // এটা add করুন
-
+  slug: string;
 };
 
 const FlashSaleCard = ({
@@ -33,22 +31,20 @@ const FlashSaleCard = ({
   id,
   price,
   discount = 0,
-
   mainImg,
-
   filters,
   oldPrice,
   isNew = false,
   rating = 0,
   reviews = 0,
-  slug, // এটা add করুন
+  slug,
   stock = 1,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
   const { addToCart } = useCart();
   const handleBuyNow = useHandleBuyNow();
-  const { addToWishlist } = useWishlist(); // Add this
+  const { addToWishlist } = useWishlist();
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -56,9 +52,7 @@ const FlashSaleCard = ({
       stars.push(
         <span
           key={i}
-          className={
-            i <= rating ? "text-yellow-400" : "text-gray-300"
-          }
+          className={i <= rating ? "text-yellow-400" : "text-gray-300"}
         >
           ★
         </span>
@@ -68,46 +62,37 @@ const FlashSaleCard = ({
   };
 
   return (
-
     <div
-      className="border rounded-2xl p-4 shadow hover:scale-100 transition bg-white  h-[420px] flex flex-col "
+      className="border-2 border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white h-[420px] flex flex-col"
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-      }}
+      onMouseLeave={() => setHovered(false)}
     >
       <div className="relative flex justify-center items-center bg-gray-50 rounded-xl h-48 mb-4">
         {/* Discount badge */}
         {discount > 0 && (
-          <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
             - {discount}%
           </span>
         )}
+
         {/* New badge */}
         {isNew && (
-          <span className="absolute top-12 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+          <span className="absolute top-12 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
             New
           </span>
         )}
-        <Image
-          src={mainImg}
-          alt={title}
-          width={160}
-          height={160}
-          className="h-40 object-contain hover:scale-105 rounded-lg overflow-hidden transition-transform duration-300 "
-        />
-        {/* Dropdown Icons */}
+
+        {/* Icons */}
         <div
-          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${hovered
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-5 pointer-events-none"
+          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 z-20 ${hovered
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-5 pointer-events-none"
             }`}
         >
-          {/* Icons */}
           {["shuffle", "love", "cart"].map((icon) => (
             <div key={icon} className="relative group">
               <button
-                className="bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center hover:bg-orange-300 hover:text-white transition-all duration-500 ease-in-out"
+                className=" text-white rounded-full w-9 h-9 flex items-center justify-center hover:bg-orange-300 hover:text-white transition-all duration-500 ease-in-out"
                 onClick={() => {
                   if (icon === "cart") {
                     addToCart({
@@ -129,7 +114,13 @@ const FlashSaleCard = ({
                     });
                   }
                 }}
-                title={icon === "cart" ? "Add to Cart" : icon === "love" ? "Add to Wishlist" : ""}
+                title={
+                  icon === "cart"
+                    ? "Add to Cart"
+                    : icon === "love"
+                      ? "Add to Wishlist"
+                      : ""
+                }
               >
                 {icon === "shuffle" && <span>🔄</span>}
                 {icon === "love" && <span>❤️</span>}
@@ -138,7 +129,25 @@ const FlashSaleCard = ({
             </div>
           ))}
         </div>
+
+        {/* Image */}
+        {/* <Image
+          src={mainImg}
+          alt={title}
+          width={160}
+          height={170}
+          className="object-contain hover:scale-105 rounded-lg transition-transform duration-300 w-full z-10"
+        /> */}
+        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white">
+          <Image
+            src={mainImg}
+            alt={title}
+            fill
+            className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
+          />
+        </div>
       </div>
+
       <h3 className="font-bold text-lg mb-1">{title}</h3>
       <div className="flex items-center gap-2 mb-2">
         <span className="text-orange-500 font-bold text-xl">
@@ -167,7 +176,6 @@ const FlashSaleCard = ({
       </div>
       <div className="mt-4">
         <button
-
           onClick={() => handleBuyNow({ title, slug })}
           className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >

@@ -16,7 +16,7 @@ const SpecialBrandsSection = () => {
       return actualDiscountPercent <= 25;
     }
   ) || [];
-
+console.log(filteredProducts);
   return (
     <section className="my-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
@@ -45,7 +45,7 @@ const SpecialBrandsSection = () => {
 
           {filteredProducts.map((item:any) => (
             <SpecialBrandCard
-              key={item._id}
+              key={item.id}
               title={item.title}
               slug={item.slug}
               image={item.mainImg}

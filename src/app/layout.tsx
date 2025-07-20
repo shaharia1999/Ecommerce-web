@@ -26,7 +26,7 @@ export default function RootLayout({
           <WishlistProvider>
             <CartProvider>
             {/* Sticky Navbar */}
-            <Navbar className="sticky top-0 z-50" />
+            <Navbar className="sticky top-0 z-50 mx-auto" />
             {/* Main content fills available space */}
             <main className="flex-1 pt-4">{children}</main>
             {/* Footer always at bottom */}

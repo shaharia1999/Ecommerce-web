@@ -17,20 +17,21 @@ const FilterSidebar = ({ params, onChange }: Props) => {
     discount: params.discount || false,
   });
 
- const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-  const { name, value, type } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
 
-  const newValue =
-    type === 'checkbox' && 'checked' in e.target
-      ? (e.target as HTMLInputElement).checked
-      : value;
+    const newValue =
+      type === 'checkbox' && 'checked' in e.target
+        ? (e.target as HTMLInputElement).checked
+        : value;
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: newValue,
-  }));
-};
-
+    setFormData((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,50 +39,30 @@ const FilterSidebar = ({ params, onChange }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <h3 className="text-lg font-semibold">Filter By</h3>
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 bg-white p-6 rounded-2xl shadow-md border-1 border-gray-200"
+    >
+      <h3 className="text-xl font-bold text-orange-500 border-b pb-2">🎯 Filter Products</h3>
 
       <div>
-        <label className="block text-sm">Category</label>
+        <label className="block text-sm font-medium mb-1 text-gray-700">🗂 Category</label>
         <select
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full bg-gray-100 text-gray-800 border-1 border-gray-100 p-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
         >
           <option value="">All</option>
           <option value="Trending">Trending</option>
           <option value="Fashion">Fashion</option>
           <option value="Sports">Sports</option>
           <option value="Electronics">Electronics</option>
-          {/* Add more */}
         </select>
       </div>
-{/* 
-      <div>
-        <label className="block text-sm">Size</label>
-        <input
-          type="text"
-          name="size"
-          value={formData.size}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
-      </div>
 
       <div>
-        <label className="block text-sm">Color</label>
-        <input
-          type="text"
-          name="color"
-          value={formData.color}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
-      </div> */}
-
-      <div>
-        <label className="block text-sm">Price Range</label>
+        <label className="block text-sm font-medium mb-1 text-gray-700">💰 Price Range</label>
         <div className="flex gap-2">
           <input
             type="number"
@@ -89,7 +70,7 @@ const FilterSidebar = ({ params, onChange }: Props) => {
             placeholder="Min"
             value={formData.priceMin}
             onChange={handleChange}
-            className="w-1/2 border p-2 rounded"
+            className="w-1/2 bg-gray-100 text-gray-800 p-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none border-1 border-gray-100"
           />
           <input
             type="number"
@@ -97,26 +78,27 @@ const FilterSidebar = ({ params, onChange }: Props) => {
             placeholder="Max"
             value={formData.priceMax}
             onChange={handleChange}
-            className="w-1/2 border p-2 rounded"
+            className="w-1/2 bg-gray-100 text-gray-800 p-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none border-1 border-gray-100"
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <input
           type="checkbox"
           name="discount"
           checked={formData.discount}
           onChange={handleChange}
+          className="accent-orange-500 w-4 h-4"
         />
-        <label>Discounted Only</label>
+        <label className="text-sm font-medium text-gray-700">🔥 Discounted Only</label>
       </div>
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+        className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-2 rounded-lg hover:opacity-90 transition"
       >
-        Apply Filters
+        ✅ Apply Filters
       </button>
     </form>
   );

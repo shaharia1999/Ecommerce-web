@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import {  useState, Suspense  } from 'react';
+import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { useProduct } from '@/src/utils/useproducts';
 // import { useProducts } from '../../../utils/productApi';
@@ -34,10 +34,11 @@ interface ProductData {
   images?: string[];
   rating?: number;
   reviews?: number;
-  // Add these for checkout
   selectedSize?: string;
   selectedColor?: string;
   quantity?: number;
+  colors?: string[]; // <-- Add this line
+  sizes?: string[];  // <-- And this line
 }
 
 function ShopContent() {
@@ -48,13 +49,13 @@ function ShopContent() {
   const [quantity, setQuantity] = useState(1);
 
   // Use React Query to fetch product
-  const { 
-    data: product, 
-    isLoading, 
-    isError 
-  
+  const {
+    data: product,
+    isLoading,
+    isError
+
   } = useProduct(params.slug as string);
-console.log(product);
+  console.log(product);
   // Transform product data to match your interface - FIXED
   const productData: ProductData | null = product ? {
     id: product._id,
@@ -69,7 +70,11 @@ console.log(product);
     description: product.description,
     images: product.images || [product.mainImg],
     rating: product.rating || 4.5,
-    reviews: product.reviews || 0
+    reviews: product.reviews || 0,
+    
+    colors: product.filters?.color || [],   // <-- eta add korun
+    sizes: product.filters?.size || [],     // <-- eta add korun
+
   } : null;
 
   // Debug করার জন্য console log যোগ করুন
@@ -96,11 +101,11 @@ console.log(product);
         selectedColor: colorOptions[selectedColor],
         quantity
       };
-      
+
       console.log('=== CHECKOUT DATA WITH REAL ID ===');
       console.log('Product ID from backend:', product?._id);
       console.log('Checkout data:', checkoutData);
-      
+
       router.push(`/checkout?product=${encodeURIComponent(JSON.stringify(checkoutData))}`);
     }
   };
@@ -123,7 +128,7 @@ console.log(product);
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800 mb-4">Product Not Found</h1>
             <p className="text-gray-600">The product you are looking for does not exist.</p>
-            <button 
+            <button
               onClick={() => router.push('/')}
               className="mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600"
             >
@@ -137,7 +142,7 @@ console.log(product);
 
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const colorOptions = ['#FF0000', '#FFA500', '#008000', '#000000'];
-  
+
   // Fix discount percentage calculation
   const discountPercentage = productData ? Number(product?.discount) || 0 : 0;
 
@@ -161,7 +166,7 @@ console.log(product);
       {/* Product Details Section */}
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
+
           {/* Left: Product Images */}
           <div className="space-y-4">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
@@ -180,7 +185,7 @@ console.log(product);
                 />
               </div>
             </div>
-            
+
             {/* Thumbnail images */}
             <div className="flex space-x-4">
               {(productData.images || [productData.mainImg]).slice(0, 4).map((imgSrc, idx) => (
@@ -202,14 +207,13 @@ console.log(product);
             <div>
               <p className="text-orange-500 text-sm font-medium mb-2">{productData.category}</p>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">{productData.title}</h1>
-              
+
               {/* Stock status */}
               <div className="flex items-center space-x-4 mb-4">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  productData.stock > 0 
-                    ? 'bg-green-100 text-green-800' 
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${productData.stock > 0
+                    ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
-                }`}>
+                  }`}>
                   {productData.stock > 0 ? 'In Stock' : 'Out of Stock'} ({productData.stock})
                 </span>
               </div>
@@ -237,41 +241,43 @@ console.log(product);
               </p>
 
               {/* Color Selection */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">Color :</label>
-                <div className="flex space-x-3">
-                  {colorOptions.map((color: string, idx: number) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedColor(idx)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all ${
-                        selectedColor === idx ? 'border-gray-800 scale-110' : 'border-gray-300'
-                      }`}
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
+              {productData.colors && productData.colors.length > 0 && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Color :</label>
+                  <div className="flex space-x-3">
+                    {productData.colors.map((color: string, idx: number) => (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedColor(idx)}
+                        className={`w-8 h-8 rounded-full border-2 transition-all ${selectedColor === idx ? 'border-gray-800 scale-110' : 'border-gray-300'
+                          }`}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Size Selection */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">Size :</label>
-                <div className="flex space-x-3">
-                  {sizes.map((size: string) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-4 py-2 border rounded-lg font-medium transition-all ${
-                        selectedSize === size
-                          ? 'bg-orange-500 text-white border-orange-500'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+              {productData.sizes && productData.sizes.length > 0 && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Size :</label>
+                  <div className="flex space-x-3">
+                    {productData.sizes.map((size: string) => (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-4 py-2 border rounded-lg font-medium transition-all ${selectedSize === size
+                            ? 'bg-orange-500 text-white border-orange-500'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
+                          }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Quantity and Actions */}
               <div className="flex items-center space-x-4 mb-6">
@@ -291,16 +297,16 @@ console.log(product);
                     +
                   </button>
                 </div>
-                
-                <button 
+
+                <button
                   onClick={handleBuyNow}
                   disabled={productData.stock === 0}
                   className="flex-1 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 transition-all duration-300 disabled:bg-gray-400"
                 >
                   Buy Now
                 </button>
-                
-                <button 
+
+                <button
                   disabled={productData.stock === 0}
                   className="bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600 transition-all duration-300 disabled:bg-gray-400"
                 >

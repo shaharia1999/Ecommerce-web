@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-
+import { IoSearch } from "react-icons/io5";
 type Props = {
   params: any;
   onChange: (newParams: Partial<any>) => void;
@@ -30,21 +30,27 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center justify-between mb-4 gap-4">
-      <input
+    <form onSubmit={handleSubmit} className="flex items-center justify-between mb-4 gap-4 ">
+      <div className='flex items-center gap-2 w-1/2   justify-between'>
+        <div className=' w-full'>
+          <input
         type="text"
         placeholder="Search products..."
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
-        className="border p-2 rounded w-1/2"
+        className="w-full border-1 border-gray-300 rounded shadow-sm p-2"
       />
-      <button
+        </div>
+      <div className=''>
+        <button
         type="submit"
         aria-label="Search"
-        className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+        className="bg-orange-500 text-white px-4 py-[11px] rounded hover:bg-orange-700"
       >
-        🔍
+        <IoSearch  className="text-xl"/>
       </button>
+      </div>
+      </div>
 
       <select
         value={
@@ -55,7 +61,7 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
             : 'createdAt'
         }
         onChange={handleSortChange}
-        className="border p-2 rounded"
+        className="border-1 border-gray-300 shadow p-2 rounded"
       >
         <option value="createdAt">Newest</option>
         <option value="discountedPrice">Price (Low to High)</option>

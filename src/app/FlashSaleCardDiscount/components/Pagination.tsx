@@ -36,7 +36,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="border px-3 py-1 rounded disabled:opacity-50"
+        className="border-1 border-gray-300 px-3 py-1 rounded disabled:opacity-50"
       >
         Prev
       </button>
@@ -51,8 +51,8 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
           <button
             key={idx}
             onClick={() => onPageChange(p as number)}
-            className={`border px-3 py-1 rounded ${
-              p === page ? 'bg-purple-500 text-white' : ''
+            className={`border-1 border-gray-300 px-3 py-1 rounded ${
+              p === page ? 'bg-orange-400 text-white' : ''
             }`}
           >
             {p}
@@ -64,7 +64,7 @@ const Pagination = ({ page, totalPages, onPageChange }: PaginationProps) => {
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="border px-3 py-1 rounded disabled:opacity-50"
+        className="border-1 border-gray-300 px-3 py-1 rounded disabled:opacity-50"
       >
         Next
       </button>

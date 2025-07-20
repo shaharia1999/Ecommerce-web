@@ -2,10 +2,24 @@ import Image from 'next/image';
 
 const Banner = () => {
   return (
-    <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row bg-white rounded-lg overflow-hidden shadow-md">
+    <div className="max-w-[1285px] mx-auto flex flex-col md:flex-row bg-white rounded-lg overflow-hidden shadow-md">
       
+
+<div>
+  <Image
+    src="/images/freepik__banner1.jpeg"
+    alt="Website Banner"
+    width={1285} // Adjust based on your layout
+    height={400} // Approximate banner height, customize as needed
+    className="w-full h-auto object-cover rounded-lg"
+  />
+</div>
+
+
+
+
       {/* Left Section */}
-      <div className="flex-1 p-8 flex flex-col justify-center">
+      {/* <div className="flex-1 p-8 flex flex-col justify-center">
         <p className="text-purple-600 font-medium mb-2">New Arrivals Of 2025</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
           Where Fashion Meets <br /> Individuality
@@ -13,10 +27,10 @@ const Banner = () => {
         <button className="mt-4 bg-purple-600 hover:purple-700 text-white px-6 py-3 rounded-md transition">
           Shop Now &rarr;
         </button>
-      </div>
+      </div> */}
 
       {/* Middle Image */}
-      <div className="relative w-full md:w-[400px] h-[300px] md:h-auto">
+      {/* <div className="relative w-full md:w-[400px] h-[300px] md:h-auto">
         <Image
           // src="/shopping-girl.png" // your image here
             src="/images/cat1.jpg"
@@ -24,10 +38,10 @@ const Banner = () => {
           layout="fill"
           objectFit="contain"
         />
-      </div>
+      </div> */}
 
       {/* Right Section */}
-      <div className="bg-orange-50 flex-1 p-8 flex flex-col justify-center items-center">
+      {/* <div className="bg-orange-50 flex-1 p-8 flex flex-col justify-center items-center">
         <p className="text-purple-600 font-semibold mb-2">Summer Offer</p>
         <h2 className="text-2xl font-bold mb-4 text-center">
           Make Your Fashion Story Unique Every Day
@@ -45,7 +59,9 @@ const Banner = () => {
             objectFit="contain"
           />
         </div>
-      </div>
+      </div> */}
+
+
     </div>
   );
 };
