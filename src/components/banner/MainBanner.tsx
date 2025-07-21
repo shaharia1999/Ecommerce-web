@@ -15,12 +15,6 @@ const Banner = () => {
     priority
   />
 </div>
-
-
-
-
-
-
     </div>
   );
 };

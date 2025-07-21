@@ -140,7 +140,7 @@ function ShopContent() {
     );
   }
 
-  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+  // const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const colorOptions = ['#FF0000', '#FFA500', '#008000', '#000000'];
 
   // Fix discount percentage calculation

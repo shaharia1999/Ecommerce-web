@@ -67,6 +67,7 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
         <option value="discountedPrice">Price (Low to High)</option>
         <option value="-discountedPrice">Price (High to Low)</option>
       </select>
+      
     </form>
   );
 };

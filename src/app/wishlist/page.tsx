@@ -16,14 +16,14 @@ const WishlistPage = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {wishlist.map((item) => (
-                        <div key={item.id} className="border rounded-lg p-4 flex flex-col items-center shadow bg-white">
+                        <div key={item.id} className="border-1 border-gray-300 rounded-lg py-4 flex flex-col items-center shadow bg-white ">
 
                             <Image
-                                width={128}
+                                width={150}
                                 height={128}
                                 src={item.mainImg}
                                 alt={item.title}
-                                className="h-32 object-contain mb-2"
+                                className="h-36 object-contain mb-2 w-full px-2 "
                             />
 
 

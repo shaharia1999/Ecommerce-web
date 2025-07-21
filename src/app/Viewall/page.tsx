@@ -82,8 +82,8 @@ export default function FlashSaleCardPage() {
     return <div className="py-16 text-center text-lg text-red-500">Failed to load products</div>;
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center text-purple-700">All Flash Sale Products</h1>
+    <section className="py-10 px-4 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-12 text-center">All Flash Sale Products</h1>
 
       <div className="flex gap-8">
         <div className="w-72">
@@ -120,7 +120,7 @@ export default function FlashSaleCardPage() {
 
           {/* Product Grid */}
           {!isLoading && products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
                   key={product._id}
@@ -156,7 +156,7 @@ export default function FlashSaleCardPage() {
           <Pagination
             page={data.page ?? 1}
             totalPages={data.pages ?? 1}
-            onPageChange={(newPage) => setParams((prev:any) => ({ ...prev, page: newPage }))}
+            onPageChange={(newPage) => setParams((prev) => ({ ...prev, page: newPage }))}
           />
         </div>
       </div>

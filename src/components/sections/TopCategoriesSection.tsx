@@ -76,9 +76,9 @@ const TopCategoriesWithProducts = () => {
           </h2>
           <div className="flex items-center justify-between mb-6">
 
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <span>⏰</span>
-              <span>Limited Time Offer</span>
+            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
+             <div className="text-orange-500 text-lg">⏰</div>
+             <span className="text-[15px] font-medium">Limited Time Offer</span>
               <Link
                 href={{
                   pathname: '/Viewall',
@@ -89,7 +89,7 @@ const TopCategoriesWithProducts = () => {
                     limit: 14,
                   },
                 }}
-                className="text-blue-600 hover:underline"
+                className="ml-2 text-[20px] text-blue-600 hover:underline font-semibold"
               >
                 View All →
               </Link>

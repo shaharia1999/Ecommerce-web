@@ -10,7 +10,7 @@ export default function CartDrawer() {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/30 z-[9998] transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black/30 z-[9999] transition-opacity duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setOpen(false)}
       />
       {/* Drawer */}
