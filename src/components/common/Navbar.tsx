@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CartDrawer from './CartDrawer';
 import { GiShoppingCart } from "react-icons/gi";
@@ -12,6 +12,8 @@ import Image from 'next/image';
 import { GetCookies } from '@/src/utils/Cookies/Set-Cookies';
 import { Delete } from '@/src/utils/Cookies/Delete-Cookies';
 import { HiOutlineMenu, HiX } from 'react-icons/hi';
+import SearchBar from './Search';
+import { useProducts } from '@/src/utils/useproducts';
 import { useWishlist } from "@/src/context/WishlistContext";
 
 const navLinks = [
@@ -29,9 +31,7 @@ const Navbar = ({ className = '' }) => {
   const currentCategory = searchParams.get('category');
   const { cart } = useCart();
   const { wishlistCount } = useWishlist();
- // ...existing code...
-const [token, setToken] = React.useState<string | null>(null);
-// ...existing code...
+  const [token, setToken] = React.useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   useEffect(() => {
@@ -45,6 +45,34 @@ const [token, setToken] = React.useState<string | null>(null);
   }, []);
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const [params, setParams] = React.useState({
+    page: 1,
+    limit: 20,
+    sortBy: 'createdAt',
+    sortOrder: 'desc' as const,
+    search: '',
+    category: '',
+    size: '',
+    color: '',
+    priceMin: '',
+    priceMax: '',
+    discount: false,
+  });
+
+  console.log(params)
+  const [products, setProducts] = useState<any[]>([]); // Replace with your product type if available
+
+  const { data, isLoading, isError } = useProducts(params);
+
+  // Set products after fetching
+  useEffect(() => {
+    if (data?.products) {
+      setProducts(data.products);
+    }
+  }, [params, data]);
+
+
+
 
   return (
     <>
@@ -56,10 +84,11 @@ const [token, setToken] = React.useState<string | null>(null);
             <div className="flex-shrink-0">
               <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={140} height={20} />
             </div>
-            <div className="flex w-1/2">
-              <input className="p-3 border border-gray-300 rounded-l-[30px] rounded-r-none w-full focus:outline-none" type="search" placeholder="I'm looking for..." />
-              <button className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-r-[30px] rounded-l-none border border-l-0 border-gray-300 transition-colors">Search</button>
+            <div className="w-1/2">
+              <SearchBar data={products || []} setParams={setParams} />
             </div>
+
+
             <div className="flex items-center space-x-4">
               <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
                 <GiShoppingCart />
@@ -127,10 +156,8 @@ const [token, setToken] = React.useState<string | null>(null);
               </div>
             </div>
             <div className="w-full">
-              <div className="flex w-full">
-                <input className="p-3 border border-gray-300 rounded-l-[30px] rounded-r-none w-full focus:outline-none" type="search" placeholder="I'm looking for..." />
-                <button className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-r-[30px] rounded-l-none border border-l-0 border-gray-300 transition-colors">Search</button>
-              </div>
+
+              <SearchBar data={products || []} setParams={setParams} />
             </div>
           </div>
         </div>
