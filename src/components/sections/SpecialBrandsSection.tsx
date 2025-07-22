@@ -16,7 +16,7 @@ const SpecialBrandsSection = () => {
       return actualDiscountPercent <= 25;
     }
   ) || [];
-console.log(filteredProducts);
+// console.log(filteredProducts);
   return (
     <section className="my-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">

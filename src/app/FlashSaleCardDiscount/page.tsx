@@ -23,7 +23,7 @@ export default function FlashSaleCardPage() {
   });
 
   // const [searchInput, setSearchInput] = useState(''); // for form controlled input
-  console.log(params)
+  // console.log(params)
   const [products, setProducts] = useState<any[]>([]); // Replace with your product type if available
 
   const { data, isLoading, isError } = useProducts(params);

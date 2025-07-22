@@ -43,7 +43,7 @@ useEffect(() => {
 }, [searchTerm, data]);
 
 useEffect(() => {
-  console.log('data:', data); // Check the value and type
+  // console.log('data:', data); // Check the value and type
 }, [data]);
 
 

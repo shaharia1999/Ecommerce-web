@@ -38,7 +38,7 @@ const NewArrivalCard = ({
   const { addToCart } = useCart();
   const handleBuyNow = useHandleBuyNow();
   const { addToWishlist } = useWishlist();
-  console.log(id);
+  // console.log(id);
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {

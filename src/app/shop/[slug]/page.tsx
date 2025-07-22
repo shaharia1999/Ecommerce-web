@@ -41,7 +41,7 @@ function ShopContent() {
     isError
 
   } = useProduct(params.slug as string);
-  console.log(product);
+  // console.log(product);
   // Transform product data to match your interface - FIXED
   const productData: ProductData | null = product ? {
     id: product._id,
@@ -66,9 +66,9 @@ function ShopContent() {
   const [mainImage, setMainImage] = useState(productData?.mainImg || '');
 
   // Debug করার জন্য console log যোগ করুন
-  console.log('=== PRICE CALCULATION DEBUG ===');
-  console.log('Original product.price:', product?.originalPrice, typeof product?.originalPrice);
-  console.log('Original product.discount:', product?.discount, typeof product?.discount);
+  // console.log('=== PRICE CALCULATION DEBUG ===');
+  // console.log('Original product.price:', product?.originalPrice, typeof product?.originalPrice);
+  // console.log('Original product.discount:', product?.discount, typeof product?.discount);
   if (productData) {
     console.log('Calculated originalPrice:', productData.originalPrice);
     console.log('Calculated discountedPrice:', productData.discountedPrice);

@@ -27,7 +27,7 @@ const NewArrivalsSection = () => {
             <span className="absolute left-0 -bottom-1 w-full h-2 bg-red-200 rounded-full -z-10"></span>
           </span>{" "}
            ARRIVALS
-        </h2>
+        </h2> 
         <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
          <div className="text-orange-500 text-lg">⏰</div>
        <span className="text-[15px] font-medium">Limited Time Offer</span>
@@ -51,9 +51,36 @@ const NewArrivalsSection = () => {
         Products loaded: {products.length}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+  {products.map((item: any) => (
+    <NewArrivalCard
+      key={item.id}
+      id={item.id}
+      title={item.title}
+      price={item.discountedPrice ?? item.originalPrice}
+      image={item.mainImg}
+      rating={item.rating || 4}
+      reviews={item.reviews || 0}
+      isNew={item.isNew ?? true}
+      colors={item.filters?.color || []}
+      discount={item.discount || 0}
+      oldPrice={item.originalPrice}
+      slug={item.slug}
+      stock={item.stock || 1}
+    />
+  ))}
+</div>
+    </section>
+  );
+};
+
+export default NewArrivalsSection;
+
+
+
+      {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {products.map((item: any) => {
-  // console.log("Product ID:", item); // ✅ Logs each product ID
 
   return (
     <NewArrivalCard
@@ -74,9 +101,5 @@ const NewArrivalsSection = () => {
   );
 })}
 
-      </div>
-    </section>
-  );
-};
+      </div> */}
 
-export default NewArrivalsSection;
