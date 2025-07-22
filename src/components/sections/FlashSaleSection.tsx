@@ -7,9 +7,10 @@ import 'swiper/css/navigation';
 import Link from 'next/link';
 import { useProducts } from '@/src/utils/useproducts';
 // import { useProducts } from '../../utils/api';
+
 const FlashSaleSection = () => {
   // const { data, isLoading, isError } = useProducts();
-  const { data, isLoading ,isError} = useProducts({discount: true});
+  const { data, isLoading, isError } = useProducts({ discount: true });
   if (isLoading) {
     return <div className="my-10 px-4 text-center">Loading...</div>;
   }
@@ -25,20 +26,20 @@ const FlashSaleSection = () => {
         <h2 className="text-3xl font-bold">
           <span className="relative">
             <span className="text-black">Flash</span>
-            <span className="absolute left-0 -bottom-1 w-full h-2 bg-red-200 rounded-full -z-10"></span>
+            <span className="absolute left-0 -bottom-1 w-full h-1 bg-red-200 rounded-full -z-10"></span>
           </span>{" "}
           Sale
         </h2>
-        <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
-  <div className="text-orange-500 text-lg">⏰</div>
-  <span className="text-[15px] font-medium">Limited Time Offer</span>
-  <Link
-    href="/FlashSaleCardDiscount"
-    className="ml-2 text-[20px] text-blue-600 hover:underline font-semibold"
-  >
-    View All →
-  </Link>
-</div>
+        <div className="flex items-center gap-2 px-2  rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
+          <div className="text-orange-500 text-lg">⏰</div>
+          <span className=" font-medium text-[14px] ml-2 lg:text-[20px] md:text-[20px]">Limited Time Offer</span>
+          <Link
+            href="/FlashSaleCardDiscount"
+            className="text-[14px]  lg:text-[20px] md:text-[20px] text-blue-600 hover:underline font-semibold"
+          >
+            View All →
+          </Link>
+        </div>
 
       </div>
 
@@ -64,14 +65,14 @@ const FlashSaleSection = () => {
             loop={products.length > 3}
             className="!pb-4"
             breakpoints={{
-              320: { slidesPerView: 1, spaceBetween: 16 },
+              320: { slidesPerView: 2, spaceBetween: 16 },
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 24 },
               1280: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {products.map((product:any, index:any) => (
-              <SwiperSlide key={product._id  || index}>
+            {products.map((product: any, index: any) => (
+              <SwiperSlide key={product._id || index}>
                 <FlashSaleCard
                   id={product._id || product.id}
                   title={product.title}
@@ -86,7 +87,7 @@ const FlashSaleSection = () => {
                   }
                   stock={product.stock}
                   slug={product.slug}
-                  mainImg={product.mainImg }
+                  mainImg={product.mainImg}
                   images={product.images || []}
                   oldPrice={product.originalPrice}
                   rating={product.rating || 4}
@@ -101,12 +102,12 @@ const FlashSaleSection = () => {
           </Swiper>
 
           {/* Custom Navigation Buttons */}
-          <button className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center text-gray-600 hover:text-yellow-600 hover:shadow-xl transition-all duration-300 -ml-6 border border-gray-100 hover:border-yellow-200 hover:bg-amber-200">
+          <button className=" swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10  flex items-center justify-center text-gray-600 hover:text-yellow-600 hover:shadow-xl transition-all duration-300 -ml-6  border-gray-100 hover:border-yellow-200 hover:bg-amber-200">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center text-gray-600 hover:text-orange-500 hover:shadow-xl transition-all duration-300 -mr-6 hover:bg-amber-200">
+          <button className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10  flex items-center justify-center text-gray-600 hover:text-orange-500 hover:shadow-xl transition-all duration-300 -mr-6 hover:bg-amber-200">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

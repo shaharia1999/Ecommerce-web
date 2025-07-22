@@ -8,6 +8,7 @@ import FilterSidebar from '../FlashSaleCardDiscount/components/FilterSidebar';
 import Pagination from '../FlashSaleCardDiscount/components/Pagination';
 import SearchAndSortBar from './component/SearchAndSortBar';
 // import { Params } from './types'; // adjust path accordingly
+import { useRouter } from "next/navigation";
 export type Params = {
   page: number;
   limit: number;
@@ -35,7 +36,7 @@ export default function FlashSaleCardPage() {
   const priceMin = searchParams.get('priceMin') || '';
   const priceMax = searchParams.get('priceMax') || '';
   const discount = searchParams.get('discount') === 'true';
-
+  const router = useRouter();
   // Initialize state with shared Params type
   const [params, setParams] = useState<Params>({
     page: 1,
@@ -65,7 +66,7 @@ export default function FlashSaleCardPage() {
   const handleParamChange = (newParams: Partial<Params>) => {
     const resetPageKeys = ['search', 'category', 'size', 'color', 'priceMin', 'priceMax', 'discount'];
     const shouldResetPage = Object.keys(newParams).some((key) => resetPageKeys.includes(key));
-    setParams((prev:any) => ({
+    setParams((prev: any) => ({
       ...prev,
       ...newParams,
       page: shouldResetPage ? 1 : prev.page,
@@ -84,7 +85,12 @@ export default function FlashSaleCardPage() {
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-12 text-center">All Flash Sale Products</h1>
-
+      <button
+        onClick={() => router.back()}
+        className="mb-4 ml-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
+      >
+        ← Back
+      </button>
       <div className="flex gap-8">
         <div className="w-72">
           <FilterSidebar params={params} onChange={handleParamChange} />
@@ -94,7 +100,7 @@ export default function FlashSaleCardPage() {
           <SearchAndSortBar
             params={params}
             onChange={handleParamChange}
-           
+
           />
 
           {/* Loading Skeleton */}

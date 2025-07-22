@@ -6,6 +6,7 @@ import FilterSidebar from './components/FilterSidebar';
 import SearchAndSortBar from './components/SearchAndSortBar';
 import FlashSaleCard from '@/src/components/cards/FlashSaleCard';
 import Pagination from './components/Pagination';
+import { useRouter } from "next/navigation";
 
 export default function FlashSaleCardPage() {
   const [params, setParams] = useState({
@@ -21,7 +22,7 @@ export default function FlashSaleCardPage() {
     priceMax: '',
     discount: false,
   });
-
+  const router = useRouter();
   // const [searchInput, setSearchInput] = useState(''); // for form controlled input
   // console.log(params)
   const [products, setProducts] = useState<any[]>([]); // Replace with your product type if available
@@ -37,6 +38,7 @@ export default function FlashSaleCardPage() {
 
   // Handle filter/search change
   const handleParamChange = (newParams: Partial<typeof params>) => {
+
     const resetPageKeys = ['search', 'category', 'size', 'color', 'priceMin', 'priceMax', 'discount'];
     const shouldResetPage = Object.keys(newParams).some((key) => resetPageKeys.includes(key));
     setParams((prev) => ({
@@ -59,19 +61,27 @@ export default function FlashSaleCardPage() {
   const { limit } = params;
 
   return (
-    <section className="py-10 px-4 max-w-7xl mx-auto">
+    <section className="py-10  md:px-4 max-w-7xl mx-auto ">
       <h1 className="text-3xl font-bold mb-12 text-center ">All Flash Sale Products</h1>
 
-      <div className="flex gap-8">
+      <button
+        onClick={() => router.back()}
+        className="mb-4 ml-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
+      >
+        ← Back
+      </button>
+
+
+      <div className="flex gap-8 flex-wrap mx-auto ">
         {/* Sidebar */}
-        <div className="w-72">
+        <div className="w-72 mx-auto">
           <FilterSidebar params={params} onChange={handleParamChange} />
         </div>
 
         {/* Main Content */}
         <div className="flex-1">
           {/* Search & Sort */}
-          
+
 
           <SearchAndSortBar params={params} onChange={handleParamChange} />
 
@@ -98,7 +108,7 @@ export default function FlashSaleCardPage() {
 
           {/* Product Grid */}
           {!isLoading && products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
                   key={product.id}
@@ -111,10 +121,10 @@ export default function FlashSaleCardPage() {
                     product.discount ??
                     (product.originalPrice
                       ? Math.round(
-                          ((product.originalPrice - product.discountedPrice) /
-                            product.originalPrice) *
-                            100
-                        )
+                        ((product.originalPrice - product.discountedPrice) /
+                          product.originalPrice) *
+                        100
+                      )
                       : 0)
                   }
                   stock={product.stock}
