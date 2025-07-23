@@ -61,7 +61,7 @@ export default function FlashSaleCardPage() {
   const { limit } = params;
 
   return (
-    <section className="py-10  md:px-4 max-w-7xl mx-auto ">
+    <section className="py-10 px-3  md:px-4 max-w-7xl mx-auto ">
       <h1 className="text-3xl font-bold mb-12 text-center ">All Flash Sale Products</h1>
 
       <button
@@ -72,7 +72,7 @@ export default function FlashSaleCardPage() {
       </button>
 
 
-      <div className="flex gap-8 flex-wrap mx-auto ">
+      <div className="flex gap-4 flex-wrap mx-auto ">
         {/* Sidebar */}
         <div className="w-72 mx-auto">
           <FilterSidebar params={params} onChange={handleParamChange} />

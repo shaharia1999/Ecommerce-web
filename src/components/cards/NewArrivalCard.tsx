@@ -53,11 +53,11 @@ const NewArrivalCard = ({
 
   return (
     <div
-      className="border-2 border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white h-[420px] flex flex-col"
+      className="md:border-1  md:border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white  flex flex-col "
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative flex justify-center items-center bg-gray-50 rounded-xl h-48 mb-4">
+      <div className="relative flex justify-center items-center bg-gray-50 rounded-xl  mb-4">
         {/* Discount badge */}
         {discount > 0 && (
           <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
@@ -72,7 +72,7 @@ const NewArrivalCard = ({
         )}
         {/* Icons */}
         <div
-          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 z-20 ${
+          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 z-20  ${
             hovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-5 pointer-events-none"
           }`}
         >
@@ -117,39 +117,39 @@ const NewArrivalCard = ({
           ))}
         </div>
         {/* Image */}
-        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white">
+        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
           <Image
             src={image}
             alt={title}
             fill
-            className="hover:scale-105 rounded-lg transition-transform duration-300 z-10"
+            className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
           />
         </div>
       </div>
-      <h3 className="font-bold text-lg mb-1">{title}</h3>
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-orange-500 font-bold text-xl">${price.toFixed(2)}</span>
+      <h3 className="font-bold text-[15px] mb-1">{title}</h3>
+      <div className="flex flex-wrap items-center gap-2 mb-2">
+        <span className="text-orange-500 font-bold text-[16px]">${price.toFixed(2)}</span>
         {typeof oldPrice === "number" && (
-          <span className="text-gray-400 line-through text-base">${oldPrice.toFixed(2)}</span>
+          <span className="text-gray-400 line-through text-[12px]">${oldPrice.toFixed(2)}</span>
         )}
       </div>
-      <div className="flex items-center gap-1 mb-2">
+      <div className="flex flex-wrap items-center gap-1 mb-3">
         {renderStars(Math.round(rating))}
-        <span className="text-gray-400 text-sm ml-1">({reviews} Reviews)</span>
+        <span className="text-gray-400 text-[12px] ml-1">({reviews} Reviews)</span>
       </div>
-      <div className="flex gap-2 mt-2">
+      <div className="flex gap-2 mt-1 ">
         {colors.map((color, idx) => (
           <span
             key={idx}
-            className="w-5 h-5 rounded-full border-2 border-white shadow"
+            className=" w-5 h-5 rounded-full border-2 border-white shadow "
             style={{ backgroundColor: color }}
           />
         ))}
       </div>
-      <div className="mt-4">
+      <div className="mt-auto">
         <button
           onClick={() => handleBuyNow({ title, slug })}
-          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           Buy Now
           <span className="text-sm">🛒</span>

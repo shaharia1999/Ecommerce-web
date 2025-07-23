@@ -13,7 +13,7 @@ export type Params = {
   page: number;
   limit: number;
   sortBy: string;
-  sortOrder: 'asc' | 'desc';
+  sortOrder: 'asc' | 'desc';               
   search: string;
   category: string;
   size: string;
@@ -91,7 +91,7 @@ export default function FlashSaleCardPage() {
       >
         ← Back
       </button>
-      <div className="flex gap-8">
+      <div className="flex gap-4">
         <div className="w-72">
           <FilterSidebar params={params} onChange={handleParamChange} />
         </div>

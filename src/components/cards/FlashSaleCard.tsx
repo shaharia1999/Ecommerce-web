@@ -63,7 +63,7 @@ const FlashSaleCard = ({
 
   return (
     <div
-      className="md:border-1 md:border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white  flex flex-col"
+      className="md:border-1  md:border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white  flex flex-col "
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

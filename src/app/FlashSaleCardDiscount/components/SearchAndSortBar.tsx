@@ -31,7 +31,7 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center justify-between mb-4 gap-4 flex-wrap">
-      <div className='flex items-center gap-2 md:w-1/2   justify-between'>
+    <div className='flex items-center gap-2 md:w-1/2  justify-between'>
         <div className=' w-full'>
           <input
         type="text"
