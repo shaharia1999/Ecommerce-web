@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useCreateOrder } from '@/src/utils/useOrder';
 import { OrderData } from '@/src/utils/type';
 import { GetCookiesId } from '@/src/utils/Cookies/Set-Cookies';
+import { AxiosError } from 'axios';
 
 interface FormData {
   name: string;
@@ -27,8 +28,16 @@ export default function CheckoutContent() {
     district: '',
     address: '',
   });
+ interface ProductItem {
+  id: string;
+   title: string;
+   mainImg: string;
+   price: number;
+   selectedSize?: string;
+   quantity?: number;
+ }
 
-  const [singleProduct, setSingleProduct] = useState<any | null>(null);
+  const [singleProduct, setSingleProduct] = useState<ProductItem | null>(null);
 
   const deliveryCharge = 109;
   const total = (singleProduct?.price || subtotal) + deliveryCharge;
@@ -51,7 +60,7 @@ useEffect(() => {
         const decoded = JSON.parse(decodeURIComponent(encoded));
         setSingleProduct(decoded);
       } catch (err) {
-        console.error('Invalid product format in query');
+        console.error('Invalid product format in query params:', err);
       }
     }
   }, [searchParams]);
@@ -91,9 +100,17 @@ useEffect(() => {
     localStorage.removeItem('cart');
     router.push('/order-success');
   },
-  onError: (error: any) => {
-    console.error('Mutation Error:', error); // Optional: log the full error
-    const message = error?.response?.data?.message || error?.message || '❌ অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+  onError: (error) => {
+    let message = '❌ অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+
+    if ((error as AxiosError)?.isAxiosError) {
+      const axiosError = error as AxiosError<{ message?: string }>;
+      message = axiosError.response?.data?.message || axiosError.message || message;
+    } else {
+      message = error.message || message;
+    }
+
+    console.error('Mutation Error:', error);
     alert(`❌ ${message}`);
   },
 });

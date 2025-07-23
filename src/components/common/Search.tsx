@@ -15,17 +15,26 @@ interface ParamsType {
   priceMax: string;
   discount: boolean;
 }
-
+type Product = {
+  title: string;
+  id: string;
+  slug: string;
+  stock: number;
+  category: string;
+  originalPrice: number;
+  discountedPrice: number;
+  mainImg: string;
+};
 const SearchBar = ({
   data,
   setParams,
 }: {
-  data: any[];
+  data: Product[];
   setParams: React.Dispatch<React.SetStateAction<ParamsType>>;
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDrawer, setShowDrawer] = useState(false);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [filteredData, setFilteredData] = useState<Product[]>([]);
   const handleBuyNow = useHandleBuyNow();
 useEffect(() => {
   if (searchTerm.trim() !== '') {

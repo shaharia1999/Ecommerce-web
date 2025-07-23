@@ -1,10 +1,16 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { IoSearch } from "react-icons/io5";
-type Props = {
-  params: any;
-  onChange: (newParams: Partial<any>) => void;
+type SortParams = {
+  search?: string;
+  sortBy?: 'discountedPrice' | 'createdAt';
+  sortOrder?: 'asc' | 'desc';
 };
+type Props = {
+  params: SortParams;
+  onChange: (newParams: Partial<SortParams>) => void;
+};
+
 
 const SearchAndSortBar = ({ params, onChange }: Props) => {
   const [searchInput, setSearchInput] = useState(params.search || '');

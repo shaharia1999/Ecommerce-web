@@ -2,20 +2,30 @@
 
 import { useState } from 'react';
 
+type FilterParams = {
+  category: string;
+  size: string;
+  color: string;
+  priceMin: string;
+  priceMax: string;
+  discount: boolean;
+};
 type Props = {
-  params: any;
-  onChange: (newParams: Partial<any>) => void;
+  params: Partial<FilterParams>;
+  onChange: (newParams: Partial<FilterParams>) => void;
 };
 
+
 const FilterSidebar = ({ params, onChange }: Props) => {
-  const [formData, setFormData] = useState({
-    category: params.category || '',
-    size: params.size || '',
-    color: params.color || '',
-    priceMin: params.priceMin || '',
-    priceMax: params.priceMax || '',
-    discount: params.discount || false,
-  });
+ const [formData, setFormData] = useState<Partial<FilterParams>>({
+  category: params.category || '',
+  size: params.size || '',
+  color: params.color || '',
+  priceMin: params.priceMin || '',
+  priceMax: params.priceMax || '',
+  discount: params.discount || false,
+});
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

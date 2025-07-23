@@ -191,8 +191,8 @@ useEffect(() => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-grow justify-center space-x-8">
           {navLinks
-            .filter((nav: any) => !(pathname === '/Viewall' && nav.href.startsWith('/Viewall')))
-            .map((nav: any) => {
+            .filter((nav) => !(pathname === '/Viewall' && nav.href.startsWith('/Viewall')))
+            .map((nav) => {
               const isActive =
                 nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
               return (
@@ -235,7 +235,7 @@ useEffect(() => {
             >
               <HiX />
             </button>
-{navLinks.map((nav: any) => {
+{navLinks.map((nav) => {
   const isActive =
     nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
   return (
