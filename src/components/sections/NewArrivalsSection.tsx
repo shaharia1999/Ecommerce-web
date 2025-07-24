@@ -3,7 +3,25 @@
 import NewArrivalCard from '../cards/NewArrivalCard';
 import { useProducts } from '@/src/utils/useproducts';
 import Link from 'next/link';
-
+type Product = {
+  id: string;
+  title: string;
+  slug: string;
+  stock: number;
+  category: string;
+  originalPrice: number;
+  discountedPrice: number;
+  mainImg: string;
+  // Optional fields jodi thake:
+  isNew?: boolean;
+  filters?: {
+    color?: string[];
+    size?: string[];
+  };
+  discount?: number;
+  rating?: number;
+  reviews?: number;
+};
 const NewArrivalsSection = () => {
   const { data, isLoading, isError } = useProducts({ sortBy: 'createdAt', sortOrder: 'desc', limit: 14 });
 
@@ -16,7 +34,7 @@ const NewArrivalsSection = () => {
   }
 
   const products = data.products || [];
-
+// console.log(products);
   return (
     <section className="my-10 px-4">
       {/* Header Section */}
@@ -53,7 +71,7 @@ const NewArrivalsSection = () => {
 
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {products.map((item: any) => (
+        {products.map((item: Product) => (
           <NewArrivalCard
             key={item.id}
             id={item.id}

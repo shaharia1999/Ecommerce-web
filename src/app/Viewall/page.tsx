@@ -8,12 +8,31 @@ import FilterSidebar from '../FlashSaleCardDiscount/components/FilterSidebar';
 import Pagination from '../FlashSaleCardDiscount/components/Pagination';
 import SearchAndSortBar from './component/SearchAndSortBar';
 // import { Params } from './types'; // adjust path accordingly
+type Product = {
+  id: string;
+  title: string;
+  slug: string;
+  stock: number;
+  category: string;
+  originalPrice: number;
+  discountedPrice: number;
+  mainImg: string;
+  description?: string;
+  images?: string[];
+  rating?: number;
+  reviews?: number;
+  discount?: number;
+  size?: string[];
+  color?: string[];
+};
+
+
 import { useRouter } from "next/navigation";
 export type Params = {
   page: number;
   limit: number;
   sortBy: string;
-  sortOrder: 'asc' | 'desc';               
+  sortOrder: 'asc' | 'desc';
   search: string;
   category: string;
   size: string;
@@ -52,9 +71,9 @@ export default function FlashSaleCardPage() {
     discount,
   });
 
-  const [searchInput, setSearchInput] = useState(search);
-  const [products, setProducts] = useState<any[]>([]);
-
+  // const [searchInput, setSearchInput] = useState(search);
+  const [products, setProducts] = useState<Product[]>([]);
+  console.log(products);
   const { data, isLoading, isError } = useProducts(params);
 
   useEffect(() => {
@@ -66,24 +85,25 @@ export default function FlashSaleCardPage() {
   const handleParamChange = (newParams: Partial<Params>) => {
     const resetPageKeys = ['search', 'category', 'size', 'color', 'priceMin', 'priceMax', 'discount'];
     const shouldResetPage = Object.keys(newParams).some((key) => resetPageKeys.includes(key));
-    setParams((prev: any) => ({
+    setParams((prev: Params) => ({
       ...prev,
       ...newParams,
       page: shouldResetPage ? 1 : prev.page,
     }));
+    console.log('Sample product:', data.products[0]);
     setProducts([]);
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleParamChange({ search: searchInput });
-  };
+  // const handleSearchSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   handleParamChange({ search: searchInput });
+  // };
 
   if (isError || !data)
-    return <div className="py-16 text-center text-lg text-red-500">Failed to load products</div>;
+    return <div className="py-16 text-center text-lg text-red-500 ">Failed to load products</div>;
 
   return (
-    <section className="py-10 px-4 max-w-7xl mx-auto">
+    <section className="py-10 px-4 max-w-7xl mx-auto ">
       <h1 className="text-3xl font-bold mb-12 text-center">All Flash Sale Products</h1>
       <button
         onClick={() => router.back()}
@@ -129,8 +149,8 @@ export default function FlashSaleCardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
-                  key={product._id}
-                  id={product._id}
+                  key={product.id}
+                  id={product.id}
                   title={product.title}
                   description={product.description || ''}
                   category={product.category}

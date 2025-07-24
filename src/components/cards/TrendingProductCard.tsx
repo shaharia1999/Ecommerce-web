@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
@@ -44,7 +45,14 @@ const TrendingProductCard = ({
             New
           </span>
         )}
-        <img src={image} alt={title} className="h-32 object-contain" />
+      <Image
+  src={image}
+  alt={title}
+  width={128} // h-32 = 8*16 = 128px
+  height={128}
+  className="object-contain"
+  priority // optional, if above the fold
+/>
         {/* Hover Icons */}
         <div
           className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${

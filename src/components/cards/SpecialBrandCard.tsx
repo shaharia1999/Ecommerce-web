@@ -12,8 +12,8 @@ type Props = {
   save: number;
 };
 
-const SpecialBrandCard = ({ title, image, price, oldPrice, rating, save,slug }: Props) => {
-  const handleBuyNow = useHandleBuyNow(); 
+const SpecialBrandCard = ({ title, image, price, oldPrice, rating, save, slug }: Props) => {
+  const handleBuyNow = useHandleBuyNow();
   return (
     <div className="relative flex items-center gap-6 bg-white rounded-2xl border p-4 shadow hover:scale-[1.02] transition cursor-pointer" onClick={() => handleBuyNow({ title, slug })}>
       {/* Save badge */}
@@ -21,13 +21,14 @@ const SpecialBrandCard = ({ title, image, price, oldPrice, rating, save,slug }: 
         Save ${save}
       </span>
       {/* Image */}
-      <div className="bg-gray-50 rounded-xl flex items-center justify-center w-28 h-28">
-        <Image 
-          src={image} 
-          alt={title} 
+     <div className="flex flex-wrap">
+       <div className="bg-gray-50 rounded-xl flex items-center justify-center w-full h-full">
+        <Image
+          src={image}
+          alt={title}
           width={96}
           height={96}
-          className="object-contain w-24 h-24" 
+          className="object-contain w-full h-full "
         />
       </div>
       {/* Info */}
@@ -45,6 +46,8 @@ const SpecialBrandCard = ({ title, image, price, oldPrice, rating, save,slug }: 
           <span className="text-gray-400 line-through text-base">${oldPrice.toFixed(2)}</span>
         </div>
       </div>
+     </div>
+
     </div>
   );
 };

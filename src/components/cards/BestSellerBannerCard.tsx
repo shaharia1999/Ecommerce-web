@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Props = {
   title: string;
   price: number;
@@ -16,12 +18,22 @@ const BestSellerBannerCard = ({ title, price, oldPrice, image }: Props) => {
       <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-8 py-3 rounded-lg shadow transition flex items-center gap-2 mb-4">
         Buy Now <span>↗</span>
       </button>
-      <img
+      {/* <img
         src={image}
         alt={title}
         className="absolute bottom-0 right-4 w-40 object-contain"
         style={{ pointerEvents: 'none', userSelect: 'none' }}
-      />
+      /> */}
+       <div className="absolute bottom-0 right-4 w-40 h-40" style={{ pointerEvents: 'none', userSelect: 'none' }}>
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-contain"
+          sizes="160px"
+          priority
+        />
+      </div>
     </div>
   );
 };

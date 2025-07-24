@@ -130,12 +130,19 @@ const FlashSaleCard = ({
           ))}
         </div>
 
-    
+
         <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
+          {/* <Image
+            src={mainImg}
+            alt={title}
+            fill
+            className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
+          /> */}
           <Image
             src={mainImg}
             alt={title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
           />
         </div>
@@ -168,14 +175,14 @@ const FlashSaleCard = ({
         ))}
       </div>
       <div className="mt-auto">
-  <button
-    onClick={() => handleBuyNow({ title, slug })}
-    className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-  >
-    Buy Now
-    <span className="text-sm">🛒</span>
-  </button>
-</div>
+        <button
+          onClick={() => handleBuyNow({ title, slug })}
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          Buy Now
+          <span className="text-sm">🛒</span>
+        </button>
+      </div>
 
 
     </div>
@@ -185,8 +192,8 @@ const FlashSaleCard = ({
 export default FlashSaleCard;
 
 
-    {/* Image */}
-        {/* <Image
+{/* Image */ }
+{/* <Image
           src={mainImg}
           alt={title}
           width={160}

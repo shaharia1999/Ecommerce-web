@@ -2,14 +2,24 @@
 'use client'
 import { useProducts } from '@/src/utils/useproducts';
 import SpecialBrandCard from '../cards/SpecialBrandCard';
-import Image from 'next/image';
 import Link from 'next/link';
 
+type Product = {
+  id: string;
+  title: string;
+  slug: string;
+  stock: number;
+  category: string;
+  originalPrice: number;
+  discountedPrice: number;
+  mainImg: string;
+  rating?: number; 
+};
 const SpecialBrandsSection = () => {
   const { data, isLoading, isError } = useProducts({ discount: true });
   // Filter products with discount up to 25%
   const filteredProducts = data?.products?.filter(
-    (product:any) => {
+    (product:Product) => {
       const original = product.originalPrice;
       const discounted = product.discountedPrice;
       const actualDiscountPercent = ((original - discounted) / original) * 100;
@@ -43,7 +53,7 @@ const SpecialBrandsSection = () => {
           {isError && <p>Failed to load products.</p>}
           {filteredProducts.length === 0 && !isLoading && <p>No special brands found.</p>}
 
-          {filteredProducts.map((item:any) => (
+          {filteredProducts.map((item: Product) => (
             <SpecialBrandCard
               key={item.id}
               title={item.title}

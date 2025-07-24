@@ -134,14 +134,18 @@ function ShopContent() {
   // Fix discount percentage calculation
   const discountPercentage = productData ? Number(product?.discount) || 0 : 0;
 
+// ...existing code...
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 py-16 mt-16">
+      <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 py-10 md:py-16 mt-16">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">Shop Details</h1>
-          <div className="flex items-center justify-center space-x-2 text-gray-600">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-800 mb-2 sm:mb-4">
+            Shop Details
+          </h1>
+          <div className="flex flex-wrap items-center justify-center space-x-1 sm:space-x-2 text-gray-600 text-xs sm:text-base">
             <span>Home</span>
             <span>›</span>
             <span>Shop</span>
@@ -152,33 +156,29 @@ function ShopContent() {
       </div>
 
       {/* Product Details Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 py-6 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Left: Product Images */}
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-
+            <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg">
               <ZoomImage src={mainImage || productData.mainImg} alt={productData.title} />
-
-
             </div>
-
-
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4">
               {(productData.images || [productData.mainImg]).slice(0, 4).map((imgSrc, idx) => (
                 <div
                   key={idx}
                   onClick={() => setMainImage(imgSrc)}
-                  className={`cursor-pointer bg-white rounded-lg p-2 shadow border-2 ${mainImage === imgSrc ? 'border-orange-500' : 'border-orange-200'
-                    }`}
+                  className={`cursor-pointer bg-white rounded-lg p-1 sm:p-2 shadow border-2 ${
+                    mainImage === imgSrc ? 'border-orange-500' : 'border-orange-200'
+                  }`}
+                  style={{ width: 64, height: 64 }}
                 >
                   <Image
                     src={imgSrc}
                     alt={`${productData.title} ${idx + 1}`}
-                    width={80}
-                    height={80}
-                    className="object-contain h-full"
+                    width={64}
+                    height={64}
+                    className="object-contain h-full w-full"
                   />
                 </div>
               ))}
@@ -186,54 +186,58 @@ function ShopContent() {
           </div>
 
           {/* Right: Product Information */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div>
-              <p className="text-orange-500 text-sm font-medium mb-2">{productData.category}</p>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">{productData.title}</h1>
+              <p className="text-orange-500 text-xs sm:text-sm font-medium mb-1 sm:mb-2">{productData.category}</p>
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">{productData.title}</h1>
 
               {/* Stock status */}
-              <div className="flex items-center space-x-4 mb-4">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${productData.stock > 0
-                  ? 'bg-green-100 text-green-800'
-                  : 'bg-red-100 text-red-800'
-                  }`}>
+              <div className="flex items-center space-x-2 sm:space-x-4 mb-2 sm:mb-4">
+                <span
+                  className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
+                    productData.stock > 0
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                  }`}
+                >
                   {productData.stock > 0 ? 'In Stock' : 'Out of Stock'} ({productData.stock})
                 </span>
               </div>
 
-              {/* Price - FIXED */}
-              <div className="flex items-center space-x-4 mb-6">
-                <span className="text-4xl font-bold text-gray-800">
+              {/* Price */}
+              <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 mb-4 sm:mb-6">
+                <span className="text-2xl sm:text-4xl font-bold text-gray-800">
                   ${productData.discountedPrice.toFixed(2)}
                 </span>
                 {discountPercentage > 0 && (
-                  <span className="text-xl text-gray-400 line-through">
+                  <span className="text-base sm:text-xl text-gray-400 line-through">
                     ${productData.originalPrice.toFixed(2)}
                   </span>
                 )}
                 {discountPercentage > 0 && (
-                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
+                  <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs sm:text-sm font-medium">
                     {discountPercentage}% OFF
                   </span>
                 )}
               </div>
 
               {/* Description */}
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                 {productData.description || 'High quality product with excellent features and durability.'}
               </p>
 
               {/* Color Selection */}
               {productData.colors && productData.colors.length > 0 && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">Color :</label>
-                  <div className="flex space-x-3">
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Color :</label>
+                  <div className="flex space-x-2 sm:space-x-3">
                     {productData.colors.map((color: string, idx: number) => (
                       <button
                         key={idx}
                         onClick={() => setSelectedColor(idx)}
-                        className={`w-8 h-8 rounded-full border-2 transition-all ${selectedColor === idx ? 'border-gray-800 scale-110' : 'border-gray-300'
-                          }`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all ${
+                          selectedColor === idx ? 'border-gray-800 scale-110' : 'border-gray-300'
+                        }`}
                         style={{ backgroundColor: color }}
                       />
                     ))}
@@ -243,17 +247,18 @@ function ShopContent() {
 
               {/* Size Selection */}
               {productData.sizes && productData.sizes.length > 0 && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">Size :</label>
-                  <div className="flex space-x-3">
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Size :</label>
+                  <div className="flex space-x-2 sm:space-x-3">
                     {productData.sizes.map((size: string) => (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 border rounded-lg font-medium transition-all ${selectedSize === size
-                          ? 'bg-orange-500 text-white border-orange-500'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
-                          }`}
+                        className={`px-2 py-1 sm:px-4 sm:py-2 border rounded-lg font-medium transition-all ${
+                          selectedSize === size
+                            ? 'bg-orange-500 text-white border-orange-500'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300'
+                        }`}
                       >
                         {size}
                       </button>
@@ -263,8 +268,8 @@ function ShopContent() {
               )}
 
               {/* Quantity and Actions */}
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="flex items-center border border-gray-300 rounded-lg">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-6">
+                <div className="flex items-center border border-gray-300 rounded-lg w-max">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="px-3 py-2 text-gray-600 hover:text-gray-800"
@@ -284,27 +289,27 @@ function ShopContent() {
                 <button
                   onClick={handleBuyNow}
                   disabled={productData.stock === 0}
-                  className="flex-1 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 transition-all duration-300 disabled:bg-gray-400"
+                  className="flex-1 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 transition-all duration-300 disabled:bg-gray-400 mt-2 sm:mt-0"
                 >
                   Buy Now
                 </button>
 
                 <button
                   disabled={productData.stock === 0}
-                  className="bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600 transition-all duration-300 disabled:bg-gray-400"
+                  className="flex-1 bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600 transition-all duration-300 disabled:bg-gray-400 mt-2 sm:mt-0"
                 >
                   Add To Cart
                 </button>
               </div>
 
               {/* Product Info */}
-              <div className="space-y-2 text-sm">
+              <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                 <div className="flex">
-                  <span className="font-medium text-gray-700 w-20">SKU:</span>
+                  <span className="font-medium text-gray-700 w-16 sm:w-20">SKU:</span>
                   <span className="text-gray-600">{productData.id.slice(-8).toUpperCase()}</span>
                 </div>
                 <div className="flex">
-                  <span className="font-medium text-gray-700 w-20">Category:</span>
+                  <span className="font-medium text-gray-700 w-16 sm:w-20">Category:</span>
                   <span className="text-gray-600">{productData.category}</span>
                 </div>
               </div>
@@ -315,6 +320,9 @@ function ShopContent() {
     </div>
   );
 }
+
+// ...existing code...
+
 
 export default function ShopPage() {
   return (

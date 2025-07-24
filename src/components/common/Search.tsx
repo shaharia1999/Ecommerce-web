@@ -1,5 +1,6 @@
 'use client';
 import { useHandleBuyNow } from '@/src/utils/commonfunction';
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 interface ParamsType {
@@ -90,15 +91,26 @@ useEffect(() => {
       handleBuyNow({ title: item.title, slug: item.slug });
       setShowDrawer(false);
     }}>
-    <div className="w-14 h-14 flex-shrink-0"
- 
+    {/* <div className="w-14 h-14 flex-shrink-0"
     >
       <img
         src={item.mainImg}
         alt={item.title}
         className="w-full h-full object-cover rounded"
       />
-    </div>
+    </div> */}
+
+    <div className="w-14 h-14 flex-shrink-0 relative">
+  <Image
+    src={item.mainImg}
+    alt={item.title}
+    fill
+    className="object-cover rounded"
+    sizes="56px"
+  />
+</div>
+
+
     <div>
       <p className="font-medium text-gray-800">{item.title}</p>
       <p className="text-sm text-gray-500">৳{item.discountedPrice}</p>

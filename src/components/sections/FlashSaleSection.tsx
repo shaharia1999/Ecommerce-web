@@ -8,6 +8,26 @@ import Link from 'next/link';
 import { useProducts } from '@/src/utils/useproducts';
 // import { useProducts } from '../../utils/api';
 
+type Product = {
+  id?: string;
+  _id?: string;
+  title: string;
+  description?: string;
+  category?: string;
+  discountedPrice: number;
+  originalPrice: number;
+  discount?: number;
+  stock?: number;
+  slug: string;
+  mainImg: string;
+  images?: string[];
+  rating?: number;
+  reviews?: number;
+  filters?: {
+    size?: string[];
+    color?: string[];
+  };
+};
 const FlashSaleSection = () => {
   // const { data, isLoading, isError } = useProducts();
   const { data, isLoading, isError } = useProducts({ discount: true });
@@ -19,6 +39,7 @@ const FlashSaleSection = () => {
   }
 
   const products = data.products || [];
+  console.log('Sample product:', products[0]);
   return (
     <section className="my-10 px-4">
       {/* Header Section */}
@@ -71,10 +92,10 @@ const FlashSaleSection = () => {
               1280: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {products.map((product: any, index: any) => (
+            {products.map((product: Product, index: number) => (
               <SwiperSlide key={product._id || index}>
                 <FlashSaleCard
-                  id={product._id || product.id}
+                 id={product._id || product.id || ''}
                   title={product.title}
                   description={product.description}
                   category={product.category}

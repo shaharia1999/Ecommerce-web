@@ -72,9 +72,8 @@ const NewArrivalCard = ({
         )}
         {/* Icons */}
         <div
-          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 z-20  ${
-            hovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-5 pointer-events-none"
-          }`}
+          className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 z-20  ${hovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-5 pointer-events-none"
+            }`}
         >
           {["shuffle", "love", "cart"].map((icon) => (
             <div key={icon} className="relative group">
@@ -105,8 +104,8 @@ const NewArrivalCard = ({
                   icon === "cart"
                     ? "Add to Cart"
                     : icon === "love"
-                    ? "Add to Wishlist"
-                    : ""
+                      ? "Add to Wishlist"
+                      : ""
                 }
               >
                 {icon === "shuffle" && <span>🔄</span>}
@@ -117,11 +116,18 @@ const NewArrivalCard = ({
           ))}
         </div>
         {/* Image */}
-        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
+        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white">
+          {/* <Image
+            src={image}
+            alt={title}
+            fill
+            className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
+          /> */}
           <Image
             src={image}
             alt={title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="hover:scale-105 rounded-lg transition-transform duration-300  z-10"
           />
         </div>

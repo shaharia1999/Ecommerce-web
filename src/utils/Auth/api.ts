@@ -3,7 +3,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 interface ApiOptions extends Omit<RequestInit, 'body'> {
   headers?: Record<string, string>;
   token?: string;
-  json?: Record<string, any>; // use this instead of body
+json?: Record<string, unknown>; // use this instead of any // use this instead of body
 }
 
 

@@ -1,3 +1,4 @@
+// import Image from 'next/image';
 import Link from 'next/link';
 // import Image from 'next/image';
 
@@ -9,10 +10,21 @@ type Props = {
   link: string;
 };
 
-const BannerCard = ({ title, description, image, buttonText, link }: Props) => {
+const BannerCard = ({ title, description, buttonText, link }: Props) => {
   return (
     <div className="relative rounded overflow-hidden shadow-lg group">
+      {/* eta comment chilo */}
       {/* <img src={image} alt={title}  className="w-full h-64 object-cover" /> */}
+      <div className="relative w-full h-64">
+        {/* <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        /> */}
+      </div>
       <div className="absolute inset-0 bg-purple-600 bg-opacity-40 flex flex-col justify-center items-center text-center text-white p-4">
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         <p className="mb-4">{description}</p>

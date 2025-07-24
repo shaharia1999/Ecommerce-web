@@ -7,6 +7,7 @@ const Footer = () => {
         
         {/* Column 1: Brand Info */}
         {/*  */}
+        {/*  */}
         <div>
           <h2 className="text-2xl font-bold mb-2">Easy Shop</h2>
           <p className="text-sm mb-4">

@@ -42,7 +42,7 @@ const Navbar = ({ className = '' }) => {
   const currentCategory = searchParams.get('category');
   const { cart } = useCart();
   const { wishlistCount } = useWishlist();
-const [token, setToken] = React.useState<string | null>(null);
+  const [token, setToken] = React.useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   useEffect(() => {
@@ -71,19 +71,19 @@ const [token, setToken] = React.useState<string | null>(null);
   });
 
   // console.log(params)
-const [products, setProducts] = useState<Product[]>([]); // Replace with your product type if a
+  const [products, setProducts] = useState<Product[]>([]); // Replace with your product type if a
 
   // const { data, isLoading, isError } = useProducts(params);
-  const { data} = useProducts(params);
+  const { data } = useProducts(params);
   // Set products after fetching
-// ...existing code...
-useEffect(() => {
-  if (data?.products) {
-    // console.log('Sample product:', data.products[0]); // ekhane console.log
-    setProducts(data.products);
-  }
-}, [params, data]);
-// ...existing code...
+  // ...existing code...
+  useEffect(() => {
+    if (data?.products) {
+      // console.log('Sample product:', data.products[0]); // ekhane console.log
+      setProducts(data.products);
+    }
+  }, [params, data]);
+  // ...existing code...
 
 
 
@@ -96,7 +96,14 @@ useEffect(() => {
           {/* Desktop View */}
           <div className="hidden md:flex justify-between items-center">
             <div className="flex-shrink-0">
-              <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={140} height={20} />
+              {/* <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={140} height={20} /> */}
+              <Image
+                src="/images/llogo-removebg-preview-main - Copy.png"
+                alt="Logo"
+                width={140}
+                height={20}
+                style={{ height: "auto" }} // Add this line
+              />
             </div>
             <div className="w-1/2">
               <SearchBar data={products || []} setParams={setParams} />
@@ -137,7 +144,14 @@ useEffect(() => {
           {/* Mobile View */}
           <div className="flex flex-col gap-3 md:hidden">
             <div className="flex justify-between items-center">
-              <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={120} height={20} />
+              {/* <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={120} height={20} /> */}
+              <Image
+                src="/images/llogo-removebg-preview-main - Copy.png"
+                alt="Logo"
+                width={120}
+                height={20}
+                style={{ height: "auto" }} // Maintains aspect ratio
+              />
               <div className="flex items-center space-x-4">
                 <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
                   <GiShoppingCart />
@@ -176,86 +190,82 @@ useEffect(() => {
           </div>
         </div>
         {/* Navigation Bar */}
-       <nav className={`bg-gradient-to-r from-orange-400 to-orange-500 shadow-md w-full ${className}`}>
-      <div className="max-w-[1285px] mx-auto flex items-center justify-between px-6 py-2">
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-white text-3xl focus:outline-none"
-          >
-            {mobileMenuOpen ? <HiX /> : <HiOutlineMenu />}
-          </button>
-        </div>
+        <nav className={`bg-gradient-to-r from-orange-400 to-orange-500 shadow-md w-full ${className}`}>
+          <div className="max-w-[1285px] mx-auto flex items-center justify-between px-6 py-2">
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white text-3xl focus:outline-none"
+              >
+                {mobileMenuOpen ? <HiX /> : <HiOutlineMenu />}
+              </button>
+            </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-grow justify-center space-x-8">
-          {navLinks
-            .filter((nav) => !(pathname === '/Viewall' && nav.href.startsWith('/Viewall')))
-            .map((nav) => {
-              const isActive =
-                nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
-              return (
-                <Link
-                  key={nav.href}
-                  href={nav.href}
-                  className={`text-white font-medium transition ${
-  isActive
-    ? 'text-gray-200 underline underline-offset-4'
-    : 'text-gray-200 hover:text-white'
-}`}
-                >
-                  {nav.label}
-                </Link>
-              );
-            })}
-        </div>
-      </div>
-
-      {/* Mobile Drawer & Backdrop */}
-      <>
-        {/* Backdrop */}
-        <div
-          className={`fixed inset-0 bg-black/30 backdrop-blur-[1px] z-40 transition-opacity duration-300${
-            mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
-          onClick={() => setMobileMenuOpen(false)}
-        />
-
-        {/* Drawer */}
-        <div
-          className={`fixed top-0 left-0 h-full w-[80%] bg-white z-50 shadow-lg transition-transform duration-300 ease-in-out transform ${
-            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
-        >
-          <div className="p-4">
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl text-gray-600 hover:text-red-500 mb-4"
-            >
-              <HiX />
-            </button>
-{navLinks.map((nav) => {
-  const isActive =
-    nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
-  return (
-    <Link
-      key={nav.href}
-      href={nav.href}
-      onClick={() => setMobileMenuOpen(false)}
-      className={`block text-black hover:text-red-500 text-base font-medium py-3 px-4 border-b border-gray-200 ${
-        isActive ? 'text-red-500' : 'text-black hover:text-red-500'
-      }`}
-    >
-      {nav.label}
-    </Link>
-  );
-})}
-
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex flex-grow justify-center space-x-8">
+              {navLinks
+                .filter((nav) => !(pathname === '/Viewall' && nav.href.startsWith('/Viewall')))
+                .map((nav) => {
+                  const isActive =
+                    nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
+                  return (
+                    <Link
+                      key={nav.href}
+                      href={nav.href}
+                      className={`text-white font-medium transition ${isActive
+                        ? 'text-gray-200 underline underline-offset-4'
+                        : 'text-gray-200 hover:text-white'
+                        }`}
+                    >
+                      {nav.label}
+                    </Link>
+                  );
+                })}
+            </div>
           </div>
-        </div>
-      </>
-    </nav>
+
+          {/* Mobile Drawer & Backdrop */}
+          <>
+            {/* Backdrop */}
+            <div
+              className={`fixed inset-0 bg-black/30 backdrop-blur-[1px] z-40 transition-opacity duration-300${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Drawer */}
+            <div
+              className={`fixed top-0 left-0 h-full w-[80%] bg-white z-50 shadow-lg transition-transform duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                }`}
+            >
+              <div className="p-4">
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-2xl text-gray-600 hover:text-red-500 mb-4"
+                >
+                  <HiX />
+                </button>
+                {navLinks.map((nav) => {
+                  const isActive =
+                    nav.href === pathname || (pathname === '/Viewall' && nav.category === currentCategory);
+                  return (
+                    <Link
+                      key={nav.href}
+                      href={nav.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block text-black hover:text-red-500 text-base font-medium py-3 px-4 border-b border-gray-200 ${isActive ? 'text-red-500' : 'text-black hover:text-red-500'
+                        }`}
+                    >
+                      {nav.label}
+                    </Link>
+                  );
+                })}
+
+              </div>
+            </div>
+          </>
+        </nav>
       </div>
       {/* Fixed Header End */}
       {/* Padding for fixed header */}
