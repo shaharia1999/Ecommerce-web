@@ -1,7 +1,6 @@
 import { BackendProduct, ProductQueryParams } from './type';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
 export const productAPI = {
   getProductBySlug: async (slug: string): Promise<BackendProduct> => {
     const res = await fetch(`${BASE_URL}/products/${slug}`);
