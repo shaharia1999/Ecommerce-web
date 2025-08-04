@@ -8,7 +8,7 @@ const Banner = () => {
 <div className="w-full max-w-[1285px] mx-auto h-[500px] bg-white rounded-xl shadow-md overflow-hidden flex items-center justify-center">
   <Image
     src="/images/Banner.jpg"
-    alt="Ecommerce Banner"
+    alt="Ecommerce Banner Image"
     width={1285}
     height={0}
     className="w-full h-full object-cover"
