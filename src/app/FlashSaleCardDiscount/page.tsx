@@ -7,6 +7,7 @@ import SearchAndSortBar from './components/SearchAndSortBar';
 import FlashSaleCard from '@/src/components/cards/FlashSaleCard';
 import Pagination from './components/Pagination';
 import { useRouter } from "next/navigation";
+import { BackendProduct } from '@/src/utils/type';
 
 type ParamsType = {
   page: number;
@@ -38,7 +39,7 @@ export default function FlashSaleCardPage() {
   });
 
   const router = useRouter();
-  const [products, setProducts] = useState<any[]>([]); // Ideally, replace any with your Product type
+  const [products, setProducts] = useState<BackendProduct[]>([]); // Ideally, replace any with your Product type
 
   const { data, isLoading, isError } = useProducts(params);
 
@@ -133,7 +134,7 @@ export default function FlashSaleCardPage() {
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
-                  key={product.id}
+                  key={product._id}
                   id={product._id}
                   title={product.title}
                   description={product.description || ''}
