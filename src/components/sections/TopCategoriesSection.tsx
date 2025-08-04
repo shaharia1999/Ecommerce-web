@@ -6,8 +6,6 @@ import { useProducts } from '@/src/utils/useproducts';
 import NewArrivalCard from '../cards/NewArrivalCard';
 import Link from 'next/link';
 import Image from 'next/image';
-
-
 type Product = {
   id: string;
   title: string;

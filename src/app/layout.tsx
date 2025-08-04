@@ -7,6 +7,7 @@ import Footer from "../components/common/Footer";
 import QueryProvider from "../providers/QueryProvider";
 import { CartProvider } from "../context/CartContext";
 import { WishlistProvider } from "../context/WishlistContext";
+import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,16 +23,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen `}>
+        
         <QueryProvider>
           <WishlistProvider>
             <CartProvider>
-            {/* Sticky Navbar */}
-            <Navbar className="sticky top-0 z-50 mx-auto" />
-            {/* Main content fills available space */}
-            <main className="flex-1 pt-4">{children}</main>
-            {/* Footer always at bottom */}
-            <Footer />
-          </CartProvider>
+              {/* Sticky Navbar */}
+              <Suspense fallback={<div className="text-center p-6">Loading...</div>}>
+                <Navbar className="sticky top-0 z-50 mx-auto" />
+              </Suspense>
+
+              {/* Main content fills available space */}
+              <main className="flex-1 pt-4">{children}</main>
+              {/* Footer always at bottom */}
+              <Footer />
+            </CartProvider>
           </WishlistProvider>
         </QueryProvider>
       </body>

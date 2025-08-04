@@ -7,8 +7,10 @@ import { SetCookies, SetCookiesId } from '@/src/utils/Cookies/Set-Cookies';
 import { AuthResponse, UserCredentials } from '@/src/utils/type';
 import { apiFetch } from '@/src/utils/Auth/api';
 interface RegisterCredentials extends UserCredentials {
-
+  name?: string;
+  // or other fields specific to registration
 }
+
 
 const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -156,7 +158,7 @@ const AuthPage: React.FC = () => {
                 <p className="mt-3 text-center text-gray-600">
                     {isLogin ? (
                         <>
-                            Don't have an account?{' '}
+                            Don not have an account?{' '}
                             <button
                                 type="button"
                                 onClick={() => {
