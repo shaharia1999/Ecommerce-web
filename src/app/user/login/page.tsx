@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -27,7 +26,7 @@ const AuthPage: React.FC = () => {
             console.log('Attempting login for:', credentials.email); // Debug log
             return apiFetch<AuthResponse>('auth/login', {
                 method: 'POST',
-                json: credentials,
+                json: credentials as unknown as Record<string, unknown>,
             });
         },
         onSuccess: async (data) => {
@@ -60,7 +59,7 @@ const AuthPage: React.FC = () => {
             // Assuming your register endpoint is 'auth/register' and expects email, password
             return apiFetch<AuthResponse>('auth/register', {
                 method: 'POST',
-                json: credentials,
+                json: credentials as unknown as Record<string, unknown>,
             });
         },
         onSuccess: async (data) => { // Added async here
