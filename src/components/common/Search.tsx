@@ -81,45 +81,40 @@ useEffect(() => {
         </button>
       </div>
 
-      {showDrawer && (
-        <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 shadow-lg rounded-xl z-[1000] max-h-80 overflow-auto">
-         {filteredData.map((item, idx) => (
-  <div
-    key={idx}
-    className="flex items-center gap-4 px-4 py-3 border-b hover:bg-gray-100 cursor-pointer "
-     onClick={() => {
-      handleBuyNow({ title: item.title, slug: item.slug });
-      setShowDrawer(false);
-    }}>
-    {/* <div className="w-14 h-14 flex-shrink-0"
-    >
-      <img
-        src={item.mainImg}
-        alt={item.title}
-        className="w-full h-full object-cover rounded"
-      />
-    </div> */}
+   {showDrawer && (
+  <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 shadow-lg rounded-xl z-[1000] max-h-80 overflow-auto">
+    {filteredData.length > 0 ? (
+      filteredData.map((item, idx) => (
+        <div
+          key={idx}
+          className="flex items-center gap-4 px-4 py-3 border-b hover:bg-gray-100 cursor-pointer"
+          onClick={() => {
+            handleBuyNow({ title: item.title, slug: item.slug });
+            setShowDrawer(false);
+          }}
+        >
+          <div className="w-14 h-14 flex-shrink-0 relative">
+            <Image
+              src={item.mainImg}
+              alt={item.title}
+              fill
+              className="object-cover rounded"
+              sizes="56px"
+            />
+          </div>
 
-    <div className="w-14 h-14 flex-shrink-0 relative">
-  <Image
-    src={item.mainImg}
-    alt={item.title}
-    fill
-    className="object-cover rounded"
-    sizes="56px"
-  />
-</div>
-
-
-    <div>
-      <p className="font-medium text-gray-800">{item.title}</p>
-      <p className="text-sm text-gray-500">৳{item.discountedPrice}</p>
-    </div>
-  </div>
-))}
-
+          <div>
+            <p className="font-medium text-gray-800">{item.title}</p>
+            <p className="text-sm text-gray-500">৳{item.discountedPrice}</p>
+          </div>
         </div>
-      )}
+      ))
+    ) : (
+      <div className="text-center py-6 text-gray-500">No data found</div>
+    )}
+  </div>
+)}
+
     </div>
   );
 };

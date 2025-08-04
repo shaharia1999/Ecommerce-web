@@ -42,7 +42,7 @@ export default function FlashSaleCardPage() {
   const [products, setProducts] = useState<BackendProduct[]>([]);
   const [manualLoading, setManualLoading] = useState(false);
 
-  const { data, isLoading, isError } = useProducts(params);
+  const { data, isLoading } = useProducts(params);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -79,18 +79,6 @@ export default function FlashSaleCardPage() {
     setProducts([]); // Clear old products immediately
   };
 
-  if (isError || !data)
-    return (
-      <div className="py-16 text-center text-lg text-red-500">
-        Failed to load products.{' '}
-        <button
-          onClick={() => location.reload()}
-          className="underline text-blue-500"
-        >
-          Retry
-        </button>
-      </div>
-    );
 
   const { limit } = params;
 
@@ -150,9 +138,9 @@ export default function FlashSaleCardPage() {
                     product.discount ?? (
                       product.originalPrice
                         ? Math.round(
-                            ((product.originalPrice - product.discountedPrice) /
-                              product.originalPrice) * 100
-                          )
+                          ((product.originalPrice - product.discountedPrice) /
+                            product.originalPrice) * 100
+                        )
                         : 0
                     )
                   }
@@ -177,14 +165,17 @@ export default function FlashSaleCardPage() {
             )
           )}
 
-          <Pagination
-            page={data.page ?? 1}
-            totalPages={data.pages ?? 1}
-            onPageChange={(newPage) => {
-              setManualLoading(true);
-              setParams((prev) => ({ ...prev, page: newPage }));
-            }}
-          />
+          {data && (
+            <Pagination
+              page={data.page ?? 1}
+              totalPages={data.pages ?? 1}
+              onPageChange={(newPage) => {
+                setManualLoading(true);
+                setParams((prev) => ({ ...prev, page: newPage }));
+              }}
+            />
+          )}
+
         </div>
       </div>
     </section>

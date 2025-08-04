@@ -1,16 +1,17 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { IoSearch } from "react-icons/io5";
+import { IoCloseCircle, IoSearch } from 'react-icons/io5';
+
 type SortParams = {
   search?: string;
   sortBy?: 'discountedPrice' | 'createdAt';
   sortOrder?: 'asc' | 'desc';
 };
+
 type Props = {
   params: SortParams;
   onChange: (newParams: Partial<SortParams>) => void;
 };
-
 
 const SearchAndSortBar = ({ params, onChange }: Props) => {
   const [searchInput, setSearchInput] = useState(params.search || '');
@@ -35,45 +36,61 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
     }
   };
 
+  const handleClearSearch = () => {
+    setSearchInput('');
+    onChange({ search: '' });
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex items-center justify-between mb-4 gap-4 flex-wrap">
-    <div className='flex items-center gap-2 md:w-1/2  justify-between'>
-        <div className=' w-full'>
-          <input
-        type="text"
-        placeholder="Search products..."
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-        className="w-full border-1 border-gray-300 rounded shadow-sm p-2"
-      />
-        </div>
-      <div className=''>
+      {/* Search Input + Button + Clear */}
+      <div className="flex items-center gap-2 md:w-1/2 justify-between relative w-full">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchInput}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+            onChange({ search: e.target.value }); // Live onChange
+          }}
+          className="w-full border-1 border-gray-300 rounded shadow-sm p-2 pr-10"
+        />
+        {searchInput && (
+          <button
+            type="button"
+            onClick={handleClearSearch}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            aria-label="Clear search"
+          >
+            <IoCloseCircle size={20} />
+          </button>
+        )}
+      
         <button
-        type="submit"
-        aria-label="Search"
-        className="bg-orange-500 text-white px-4 py-[11px] rounded hover:bg-orange-700"
-      >
-        <IoSearch  className="text-xl"/>
-      </button>
-      </div>
+          type="submit"
+          aria-label="Search"
+          className="bg-orange-500 text-white px-4 py-[11px] rounded hover:bg-orange-700"
+        >
+          <IoSearch className="text-xl" />
+        </button>
       </div>
 
+      {/* Sort Dropdown */}
       <select
-        value={
-          params.sortBy === 'discountedPrice'
-            ? params.sortOrder === 'asc'
-              ? 'discountedPrice'
-              : '-discountedPrice'
-            : 'createdAt'
-        }
-        onChange={handleSortChange}
-        className="border-1 border-gray-300 shadow p-2 rounded"
-      >
-        <option value="createdAt">Newest</option>
-        <option value="discountedPrice">Price (Low to High)</option>
-        <option value="-discountedPrice">Price (High to Low)</option>
-      </select>
-      
+  value={
+    params.sortBy === 'discountedPrice'
+      ? params.sortOrder === 'asc'
+        ? 'discountedPrice'
+        : '-discountedPrice'
+      : 'createdAt'
+  }
+  onChange={handleSortChange}
+  className="border-1 border-gray-300 shadow p-2 rounded"
+>
+  <option value="createdAt">Newest</option>
+  <option value="discountedPrice">Price (Low to High)</option>
+  <option value="-discountedPrice">Price (High to Low)</option>
+</select>
     </form>
   );
 };

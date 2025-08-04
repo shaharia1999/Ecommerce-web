@@ -75,7 +75,7 @@ export default function FlashSaleCardPage() {
   // const [searchInput, setSearchInput] = useState(search);
   const [products, setProducts] = useState<Product[]>([]);
   console.log(products);
-  const { data, isLoading, isError } = useProducts(params);
+  const { data, isLoading } = useProducts(params);
 
   useEffect(() => {
     if (data?.products) {
@@ -100,8 +100,8 @@ export default function FlashSaleCardPage() {
   //   handleParamChange({ search: searchInput });
   // };
 
-  if (isError || !data)
-    return <div className="py-16 text-center text-lg text-red-500 ">Failed to load products</div>;
+//   if (isError || !data)
+//     return <div className="py-16 text-center text-lg text-red-500 ">Failed to load products</div>;
 
   return (
     <section className="py-10 px-4 max-w-7xl mx-auto ">
@@ -180,11 +180,14 @@ export default function FlashSaleCardPage() {
             !isLoading && <div className="text-center text-gray-500 py-8">No products found</div>
           )}
 
-          <Pagination
+          {
+            data &&  <Pagination
             page={data.page ?? 1}
             totalPages={data.pages ?? 1}
             onPageChange={(newPage) => setParams((prev) => ({ ...prev, page: newPage }))}
           />
+          }
+         
         </div>
       </div>
     </section>
