@@ -28,7 +28,7 @@ export default function RootLayout({
           <WishlistProvider>
             <CartProvider>
               {/* Sticky Navbar */}
-              <Suspense fallback={<div className="text-center p-6">Loading...</div>}>
+              <Suspense >
                 <Navbar className="sticky top-0 z-50 mx-auto" />
               </Suspense>
 
