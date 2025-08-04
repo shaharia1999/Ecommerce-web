@@ -31,9 +31,33 @@ type Product = {
 const FlashSaleSection = () => {
   // const { data, isLoading, isError } = useProducts();
   const { data, isLoading, isError } = useProducts({ discount: true });
-  if (isLoading) {
-    return <div className="my-10 px-4 text-center">Loading...</div>;
-  }
+    if (isLoading) {
+  return (
+    <section className="my-10 px-4">
+      <div className="flex items-center justify-between mb-6">
+        <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-6 w-60 bg-orange-100 rounded animate-pulse"></div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className="border rounded-lg shadow-sm p-4 space-y-3 animate-pulse"
+          >
+            <div className="h-40 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+            <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+            <div className="flex gap-2">
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
   if (isError || !data) {
     return <div className="my-10 px-4 text-center text-red-500">Failed to load products</div>;
   }
