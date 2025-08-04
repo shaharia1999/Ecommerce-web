@@ -13,20 +13,20 @@ type Product = {
   originalPrice: number;
   discountedPrice: number;
   mainImg: string;
-  rating?: number; 
+  rating?: number;
 };
 const SpecialBrandsSection = () => {
   const { data, isLoading, isError } = useProducts({ discount: true });
   // Filter products with discount up to 25%
   const filteredProducts = data?.products?.filter(
-    (product:Product) => {
+    (product: Product) => {
       const original = product.originalPrice;
       const discounted = product.discountedPrice;
       const actualDiscountPercent = ((original - discounted) / original) * 100;
       return actualDiscountPercent <= 25;
     }
   ) || [];
-// console.log(filteredProducts);
+  // console.log(filteredProducts);
   return (
     <section className="my-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
@@ -49,7 +49,22 @@ const SpecialBrandsSection = () => {
 
         {/* Brands Grid */}
         <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {isLoading && <p>Loading...</p>}
+          {isLoading && (
+            <>
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="border rounded-lg p-4 space-y-3 animate-pulse bg-white">
+                  <div className="h-40 bg-gray-200 rounded-md w-full"></div>
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mt-3"></div>
+                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                  <div className="flex gap-2 mt-2">
+                    <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+
           {isError && <p>Failed to load products.</p>}
           {filteredProducts.length === 0 && !isLoading && <p>No special brands found.</p>}
 

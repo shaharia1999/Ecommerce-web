@@ -39,17 +39,22 @@ export default function FlashSaleCardPage() {
   });
 
   const router = useRouter();
-  const [products, setProducts] = useState<BackendProduct[]>([]); // Ideally, replace any with your Product type
+  const [products, setProducts] = useState<BackendProduct[]>([]);
+  const [manualLoading, setManualLoading] = useState(false);
 
   const { data, isLoading, isError } = useProducts(params);
 
   useEffect(() => {
-    if (data?.products) {
-      setProducts(data.products);
-    }
+    const timer = setTimeout(() => {
+      if (data?.products) {
+        setProducts(data.products);
+      }
+      setManualLoading(false);
+    }, 100); // small delay to avoid flicker
+
+    return () => clearTimeout(timer);
   }, [params, data]);
 
-  // Update params and reset page if filter keys changed
   const handleParamChange = (newParams: Partial<ParamsType>) => {
     const resetPageKeys: (keyof ParamsType)[] = [
       'search',
@@ -77,7 +82,13 @@ export default function FlashSaleCardPage() {
   if (isError || !data)
     return (
       <div className="py-16 text-center text-lg text-red-500">
-        Failed to load products
+        Failed to load products.{' '}
+        <button
+          onClick={() => location.reload()}
+          className="underline text-blue-500"
+        >
+          Retry
+        </button>
       </div>
     );
 
@@ -95,18 +106,14 @@ export default function FlashSaleCardPage() {
       </button>
 
       <div className="flex gap-4 flex-wrap mx-auto">
-        {/* Sidebar */}
         <div className="w-72 mx-auto">
           <FilterSidebar params={params} onChange={handleParamChange} />
         </div>
 
-        {/* Main Content */}
         <div className="flex-1">
-          {/* Search & Sort */}
           <SearchAndSortBar params={params} onChange={handleParamChange} />
 
-          {/* Loader Skeleton */}
-          {isLoading && (
+          {(isLoading || manualLoading) && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {Array.from({ length: limit }).map((_, index) => (
                 <div
@@ -129,8 +136,7 @@ export default function FlashSaleCardPage() {
             </div>
           )}
 
-          {/* Product Grid */}
-          {!isLoading && products.length > 0 ? (
+          {!isLoading && !manualLoading && products.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
@@ -141,14 +147,14 @@ export default function FlashSaleCardPage() {
                   category={product.category}
                   price={product.discountedPrice}
                   discount={
-                    product.discount ??
-                    (product.originalPrice
-                      ? Math.round(
-                          ((product.originalPrice - product.discountedPrice) /
-                            product.originalPrice) *
-                            100
-                        )
-                      : 0)
+                    product.discount ?? (
+                      product.originalPrice
+                        ? Math.round(
+                            ((product.originalPrice - product.discountedPrice) /
+                              product.originalPrice) * 100
+                          )
+                        : 0
+                    )
                   }
                   stock={product.stock}
                   slug={product.slug}
@@ -165,18 +171,19 @@ export default function FlashSaleCardPage() {
               ))}
             </div>
           ) : (
-            !isLoading && (
+            !isLoading &&
+            !manualLoading && (
               <div className="text-center text-gray-500 py-8">No products found</div>
             )
           )}
 
-          {/* Pagination */}
           <Pagination
             page={data.page ?? 1}
             totalPages={data.pages ?? 1}
-            onPageChange={(newPage) =>
-              setParams((prev) => ({ ...prev, page: newPage }))
-            }
+            onPageChange={(newPage) => {
+              setManualLoading(true);
+              setParams((prev) => ({ ...prev, page: newPage }));
+            }}
           />
         </div>
       </div>
