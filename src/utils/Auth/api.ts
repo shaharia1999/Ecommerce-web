@@ -1,5 +1,6 @@
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'; // Replace with your actual backend URL
+// const API_BASE_URL = 'http://localhost:5000'; // Replace with your actual backend URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ; // Replace with your actual backend URL
 interface ApiOptions extends Omit<RequestInit, 'body'> {
   headers?: Record<string, string>;
   token?: string;
