@@ -129,19 +129,20 @@ useEffect(() => {
           <h1 className="text-2xl font-bold text-gray-800">চেকআউট</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"> 
+          
           {/* Billing Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-bold mb-6">বিলিং ডিটেইল</h2>
               <div className="space-y-4">
-                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="নাম লিখুন" className="w-full px-4 py-3 border rounded-lg" />
-                <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="01xxxxxxxxx" className="w-full px-4 py-3 border rounded-lg" />
-                <select name="district" value={formData.district} onChange={handleInputChange} className="w-full px-4 py-3 border rounded-lg">
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="নাম লিখুন" className="w-full px-4 py-3  border-1 border-gray-300 rounded-lg" />
+                <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="01xxxxxxxxx" className="w-full px-4 py-3  border-1 border-gray-300 rounded-lg" />
+                <select name="district" value={formData.district} onChange={handleInputChange} className="w-full px-4 py-3  border-1 border-gray-300 rounded-lg">
                   <option value="">জেলা নির্বাচন করুন</option>
                   {districts.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
-                <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="সম্পূর্ণ ঠিকানা লিখুন" className="w-full px-4 py-3 border rounded-lg" />
+                <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="সম্পূর্ণ ঠিকানা লিখুন" className="w-full px-4 py-3  border-1 border-gray-300 rounded-lg" />
               </div>
             </div>
           </div>
@@ -167,7 +168,7 @@ useEffect(() => {
                     <p className="text-sm text-gray-600">Qty: {singleProduct.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-800">৳{singleProduct.price * (singleProduct.quantity || 1)}</p>
+                    <p className="font-bold text-gray-800">৳{(singleProduct.price * (singleProduct.quantity || 1)).toFixed(0)}</p>
                   </div>
                 </div>
               ) : (
@@ -190,7 +191,7 @@ useEffect(() => {
                         <p className="text-sm text-gray-600">Qty: {item.quantity || 1}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-gray-800">৳{item.price * (item.quantity || 1)}</p>
+                        <p className="font-bold text-gray-800">৳{(item.price * (item.quantity || 1)).toFixed(0)}</p>
                       </div>
                     </div>
                   ))
@@ -201,16 +202,16 @@ useEffect(() => {
               <div className="mt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">সাব-টোটাল</span>
-                  <span className="font-medium">৳{singleProduct ? singleProduct.price : subtotal}</span>
+                  <span className="font-medium">৳{(singleProduct ? singleProduct.price : subtotal).toFixed(0)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">ডেলিভারি চার্জ</span>
-                  <span className="font-medium">৳{deliveryCharge}</span>
+                  <span className="font-medium">৳{deliveryCharge.toFixed(0)}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between text-lg font-bold">
                     <span>মোট</span>
-                    <span>৳{total}</span>
+                    <span>৳{total.toFixed(0)}</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +231,7 @@ useEffect(() => {
                     <span>প্রক্রিয়াধীন...</span>
                   </div>
                 ) : (
-                  `🛒 অর্ডার কনফার্ম করুন ৳${total}`
+                  `🛒 অর্ডার কনফার্ম করুন ৳${total.toFixed(0)}`
                 )}
               </button>
             </div>

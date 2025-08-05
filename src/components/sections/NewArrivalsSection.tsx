@@ -60,7 +60,7 @@ if (isLoading) {
   const products = data.products || [];
 // console.log(products);
   return (
-    <section className="my-10 px-4">
+    <section className="my-10 ">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="md:text-3xl font-bold">
@@ -94,7 +94,7 @@ if (isLoading) {
       </div>
 
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {products.map((item: Product) => (
           <NewArrivalCard
             key={item.id}

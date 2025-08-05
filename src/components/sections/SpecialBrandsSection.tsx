@@ -52,7 +52,7 @@ const SpecialBrandsSection = () => {
           {isLoading && (
             <>
               {[...Array(4)].map((_, index) => (
-                <div key={index} className="border rounded-lg p-4 space-y-3 animate-pulse bg-white">
+                <div key={index} className="border-1 border-gray-300 rounded-lg p-4 space-y-3 animate-pulse bg-white">
                   <div className="h-40 bg-gray-200 rounded-md w-full"></div>
                   <div className="h-4 bg-gray-300 rounded w-3/4 mt-3"></div>
                   <div className="h-4 bg-gray-300 rounded w-1/2"></div>
