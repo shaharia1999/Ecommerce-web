@@ -72,7 +72,7 @@ const SearchAndSortBar = ({ params, onChange }: Props) => {
           <button
             type="button"
             onClick={clearSearch}
-            className="absolute md:right-20 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-20 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
           >
             <IoCloseCircle size={20} />
           </button>
