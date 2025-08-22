@@ -8,7 +8,7 @@ import FlashSaleCard from '@/src/components/cards/FlashSaleCard';
 import Pagination from './components/Pagination';
 import { useRouter } from "next/navigation";
 import { BackendProduct } from '@/src/utils/type';
-
+import { FaFilter, FaTimes } from "react-icons/fa";
 type ParamsType = {
   page: number;
   limit: number;
@@ -24,6 +24,7 @@ type ParamsType = {
 };
 
 export default function FlashSaleCardPage() {
+  
   const [params, setParams] = useState<ParamsType>({
     page: 1,
     limit: 8,
@@ -41,6 +42,7 @@ export default function FlashSaleCardPage() {
   const router = useRouter();
   const [products, setProducts] = useState<BackendProduct[]>([]);
   const [manualLoading, setManualLoading] = useState(false);
+  const [showMobileFilter, setShowMobileFilter] = useState(false); // Mobile filter toggle state
 
   const { data, isLoading } = useProducts(params);
 
@@ -83,20 +85,44 @@ export default function FlashSaleCardPage() {
   const { limit } = params;
 
   return (
-    <section className="py-10 px-3 md:px-4 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-12 text-center">All Flash Sale Products</h1>
+    <section className="py-8 px-3 md:px-4 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">All Flash Sale Products</h1>
 
-      <button
-        onClick={() => router.back()}
-        className="mb-4 ml-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
-      >
-        ← Back
-      </button>
+      <div className='flex justify-between items-center mb-4'>
+        <div className='items-center text-center flex w-full h-full'>
+          <button
+            onClick={() => router.back()}
+            className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
+          >
+            ← Back
+          </button>
+        </div>
+        <div className='block md:hidden'>
+          <button 
+            onClick={() => setShowMobileFilter(!showMobileFilter)}
+            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 "
+          >
+            {showMobileFilter ? (
+              <FaTimes className=' text-gray-600' />
+            ) : (
+              <FaFilter className=' text-gray-600' />
+            )}
+          </button>
+        </div>
+      </div>
 
       <div className="flex gap-4 flex-wrap mx-auto">
-        <div className="w-72 mx-auto">
+        {/* Desktop Filter Sidebar */}
+        <div className="w-72 mx-auto hidden md:block">
           <FilterSidebar params={params} onChange={handleParamChange} />
         </div>
+
+        {/* Mobile Filter Sidebar - Toggle visibility */}
+        {showMobileFilter && (
+          <div className="w-full md:hidden mb-4 bg-white rounded-lg p-4 shadow-lg">
+            <FilterSidebar params={params} onChange={handleParamChange} />
+          </div>
+        )}
 
         <div className="flex-1">
           <SearchAndSortBar params={params} onChange={handleParamChange} />

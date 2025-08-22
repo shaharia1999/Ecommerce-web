@@ -9,6 +9,7 @@ import Pagination from '@/src/app/FlashSaleCardDiscount/components/Pagination';
 import { useRouter } from "next/navigation";
 import FilterSidebar from '../../FlashSaleCardDiscount/components/FilterSidebar';
 import SearchAndSortBar from './SearchAndSortBar';
+import { FaFilter, FaTimes } from "react-icons/fa";
 type Product = {
   id: string;
   title: string;
@@ -57,6 +58,7 @@ export default function FlashSaleCardPage() {
   const priceMax = searchParams.get('priceMax') || '';
   const discount = searchParams.get('discount') === 'true';
   const router = useRouter();
+
   // Initialize state with shared Params type
   const [params, setParams] = useState<Params>({
     page: 1,
@@ -72,8 +74,9 @@ export default function FlashSaleCardPage() {
     discount,
   });
 
-  // const [searchInput, setSearchInput] = useState(search);
   const [products, setProducts] = useState<Product[]>([]);
+  const [showMobileFilter, setShowMobileFilter] = useState(false); // Mobile filter toggle state
+  
   console.log(products);
   const { data, isLoading } = useProducts(params);
 
@@ -95,33 +98,51 @@ export default function FlashSaleCardPage() {
     setProducts([]);
   };
 
-  // const handleSearchSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   handleParamChange({ search: searchInput });
-  // };
 
-//   if (isError || !data)
-//     return <div className="py-16 text-center text-lg text-red-500 ">Failed to load products</div>;
-
-  return (
+return (
     <section className="py-10 px-4 max-w-7xl mx-auto ">
       <h1 className="text-3xl font-bold mb-12 text-center">All Flash Sale Products</h1>
-      <button
-        onClick={() => router.back()}
-        className="mb-4 ml-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
-      >
-        ← Back
-      </button>
-      <div className="flex gap-4">
-        <div className="w-72">
+      
+      <div className='flex justify-between items-center mb-4'>
+        <div className='items-center text-center flex w-full h-full'>
+          <button
+            onClick={() => router.back()}
+            className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
+          >
+            ← Back
+          </button>
+        </div>
+        <div className='block md:hidden'>
+          <button 
+            onClick={() => setShowMobileFilter(!showMobileFilter)}
+            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200"
+          >
+            {showMobileFilter ? (
+              <FaTimes className='text-2xl text-gray-600' />
+            ) : (
+              <FaFilter className='text-2xl text-gray-600' />
+            )}
+          </button>
+        </div>
+      </div>
+
+      <div className="flex gap-4 flex-wrap mx-auto">
+        {/* Desktop Filter Sidebar */}
+        <div className="w-72 hidden md:block">
           <FilterSidebar params={params} onChange={handleParamChange} />
         </div>
+
+        {/* Mobile Filter Sidebar - Toggle visibility */}
+        {showMobileFilter && (
+          <div className="w-full md:hidden mb-4 rounded-lg p-4 shadow-lg">
+            <FilterSidebar params={params} onChange={handleParamChange} />
+          </div>
+        )}
 
         <div className="flex-1">
           <SearchAndSortBar
             params={params}
             onChange={handleParamChange}
-
           />
 
           {/* Loading Skeleton */}
@@ -180,14 +201,13 @@ export default function FlashSaleCardPage() {
             !isLoading && <div className="text-center text-gray-500 py-8">No products found</div>
           )}
 
-          {
-            data &&  <Pagination
-            page={data.page ?? 1}
-            totalPages={data.pages ?? 1}
-            onPageChange={(newPage) => setParams((prev) => ({ ...prev, page: newPage }))}
-          />
-          }
-         
+          {data && (
+            <Pagination
+              page={data.page ?? 1}
+              totalPages={data.pages ?? 1}
+              onPageChange={(newPage) => setParams((prev) => ({ ...prev, page: newPage }))}
+            />
+          )}
         </div>
       </div>
     </section>

@@ -129,7 +129,8 @@ useEffect(() => {
           <h1 className="text-2xl font-bold text-gray-800">Checkout</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"> 
+          
           {/* Billing Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm p-6">
@@ -167,7 +168,7 @@ useEffect(() => {
                     <p className="text-sm text-gray-600">Qty: {singleProduct.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-800">৳{singleProduct.price * (singleProduct.quantity || 1)}</p>
+                    <p className="font-bold text-gray-800">৳{(singleProduct.price * (singleProduct.quantity || 1)).toFixed(0)}</p>
                   </div>
                 </div>
               ) : (
@@ -190,7 +191,7 @@ useEffect(() => {
                         <p className="text-sm text-gray-600">Qty: {item.quantity || 1}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-gray-800">৳{item.price * (item.quantity || 1)}</p>
+                        <p className="font-bold text-gray-800">৳{(item.price * (item.quantity || 1)).toFixed(0)}</p>
                       </div>
                     </div>
                   ))
@@ -210,7 +211,7 @@ useEffect(() => {
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>৳{total}</span>
+                    <span>${total}</span>
                   </div>
                 </div>
               </div>

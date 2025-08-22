@@ -68,12 +68,11 @@ const FlashSaleSection = () => {
     <section className="my-10 px-4">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold">
+        <h2 className="sm:text-2xl md:text-3xl font-bold">
           <span className="relative">
-            <span className="text-black">Flash</span>
+            <span className="text-black">Flash Sale</span>
             <span className="absolute left-0 -bottom-1 w-full h-1 bg-red-200 rounded-full -z-10"></span>
           </span>{" "}
-          Sale
         </h2>
         <div className="flex items-center gap-2 px-2  rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
           <div className="text-orange-500 text-lg">⏰</div>
