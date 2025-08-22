@@ -75,7 +75,7 @@ useEffect(() => {
 
   const handleOrderConfirm = () => {
     if (!formData.name || !formData.mobile || !formData.district || !formData.address) {
-      alert('সব তথ্য পূরণ করুন');
+      alert('Please fill in all the information');
       return;
     }
 
@@ -96,12 +96,12 @@ useEffect(() => {
 
    createOrderMutation.mutate(orderData, {
   onSuccess: () => {
-    alert('🎉 অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
+    alert('🎉 Order completed successfully!');
     localStorage.removeItem('cart');
     router.push('/order-success');
   },
   onError: (error) => {
-    let message = '❌ অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+    let message = '❌ There was a problem placing the order. Please try again.';
 
     if ((error as AxiosError)?.isAxiosError) {
       const axiosError = error as AxiosError<{ message?: string }>;
@@ -118,7 +118,7 @@ useEffect(() => {
   };
 
   const districts = [
-    'ঢাকা', 'চট্টগ্রাম', 'রাজশাহী', 'খুলনা', 'বরিশাল', 'সিলেট', 'রংপুর', 'ময়মনসিংহ',
+    'Dhaka', 'Chattogram', 'Rajshahi', 'Khulna', 'Barishal', 'Sylhet', 'Rangpur', 'Mymensingh',
   ];
 
   return (
@@ -126,22 +126,22 @@ useEffect(() => {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">চেকআউট</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Checkout</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Billing Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-6">বিলিং ডিটেইল</h2>
+              <h2 className="text-xl font-bold mb-6">Billing Details</h2>
               <div className="space-y-4">
-                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="নাম লিখুন" className="w-full px-4 py-3 border rounded-lg" />
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your name" className="w-full px-4 py-3 border rounded-lg" />
                 <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="01xxxxxxxxx" className="w-full px-4 py-3 border rounded-lg" />
                 <select name="district" value={formData.district} onChange={handleInputChange} className="w-full px-4 py-3 border rounded-lg">
-                  <option value="">জেলা নির্বাচন করুন</option>
+                  <option value="">Select a district</option>
                   {districts.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
-                <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="সম্পূর্ণ ঠিকানা লিখুন" className="w-full px-4 py-3 border rounded-lg" />
+                <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="Enter your full address" className="w-full px-4 py-3 border rounded-lg" />
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@ useEffect(() => {
           {/* Order Summary */}
           <div>
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-bold mb-4">অর্ডার সামারি</h3>
+              <h3 className="text-lg font-bold mb-4">Order Summary</h3>
 
               {/* Single Product View */}
               {singleProduct ? (
@@ -200,16 +200,16 @@ useEffect(() => {
               {/* Price Summary */}
               <div className="mt-4 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">সাব-টোটাল</span>
+                  <span className="text-gray-600">Subtotal</span>
                   <span className="font-medium">৳{singleProduct ? singleProduct.price : subtotal}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">ডেলিভারি চার্জ</span>
+                  <span className="text-gray-600">Delivery Charge</span>
                   <span className="font-medium">৳{deliveryCharge}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between text-lg font-bold">
-                    <span>মোট</span>
+                    <span>Total</span>
                     <span>৳{total}</span>
                   </div>
                 </div>
@@ -227,10 +227,10 @@ useEffect(() => {
                 {createOrderMutation.isPending ? (
                   <div className="flex items-center justify-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>প্রক্রিয়াধীন...</span>
+                    <span>Processing...</span>
                   </div>
                 ) : (
-                  `🛒 অর্ডার কনফার্ম করুন ৳${total}`
+                  `🛒 Confirm Order ৳${total}`
                 )}
               </button>
             </div>
