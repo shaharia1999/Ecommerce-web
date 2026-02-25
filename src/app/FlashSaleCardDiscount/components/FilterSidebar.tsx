@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 type FilterParams = {
   category: string;
@@ -13,10 +13,12 @@ type FilterParams = {
 type Props = {
   params: Partial<FilterParams>;
   onChange: (newParams: Partial<FilterParams>) => void;
+  showMobileFilter?: boolean;
+  setShowMobileFilter?: Dispatch<SetStateAction<boolean>>;
 };
 
 
-const FilterSidebar = ({ params, onChange }: Props) => {
+const FilterSidebar = ({ params, onChange,showMobileFilter, setShowMobileFilter }: Props) => {
  const [formData, setFormData] = useState<Partial<FilterParams>>({
   category: params.category || '',
   size: params.size || '',
@@ -46,6 +48,8 @@ const FilterSidebar = ({ params, onChange }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onChange(formData);
+    if(setShowMobileFilter) setShowMobileFilter(false); // Close mobile filter after applying
+  
   };
 
   return (

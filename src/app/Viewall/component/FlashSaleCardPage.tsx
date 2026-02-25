@@ -135,7 +135,8 @@ return (
         {/* Mobile Filter Sidebar - Toggle visibility */}
         {showMobileFilter && (
           <div className="w-full md:hidden mb-4 rounded-lg p-4 shadow-lg">
-            <FilterSidebar params={params} onChange={handleParamChange} />
+            <FilterSidebar params={params} onChange={handleParamChange}showMobileFilter={showMobileFilter} 
+        setShowMobileFilter={setShowMobileFilter} />
           </div>
         )}
 
