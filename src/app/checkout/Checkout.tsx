@@ -167,7 +167,7 @@ useEffect(() => {
                     <p className="text-sm text-gray-600">Qty: {singleProduct.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-800">৳{singleProduct.price * (singleProduct.quantity || 1)}</p>
+                    <p className="font-bold text-gray-800">৳{Math.floor(singleProduct.price * (singleProduct.quantity || 1))}</p>
                   </div>
                 </div>
               ) : (
@@ -201,16 +201,16 @@ useEffect(() => {
               <div className="mt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">৳{singleProduct ? singleProduct.price : subtotal}</span>
+                  <span className="font-medium">৳{singleProduct ? Math.floor(singleProduct.price) : Math.floor(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Delivery Charge</span>
-                  <span className="font-medium">৳{deliveryCharge}</span>
+                  <span className="font-medium">৳{Math.floor(deliveryCharge)}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>৳{total}</span>
+                    <span>৳{Math.floor(total)}</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +230,7 @@ useEffect(() => {
                     <span>Processing...</span>
                   </div>
                 ) : (
-                  `🛒 Confirm Order ৳${total}`
+                  `🛒 Confirm Order ৳${Math.floor(total)}`
                 )}
               </button>
             </div>
