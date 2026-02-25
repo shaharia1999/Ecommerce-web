@@ -43,6 +43,7 @@ const Navbar = ({ className = '' }) => {
   const { cart } = useCart();
   const { wishlistCount } = useWishlist();
   const [token, setToken] = React.useState<string | null>(null);
+  const [mobilelogin, setMobileLogin] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   useEffect(() => {
@@ -166,7 +167,7 @@ const Navbar = ({ className = '' }) => {
                   )}
                 </Link>
                 <CartDrawer />
-                <div className="relative group z-[1999]">
+                {/* <div className="relative group z-[1999]">
                   <button className="flex items-center text-gray-400 text-2xl focus:outline-none">
                     <CgProfile />
                   </button>
@@ -180,7 +181,48 @@ const Navbar = ({ className = '' }) => {
                       <Link href="/user/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Log in</Link>
                     )}
                   </div>
-                </div>
+                </div> */}
+                <div className="relative group z-[1999]">
+  <button 
+    onClick={() => setMobileLogin(!mobilelogin)} // Toggles state on click/tap
+    className="flex items-center text-gray-400 text-2xl focus:outline-none"
+  >
+    <CgProfile />
+  </button>
+
+  <div 
+    className={`
+      absolute right-[-10px] mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg 
+      transition-opacity duration-200 py-5
+      /* Desktop Hover Logic */
+      group-hover:opacity-100 group-hover:pointer-events-auto 
+      /* Mobile State Logic */
+      ${mobilelogin ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+    `}
+  >
+    {token ? (
+      <div onClick={() => setMobileLogin(false)}> {/* Close menu when a link is clicked */}
+        <Link href="/user/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+          Dashboard
+        </Link>
+        <p 
+          onClick={() => { Delete(); setMobileLogin(false); }} 
+          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+        >
+          Log out
+        </p>
+      </div>
+    ) : (
+      <Link 
+        href="/user/login" 
+        onClick={() => setMobileLogin(false)}
+        className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+      >
+        Log in
+      </Link>
+    )}
+  </div>
+</div>
               </div>
             </div>
             <div className="w-full">
