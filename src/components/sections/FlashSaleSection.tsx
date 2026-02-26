@@ -10,7 +10,7 @@ import { useProducts } from '@/src/utils/useproducts';
 
 type Product = {
   id?: string;
-  _id?: string;
+  _id: string;
   title: string;
   description?: string;
   category?: string;
@@ -31,6 +31,7 @@ type Product = {
 const FlashSaleSection = () => {
   // const { data, isLoading, isError } = useProducts();
   const { data, isLoading, isError } = useProducts({ discount: true });
+    console.log('Flash Sale Products:', data);
     if (isLoading) {
   return (
     <section className="my-10 px-4">
@@ -63,7 +64,7 @@ const FlashSaleSection = () => {
   }
 
   const products = data.products || [];
-  console.log('Sample product:', products[0]);
+ 
   return (
     <section className="my-10 px-4">
       {/* Header Section */}
@@ -118,7 +119,7 @@ const FlashSaleSection = () => {
             {products.map((product: Product, index: number) => (
               <SwiperSlide key={product._id || index}>
                 <FlashSaleCard
-                 id={product._id || product.id || ''}
+                 id={product._id  }
                   title={product.title}
                   description={product.description}
                   category={product.category}

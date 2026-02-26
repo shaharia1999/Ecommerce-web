@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { BackendProduct } from '@/src/utils/type';
 import { FaFilter, FaTimes } from "react-icons/fa";
 type ParamsType = {
+  
   page: number;
   limit: number;
   sortBy: 'createdAt' | 'discountedPrice';
@@ -155,8 +156,8 @@ export default function FlashSaleCardPage() {
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
-                  key={product._id}
-                  id={product._id}
+                  key={product.id}
+                  id={product.id}
                   title={product.title}
                   description={product.description || ''}
                   category={product.category}

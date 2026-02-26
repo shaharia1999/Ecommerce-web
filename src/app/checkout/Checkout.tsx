@@ -111,8 +111,8 @@ useEffect(() => {
       message = error.message || message;
     }
 
-    console.error('Mutation Error:', error);
-    alert(`❌ ${message}`);
+    // console.log('Mutation Error:',);
+    alert(`❌ ${'Product is out of stock or there was an issue with your order. Please try again.'}`);
   },
 });
 

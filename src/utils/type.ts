@@ -13,7 +13,7 @@ export interface OrderData {
   status?: string;
 }
 export interface BackendProduct {
-  _id: string;
+  id: string;
   title: string;
   slug: string;
   stock: number;

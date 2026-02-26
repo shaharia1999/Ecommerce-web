@@ -33,6 +33,7 @@ export const useCart = () => {
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [open, setOpen] = useState(false);
+  console.log(cart);
 
   useEffect(() => {
     const stored = localStorage.getItem('cart');
@@ -44,6 +45,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   }, [cart]);
 
 const addToCart = (item: CartItem) => {
+  console.log(item);
   setCart((prev) => {
     const found = prev.find((p) => p.id === item.id);
     if (found) {

@@ -20,7 +20,6 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold border-b border-gray-600 mb-2 pb-1">Contact</h3>
           <p className="flex items-center gap-2 text-sm"><FaPhoneAlt className="text-base" /> +8801707018322 (Md Shaharia)</p>
-          <p className="flex items-center gap-2 text-sm"><FaPhoneAlt className="text-base" /> +8801XXXXXXXXX (Kamrul)</p>
           <p className="flex items-center gap-2 text-sm"><FaEnvelope className="text-base" /> adeptshaharia@gmail.com</p>
         </div>
 

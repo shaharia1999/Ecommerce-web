@@ -38,10 +38,11 @@ const FlashSaleCard = ({
   rating = 0,
   reviews = 0,
   slug,
-  stock = 1,
+  stock = 0,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   // const router = useRouter();
+
   const { addToCart } = useCart();
   const handleBuyNow = useHandleBuyNow();
   const { addToWishlist } = useWishlist();
@@ -159,6 +160,7 @@ const FlashSaleCard = ({
           </span>
         )}
       </div>
+       <p className="text-gray-500 text-xs">{stock > 0 ? `${stock} in stock` : "Out of stock"}</p>
       <div className="flex flex-wrap items-center gap-1 mb-3">
         {renderStars(Math.round(rating))}
         <span className="text-gray-400 text-[12px] ml-1">

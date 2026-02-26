@@ -32,7 +32,7 @@ const NewArrivalCard = ({
   discount = 0,
   oldPrice,
   slug,
-  stock = 1,
+  stock = 0,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   const { addToCart } = useCart();
@@ -139,6 +139,8 @@ const NewArrivalCard = ({
           <span className="text-gray-400 line-through text-[12px]">${oldPrice.toFixed(2)}</span>
         )}
       </div>
+             <p className="text-gray-500 text-xs">{stock > 0 ? `${stock} in stock` : "Out of stock"}</p>
+
       <div className="flex flex-wrap items-center gap-1 mb-3">
         {renderStars(Math.round(rating))}
         <span className="text-gray-400 text-[12px] ml-1">({reviews} Reviews)</span>
