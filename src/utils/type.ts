@@ -2,6 +2,7 @@ export interface OrderData {
   user?: string;
   _id?: string; // Optional, if you want to include user ID
   address: string;
+  name: string;
   mobile: string;
   products: Array<{
     product: string;

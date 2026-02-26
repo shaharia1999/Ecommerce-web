@@ -82,6 +82,7 @@ useEffect(() => {
     const orderData: OrderData = {
       address: `${formData.address}, ${formData.district}, Bangladesh`,
       mobile: formData.mobile,
+      name: formData.name,
       products: singleProduct
         ? [{ product: singleProduct.id, quantity: singleProduct.quantity || 1 }]
         : cart.map(item => ({

@@ -18,7 +18,7 @@ type Props = {
 };
 
 
-const FilterSidebar = ({ params, onChange,showMobileFilter, setShowMobileFilter }: Props) => {
+const FilterSidebar = ({ params, onChange, setShowMobileFilter }: Props) => {
  const [formData, setFormData] = useState<Partial<FilterParams>>({
   category: params.category || '',
   size: params.size || '',
