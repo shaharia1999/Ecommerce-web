@@ -14,6 +14,7 @@ export interface OrderData {
 }
 export interface BackendProduct {
   id: string;
+  _id: string;
   title: string;
   slug: string;
   stock: number;

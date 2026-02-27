@@ -29,7 +29,7 @@ export default function CheckoutContent() {
     address: '',
   });
  interface ProductItem {
-  id: string;
+   id: string;
    title: string;
    mainImg: string;
    price: number;
@@ -111,8 +111,8 @@ useEffect(() => {
       message = error.message || message;
     }
 
-    // console.log('Mutation Error:',);
-    alert(`❌ ${'Product is out of stock or there was an issue with your order. Please try again.'}`);
+    console.log('Mutation Error:', error);
+    alert(`❌ ${'Product is out of stock or there was an issue with your order. Please try again.'+ message}`);
   },
 });
 

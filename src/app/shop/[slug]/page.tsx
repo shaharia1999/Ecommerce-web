@@ -5,6 +5,7 @@ import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { useProduct } from '@/src/utils/useproducts';
 import ZoomImage from './ZoomIn';
+import { useCart } from '@/src/context/CartContext';
 
 
 interface ProductData {
@@ -69,6 +70,8 @@ function ShopContent() {
   // console.log('=== PRICE CALCULATION DEBUG ===');
   // console.log('Original product.price:', product?.originalPrice, typeof product?.originalPrice);
   // console.log('Original product.discount:', product?.discount, typeof product?.discount);
+    const { addToCart } = useCart();
+
   if (productData) {
     console.log('Calculated originalPrice:', productData.originalPrice);
     console.log('Calculated discountedPrice:', productData.discountedPrice);
@@ -296,6 +299,17 @@ function ShopContent() {
 
                 <button
                   disabled={productData.stock === 0}
+                  onClick={()=>{
+                
+                    addToCart({
+                      id: productData.id,
+                      title: productData.title,
+                      price: productData.discountedPrice,
+                      mainImg: productData.mainImg,
+                      quantity: 1,
+                      stock: productData.stock ?? 1,
+                    });
+                  }}
                   className="flex-1 bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600 transition-all duration-300 disabled:bg-gray-400 mt-2 sm:mt-0"
                 >
                   Add To Cart
