@@ -142,10 +142,10 @@ function ShopContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 py-10 md:py-16 mt-16">
+      <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 py-6 md:py-10 mt-8">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-800 mb-2 sm:mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">
             Shop Details
           </h1>
           <div className="flex flex-wrap items-center justify-center space-x-1 sm:space-x-2 text-gray-600 text-xs sm:text-base">
