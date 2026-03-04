@@ -33,7 +33,7 @@ export default function CartDrawer() {
                 <Image src={item.mainImg} alt={item.title} width={60} height={60} className="rounded" />
                 <div className="ml-3 flex-1">
                   <div className="font-semibold">{item.title}</div>
-                  <div className="text-sm text-gray-500">৳{item.price} x {item.quantity}</div>
+                  <div className="text-sm text-gray-500">TK{item.price} x {item.quantity}</div>
                   <div className="flex items-center mt-2">
                     <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="px-2">-</button>
                     <span className="px-2">{item.quantity}</span>
@@ -48,7 +48,7 @@ export default function CartDrawer() {
         <div className="p-4 border-t">
           <div className="flex justify-between font-semibold mb-3">
             <span>Subtotal</span>
-            <span>৳{subtotal}</span>
+            <span>TK{subtotal}</span>
           </div>
           <Link href="/Shopping_cart">
             <button

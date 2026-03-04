@@ -105,7 +105,7 @@ useEffect(() => {
 
           <div>
             <p className="font-medium text-gray-800">{item.title}</p>
-            <p className="text-sm text-gray-500">৳{item.discountedPrice}</p>
+            <p className="text-sm text-gray-500">TK{item.discountedPrice}</p>
           </div>
         </div>
       ))

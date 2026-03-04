@@ -152,7 +152,7 @@ const FlashSaleCard = ({
       <h3 className="font-bold text-[15px] mb-1">{title}</h3>
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-orange-500 font-bold text-[16px]">
-          {price.toFixed(2)}
+          TK{price.toFixed(2)}
         </span>
         {typeof oldPrice === "number" && (
           <span className="text-gray-400 line-through text-[12px]">

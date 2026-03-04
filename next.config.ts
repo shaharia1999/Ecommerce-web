@@ -32,7 +32,13 @@ const nextConfig: NextConfig = {
         hostname: 'source.unsplash.com',
         port: '',
         pathname: '/**',
-      }
+      },
+      {
+  protocol: 'https',
+  hostname: 'i.ibb.co',
+  port: '',
+  pathname: '/**',
+}
     ],
     // Legacy domains support (for backward compatibility)
     domains: [
@@ -40,7 +46,8 @@ const nextConfig: NextConfig = {
       'images.pexels.com',
       'via.placeholder.com',
       'picsum.photos',
-      'source.unsplash.com'
+      'source.unsplash.com',
+      'i.ibb.co.com'
     ],
   },
 };

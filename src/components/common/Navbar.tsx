@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -114,7 +113,7 @@ const Navbar = ({ className = '' }) => {
             <div className="flex items-center space-x-4">
               <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
                 <GiShoppingCart />
-                {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{cartCount}</span>}
+                {  cartCount > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{cartCount}</span>}
               </Link>
               <Link href="/wishlist" className="text-gray-400 relative text-2xl">
                 <FaRegHeart />
@@ -183,15 +182,15 @@ const Navbar = ({ className = '' }) => {
                   </div>
                 </div> */}
                 <div className="relative group z-[1999]">
-  <button 
-    onClick={() => setMobileLogin(!mobilelogin)} // Toggles state on click/tap
-    className="flex items-center text-gray-400 text-2xl focus:outline-none"
-  >
-    <CgProfile />
-  </button>
+                  <button
+                    onClick={() => setMobileLogin(!mobilelogin)} // Toggles state on click/tap
+                    className="flex items-center text-gray-400 text-2xl focus:outline-none"
+                  >
+                    <CgProfile />
+                  </button>
 
-  <div 
-    className={`
+                  <div
+                    className={`
       absolute right-[-10px] mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg 
       transition-opacity duration-200 py-5
       /* Desktop Hover Logic */
@@ -199,30 +198,30 @@ const Navbar = ({ className = '' }) => {
       /* Mobile State Logic */
       ${mobilelogin ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
     `}
-  >
-    {token ? (
-      <div onClick={() => setMobileLogin(false)}> {/* Close menu when a link is clicked */}
-        <Link href="/user/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-          Dashboard
-        </Link>
-        <p 
-          onClick={() => { Delete(); setMobileLogin(false); }} 
-          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
-        >
-          Log out
-        </p>
-      </div>
-    ) : (
-      <Link 
-        href="/user/login" 
-        onClick={() => setMobileLogin(false)}
-        className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-      >
-        Log in
-      </Link>
-    )}
-  </div>
-</div>
+                  >
+                    {token ? (
+                      <div onClick={() => setMobileLogin(false)}> {/* Close menu when a link is clicked */}
+                        <Link href="/user/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                          Dashboard
+                        </Link>
+                        <p
+                          onClick={() => { Delete(); setMobileLogin(false); }}
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        >
+                          Log out
+                        </p>
+                      </div>
+                    ) : (
+                      <Link
+                        href="/user/login"
+                        onClick={() => setMobileLogin(false)}
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                      >
+                        Log in
+                      </Link>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
             <div className="w-full">

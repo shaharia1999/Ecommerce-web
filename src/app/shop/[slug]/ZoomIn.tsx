@@ -24,9 +24,10 @@ const ZoomImage = ({ src, alt }: { src: string; alt: string }) => {
       <Image
         src={src}
         alt={alt}
-        width={600}
-        height={600}
-        className={`object-cover h-full w-full transition-transform duration-300 ${
+        fill
+        // width={600}
+        // height={600}
+        className={`object-cover h-full w-full p-2 transition-transform duration-300 ${
           isZooming ? 'scale-150' : 'scale-100'
         }`}
         style={{

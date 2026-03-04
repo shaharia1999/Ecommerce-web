@@ -94,7 +94,7 @@ const Page = () => {
                 <div>
                   <h4 className="font-medium">{item.product.title}</h4>
                   <p className="text-sm text-gray-500">
-                    ৳{item.product.price} × {item.quantity}
+                    TK{item.product.price} × {item.quantity}
                   </p>
                   <p className="text-sm mt-1">
                     <span className="font-medium">Status:</span>{' '}
@@ -103,7 +103,7 @@ const Page = () => {
                 </div>
               </div>
               <p className="font-semibold text-purple-600">
-                ৳{(item.product.price * item.quantity).toFixed(2)}
+                TK{(item.product.price * item.quantity).toFixed(2)}
               </p>
             </div>
           ))}
@@ -111,7 +111,7 @@ const Page = () => {
           <div className="text-right mt-4 font-semibold">
             Total:{' '}
             <span className="text-purple-600">
-              ৳{order.totalAmount.toFixed(2)}
+              TK{order.totalAmount.toFixed(2)}
             </span>
           </div>
         </div>

@@ -134,9 +134,9 @@ const NewArrivalCard = ({
       </div>
       <h3 className="font-bold text-[15px] mb-1">{title}</h3>
       <div className="flex flex-wrap items-center gap-2 mb-2">
-        <span className="text-orange-500 font-bold text-[16px]">${price.toFixed(2)}</span>
+        <span className="text-orange-500 font-bold text-[16px]">TK{price.toFixed(2)}</span>
         {typeof oldPrice === "number" && (
-          <span className="text-gray-400 line-through text-[12px]">${oldPrice.toFixed(2)}</span>
+          <span className="text-gray-400 line-through text-[12px]">TK{oldPrice.toFixed(2)}</span>
         )}
       </div>
              <p className="text-gray-500 text-xs">{stock > 0 ? `${stock} in stock` : "Out of stock"}</p>

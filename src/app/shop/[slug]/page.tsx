@@ -210,11 +210,11 @@ function ShopContent() {
               {/* Price */}
               <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 mb-4 sm:mb-6">
                 <span className="text-2xl sm:text-4xl font-bold text-gray-800">
-                  ${productData.discountedPrice.toFixed(2)}
+                  TK{productData.discountedPrice.toFixed(2)}
                 </span>
                 {discountPercentage > 0 && (
                   <span className="text-base sm:text-xl text-gray-400 line-through">
-                    ${productData.originalPrice.toFixed(2)}
+                    TK{productData.originalPrice.toFixed(2)}
                   </span>
                 )}
                 {discountPercentage > 0 && (
@@ -225,9 +225,12 @@ function ShopContent() {
               </div>
 
               {/* Description */}
-              <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+              {/* <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                 {productData.description || 'High quality product with excellent features and durability.'}
-              </p>
+              </p> */}
+              <p className="text-gray-700 mb-4 leading-8 text-[15px] sm:text-base whitespace-pre-line">
+  {productData.description}
+</p>
 
               {/* Color Selection */}
               {productData.colors && productData.colors.length > 0 && (

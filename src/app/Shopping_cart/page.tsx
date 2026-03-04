@@ -54,7 +54,7 @@ const CartPage = () => {
                     { item.title}
                   </div>
                   <div className="text-gray-500 text-sm">
-                    ৳ {item.price} x {item.quantity}
+                    TK {item.price} x {item.quantity}
                   </div>
                   <div className="flex items-center mt-1 space-x-2">
                     <button
@@ -96,7 +96,7 @@ const CartPage = () => {
 
               {/* Subtotal */}
               <div className="font-bold text-purple-700">
-                ৳ {item.price * item.quantity}
+                TK {Math.floor(item.price * item.quantity)}
               </div>
             </li>
           ))}
@@ -105,7 +105,7 @@ const CartPage = () => {
 
       {/* Subtotal */}
       <div className="mt-6 font-semibold text-right">
-        Total: <span className="text-purple-700">৳ {subtotal}</span>
+        Total: <span className="text-purple-700">TK {Math.floor(subtotal)}</span>
       </div>
 
       {/* Checkout Button */}
