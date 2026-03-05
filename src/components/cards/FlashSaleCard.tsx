@@ -132,7 +132,7 @@ const FlashSaleCard = ({
         </div>
 
 
-        <div className="relative w-full h-[140px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
+        <div className="relative w-full h-[140px] lg:h-[180px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
           {/* <Image
             src={mainImg}
             alt={title}
@@ -149,7 +149,7 @@ const FlashSaleCard = ({
         </div>
       </div>
 
-      <h3 className="font-bold text-[15px] mb-1">{title}</h3>
+      <h3      onClick={() => handleBuyNow({ title, slug })} className="font-bold text-[15px] mb-1 cursor-pointer">{title}</h3>
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-orange-500 font-bold text-[16px]">
           TK{price.toFixed(2)}
