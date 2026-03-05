@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://mongo-db-zeta-seven.vercel.app',
   ENDPOINTS: {
     ORDERS: '/orders',
     ORDER_BY_ID: () => `/orders/user`,
