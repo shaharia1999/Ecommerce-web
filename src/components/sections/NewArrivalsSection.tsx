@@ -1,9 +1,8 @@
 'use client';
 
-import NewArrivalCard from '../cards/NewArrivalCard';
-import { useProducts } from '@/src/utils/useproducts';
 import Link from 'next/link';
-type Product = {
+import NewArrivalCard from '../cards/NewArrivalCard';
+ type Product = {
   id: string;
   title: string;
   slug: string;
@@ -22,43 +21,16 @@ type Product = {
   rating?: number;
   reviews?: number;
 };
-const NewArrivalsSection = () => {
-  const { data, isLoading, isError } = useProducts({ sortBy: 'createdAt', sortOrder: 'desc', limit: 14 });
 
-if (isLoading) {
-  return (
-    <section className="my-10 px-4">
-      {/* Header Skeleton */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
-        <div className="h-6 w-60 bg-orange-100 rounded animate-pulse"></div>
-      </div>
+type NewArrivalsSectionProps = {
+  products: Product[];
+};
 
-      {/* Skeleton Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[...Array(8)].map((_, index) => (
-          <div key={index} className="border rounded-lg p-4 space-y-3 animate-pulse">
-            <div className="h-40 bg-gray-200 rounded"></div>
-            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-            <div className="flex gap-2">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-
-  if (isError || !data) {
-    return <div className="my-10 px-4 text-center text-red-500">Failed to load new arrivals</div>;
+const NewArrivalsSection = ({ products }: NewArrivalsSectionProps) => {
+  if (!products || products.length === 0) {
+    return <div className="my-10 px-4 text-center text-gray-500">No new arrivals found</div>;
   }
 
-  const products = data.products || [];
-// console.log(products);
   return (
     <section className="my-10 ">
       {/* Header Section */}
@@ -93,7 +65,6 @@ if (isLoading) {
         Products loaded: {products.length}
       </div>
 
-
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {products.map((item: Product) => (
           <NewArrivalCard
@@ -118,30 +89,4 @@ if (isLoading) {
 };
 
 export default NewArrivalsSection;
-
-
-
-{/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {products.map((item: any) => {
-
-  return (
-    <NewArrivalCard
-      key={item.id}
-      id={item.id}
-      title={item.title}
-      price={item.discountedPrice ?? item.originalPrice}
-      image={item.mainImg}
-      rating={item.rating || 4}
-      reviews={item.reviews || 0}
-      isNew={item.isNew ?? true}
-      colors={item.filters?.color || []}
-      discount={item.discount || 0}
-      oldPrice={item.originalPrice}
-      slug={item.slug}
-      stock={item.stock || 1}
-    />
-  );
-})}
-
-      </div> */}
 

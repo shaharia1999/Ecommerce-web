@@ -2,7 +2,7 @@
 
 import { useCart } from '../../context/CartContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useCreateOrder } from '@/src/utils/useOrder';
 import { OrderData } from '@/src/utils/type';
@@ -118,9 +118,7 @@ export default function CheckoutContent() {
 
   };
 
-  const districts = [
-    'ঢাকা', 'চট্টগ্রাম', 'রাজশাহী', 'খুলনা', 'বরিশাল', 'সিলেট', 'রংপুর', 'ময়মনসিংহ',
-  ];
+  
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -243,3 +241,7 @@ export default function CheckoutContent() {
     </div>
   );
 }
+export const metadata = {
+  title: 'Checkout | Your Shop',
+  description: 'Complete your order securely.',
+};

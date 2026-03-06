@@ -1,6 +1,6 @@
 import { BackendProduct, ProductQueryParams } from './type';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mongo-db-zeta-seven.vercel.app';
 
 export const productAPI = {
   getProductBySlug: async (slug: string): Promise<BackendProduct> => {

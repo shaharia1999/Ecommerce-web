@@ -1,29 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useProducts } from '@/src/utils/useproducts';
+import { useRouter } from 'next/navigation';
 import NewArrivalCard from '../cards/NewArrivalCard';
 import Link from 'next/link';
 import Image from 'next/image';
-type Product = {
-  id: string;
-  title: string;
-  slug: string;
-  stock: number;
-  category: string;
-  originalPrice: number;
-  discountedPrice: number;
-  mainImg: string;
-  isNew?: boolean;
-  filters?: {
-    color?: string[];
-    size?: string[];
-  };
-  discount?: number;
-  rating?: number;
-  reviews?: number;
-};
+import { BackendProduct } from '@/src/utils/type';
+import { useState } from 'react';
+
+interface Props {
+  products: BackendProduct[];
+}
 
 const topCategoriesData = [
   { id: 1, category: 'Electronics', image: '/images/cat1.jpg' },
@@ -32,36 +18,21 @@ const topCategoriesData = [
   { id: 4, category: 'Trending', image: '/images/cat1.jpg' },
 ];
 
-const TopCategoriesWithProducts = () => {
+const TopCategoriesWithProducts = ({ products }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const selectedCategory = searchParams.get('category') || '';
-
-  const [activeCategory, setActiveCategory] = useState(selectedCategory);
-
-  useEffect(() => {
-    setActiveCategory(selectedCategory);
-  }, [selectedCategory, searchParams]);
+  const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const handleCategoryClick = (category: string) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('category', category);
-    router.replace(`?${params.toString()}`, { scroll: false });
-
-    // Smooth scroll to product section
-    setTimeout(() => {
-      document.getElementById('product-section')?.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    setActiveCategory(category === activeCategory ? 'All' : category);
   };
 
-  const { data, isLoading, isError } = useProducts({ category: activeCategory, limit: 12 });
-
-  const products: Product[] = data?.products || [];
+  const filteredProducts = activeCategory === 'All'
+    ? products
+    : products.filter((product) => product.category === activeCategory);
 
   return (
     <section className="my-10 px-4">
-      {/* Top Categories Section */}
+      {/* Category Icons */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Top Categories</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
@@ -69,114 +40,59 @@ const TopCategoriesWithProducts = () => {
             <div
               key={item.id}
               onClick={() => handleCategoryClick(item.category)}
-              className={`cursor-pointer group border-2 rounded-xl p-4 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-lg hover:scale-[1.02] 
-      ${activeCategory === item.category
-                  ? 'bg-purple-50 border-purple-400'
-                  : 'border-gray-200 bg-white'}
-      `}
+              className={`cursor-pointer group border-2 rounded-xl p-4 text-center transition-all duration-300 
+                ${activeCategory === item.category ? 'bg-purple-50 border-purple-400' : 'border-gray-200 bg-white'}`}
             >
-              {/* Image container */}
               <div className="relative w-full h-28 mb-3 rounded-lg overflow-hidden">
-                {/* <Image
-          src={item.image}
-          alt={item.category}
-          fill
-          className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-        /> */}
                 <Image
                   src={item.image}
                   alt={item.category}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  className="object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition duration-300 rounded-lg"></div>
               </div>
-
-              {/* Title */}
-              <h3 className={`text-sm font-medium tracking-wide 
-        ${activeCategory === item.category ? 'text-purple-700' : 'text-gray-700'}
-      `}>
+              <h3 className={`text-sm font-medium ${activeCategory === item.category ? 'text-purple-700' : 'text-gray-700'}`}>
                 {item.category}
               </h3>
             </div>
           ))}
         </div>
-
       </div>
 
-      {/* Filtered Product Section */}
+      {/* Product Grid */}
       <div id="product-section">
         <div className="flex items-center justify-between mb-6">
-          {/* Title */}
-          <div>
-            <h2 className="md:text-xl font-bold">
-              <span className="relative inline-block">
-                <span className="text-black">{activeCategory || 'All'} </span>
-                <span className="absolute left-0 -bottom-1 w-full h-2 mt-1 bg-red-200 rounded-full -z-10"></span>
-              </span>
-              Products
-            </h2>
-          </div>
-
-          {/* Offer badge */}
-          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit ">
-            <div className="text-orange-500 text-lg">⏰</div>
-            <span className="font-medium text-sm md:text-base lg:text-lg ml-2 whitespace-nowrap">
-
-            </span>
-            <Link
-              href={{
-                pathname: '/Viewall',
-                query: {
-                  sortBy: 'createdAt',
-                  sortOrder: 'desc',
-                  category: activeCategory,
-                  limit: 14,
-                },
-              }}
-              className="text-sm md:text-base lg:text-lg text-blue-600 hover:underline font-semibold whitespace-nowrap"
-            >
-              View All →
-            </Link>
-          </div>
+          <h2 className="md:text-xl font-bold">
+            {activeCategory} Products
+          </h2>
+        <Link
+            href={{
+              pathname: '/Viewall',
+              query: {
+                sortBy: 'createdAt',
+                sortOrder: 'desc',
+                limit: 14,
+              },
+            }}
+            className="text-[14px]  lg:text-[20px] md:text-[20px] text-blue-600 hover:underline font-semibold"
+          >
+            View All →
+          </Link>
         </div>
 
-
-      {isLoading ? (
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-    {[...Array(8)].map((_, index) => (
-      <div key={index} className="border rounded-lg p-4 space-y-3 animate-pulse">
-        <div className="h-40 bg-gray-200 rounded"></div>
-        <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-        <div className="flex gap-2">
-          <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-        </div>
-      </div>
-    ))}
-  </div>
-
-        ) : isError || products.length === 0 ? (
-          <div className="text-center text-red-500">No products found</div>
+        {filteredProducts.length === 0 ? (
+          <div className="text-center py-10 text-gray-500">No products found in this category.</div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {products.map((item: Product) => (
+            {filteredProducts.map((item) => (
               <NewArrivalCard
                 key={item.id}
                 id={item.id}
                 title={item.title}
                 price={item.discountedPrice ?? item.originalPrice}
                 image={item.mainImg}
-                rating={item.rating || 4}
-                reviews={item.reviews || 0}
-                isNew={item.isNew ?? true}
-                colors={item.filters?.color || []}
-                discount={item.discount || 0}
-                oldPrice={item.originalPrice}
                 slug={item.slug}
-                stock={item.stock || 1}
               />
             ))}
           </div>

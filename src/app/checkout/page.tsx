@@ -1,4 +1,4 @@
-'use client';
+
 import { Suspense } from 'react';
 import CheckoutContent from './Checkout';
 // Wrap only the actual rendering part
@@ -9,3 +9,7 @@ export default function Wrapper() {
     </Suspense>
   );
 }
+export const metadata = {
+  title: 'Checkout | Your Shop',
+  description: 'Complete your order securely.',
+};
