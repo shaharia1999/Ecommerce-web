@@ -1,5 +1,4 @@
 'use client';
-
 import { useCart } from '../../context/CartContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -241,7 +240,3 @@ export default function CheckoutContent() {
     </div>
   );
 }
-export const metadata = {
-  title: 'Checkout | Your Shop',
-  description: 'Complete your order securely.',
-};
