@@ -17,10 +17,10 @@ const FlashSaleSection = ({ products }: FlashSaleSectionProps) => {
   }
 
   return (
-    <section className="my-10 px-4">
+    <section className="lg:my-10 my-5">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="sm:text-2xl md:text-3xl font-bold">
+        <h2 className="sm:text-1xl md:text-3xl font-bold">
           <span className="relative">
             <span className="text-black">Flash Sale</span>
             <span className="absolute left-0 -bottom-1 w-full h-1 bg-red-200 rounded-full -z-10"></span>
@@ -28,7 +28,7 @@ const FlashSaleSection = ({ products }: FlashSaleSectionProps) => {
         </h2>
         <div className="flex items-center gap-2 px-2 rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
           <div className="text-orange-500 text-lg">⏰</div>
-          <span className="font-medium text-[14px] ml-2 lg:text-[20px] md:text-[20px]">Limited Time Offer</span>
+          {/* <span className="font-medium text-[14px] ml-2 lg:text-[20px] md:text-[20px]">Limited Time Offer</span> */}
           <Link
             href="/FlashSaleCardDiscount"
             className="text-[14px] lg:text-[20px] md:text-[20px] text-blue-600 hover:underline font-semibold"
@@ -41,7 +41,9 @@ const FlashSaleSection = ({ products }: FlashSaleSectionProps) => {
       <div className="mb-4 text-sm text-gray-500">
         Products loaded: {products.length}
       </div>
-
+{/* 
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2"> */}
+      
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         {products.map((product, index) => (
           <div key={product._id || index}>

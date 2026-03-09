@@ -97,13 +97,16 @@ const Navbar = ({ className = '' }) => {
           <div className="hidden md:flex justify-between items-center">
             <div className="flex-shrink-0">
               {/* <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={140} height={20} /> */}
-              <Image
+              <Link href="/">
+                   <Image
                 src="/images/llogo-removebg-preview-main - Copy.png"
                 alt="Logo"
                 width={140}
                 height={20}
                 style={{ height: "auto" }} // Add this line
               />
+              </Link>
+           
             </div>
             <div className="w-1/2">
               <SearchBar data={products || []} setParams={setParams} />
@@ -145,6 +148,7 @@ const Navbar = ({ className = '' }) => {
           <div className="flex flex-col gap-3 md:hidden">
             <div className="flex justify-between items-center">
               {/* <Image src="/images/llogo-removebg-preview-main - Copy.png" alt="Logo" width={120} height={20} /> */}
+              <Link href="/">
               <Image
                 src="/images/llogo-removebg-preview-main - Copy.png"
                 alt="Logo"
@@ -152,6 +156,7 @@ const Navbar = ({ className = '' }) => {
                 height={20}
                 style={{ height: "auto" }} // Maintains aspect ratio
               />
+              </Link>
               <div className="flex items-center space-x-4">
                 <Link href="/Shopping_cart" className="text-gray-400 relative text-2xl">
                   <GiShoppingCart />

@@ -39,9 +39,9 @@ export default async function HomePage() {
     : topCategoriesResponse.products || [];
 
   return (
-    <div className="pt-1 px-1 py-6 max-w-[1285px] mx-auto"> {/* pt-20 because Navbar is fixed */}
+    <div className=" pb-6  px-4 max-w-[1285px] mx-auto"> {/* pt-20 because Navbar is fixed */}
       <Banner></Banner>
-      <BannerSection />
+      {/* <BannerSection /> */}
       <FlashSaleSection products={flashSaleData} />
       <SpecialBrandsSection specialBrandsData={specialBrandsData} />
       <NewArrivalsSection products={newArrivalsData} />

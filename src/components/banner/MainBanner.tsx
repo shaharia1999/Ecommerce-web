@@ -1,26 +1,34 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div className=" mx-auto flex flex-col md:flex-row bg-white rounded-lg overflow-hidden shadow-md">
-      
-  <Link href="/FlashSaleCardDiscount">
+    <div className="w-full">
+      <Link href="/FlashSaleCardDiscount">
+        <div className="relative w-full h-[55vh] md:h-[70vh] mt-6 lg:mt-0 rounded-lg overflow-hidden">
+          {/* Desktop Image */}
+          <div className="hidden sm:block w-full h-full">
+            <Image
+              src="/images/DextopBanner.png"
+              alt="Ecommerce Banner Image"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
-<div className="w-full max-w-[1285px] mx-auto  h-[300px] lg:h-[500px] bg-white rounded-xl shadow-md overflow-hidden flex items-center justify-center">
-    <Image
-    src="/images/Banner.jpg"
-    alt="Ecommerce Banner Image"
-    width={1285}
-    height={0}
-    className="w-full h-full object-cover"
-    priority
-  />
-  
-
-
-</div>
-  </Link>
+          {/* Mobile Image */}
+          <div className="block sm:hidden w-full h-full ">
+            <Image
+              src="/images/MobileBanner.jpg"
+              alt="Ecommerce Mobile Banner"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };

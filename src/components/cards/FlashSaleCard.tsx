@@ -64,7 +64,7 @@ const FlashSaleCard = ({
 
   return (
     <div
-      className="md:border-1  md:border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white  flex flex-col "
+      className="md:border-1  md:border-gray-300 rounded-2xl p-2 shadow hover:scale-100 transition bg-white  flex flex-col h-full "
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -131,8 +131,9 @@ const FlashSaleCard = ({
           ))}
         </div>
 
-
-        <div className="relative w-full h-[140px] lg:h-[180px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white ">
+{/* 
+        <div className="relative w-full h-[140px] lg:h-[180px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white "> */}
+                <div className="relative w-full h-[140px] lg:h-[180px] rounded-[5px] overflow-hidden flex items-center justify-center bg-white">
           {/* <Image
             src={mainImg}
             alt={title}
@@ -149,7 +150,7 @@ const FlashSaleCard = ({
         </div>
       </div>
 
-      <h3      onClick={() => handleBuyNow({ title, slug })} className="font-bold text-[15px] mb-1 cursor-pointer">{title}</h3>
+      <h3      onClick={() => handleBuyNow({ title, slug })} className="font-bold text-[12px] lg:text-[15px] mb-1 cursor-pointer">{title}</h3>
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-orange-500 font-bold text-[16px]">
           TK{price.toFixed(2)}
@@ -179,7 +180,7 @@ const FlashSaleCard = ({
       <div className="mt-auto">
         <button
           onClick={() => handleBuyNow({ title, slug })}
-          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold lg:py-2 py-1 lg:px-3 px-1 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           Buy Now
           <span className="text-sm">🛒</span>
@@ -193,12 +194,3 @@ const FlashSaleCard = ({
 
 export default FlashSaleCard;
 
-
-{/* Image */ }
-{/* <Image
-          src={mainImg}
-          alt={title}
-          width={160}
-          height={170}
-          className="object-contain hover:scale-105 rounded-lg transition-transform duration-300 w-full z-10"
-        /> */}

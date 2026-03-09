@@ -66,7 +66,7 @@ const NewArrivalCard = ({
         )}
         {/* New badge */}
         {isNew && (
-          <span className="absolute top-12 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
             New
           </span>
         )}
@@ -132,7 +132,7 @@ const NewArrivalCard = ({
           />
         </div>
       </div>
-      <h3     onClick={() => handleBuyNow({ title, slug })} className="font-bold text-[15px] cursor-pointer mb-1">{title}</h3>
+      <h3     onClick={() => handleBuyNow({ title, slug })} className="font-bold text-[12px] lg:text-[15px] cursor-pointer mb-1">{title}</h3>
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-orange-500 font-bold text-[16px]">TK{price.toFixed(2)}</span>
         {typeof oldPrice === "number" && (
@@ -145,7 +145,7 @@ const NewArrivalCard = ({
         {renderStars(Math.round(rating))}
         <span className="text-gray-400 text-[12px] ml-1">({reviews} Reviews)</span>
       </div>
-      <div className="flex gap-2 mt-1 ">
+      {/* <div className="flex gap-2 mt-1 ">
         {colors.map((color, idx) => (
           <span
             key={idx}
@@ -153,11 +153,11 @@ const NewArrivalCard = ({
             style={{ backgroundColor: color }}
           />
         ))}
-      </div>
+      </div> */}
       <div className="mt-auto">
         <button
           onClick={() => handleBuyNow({ title, slug })}
-          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold lg:py-2 py-1 lg:px-3 px-1 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           Buy Now
           <span className="text-sm">🛒</span>

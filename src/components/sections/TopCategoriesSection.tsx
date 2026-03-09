@@ -31,7 +31,7 @@ const TopCategoriesWithProducts = ({ products }: Props) => {
     : products.filter((product) => product.category === activeCategory);
 
   return (
-    <section className="my-10 px-4">
+    <section className="my-10">
       {/* Category Icons */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Top Categories</h2>

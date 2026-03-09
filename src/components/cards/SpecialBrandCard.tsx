@@ -42,7 +42,7 @@ const SpecialBrandCard = ({ title, image, price, oldPrice, rating, save, slug }:
         </div>
         {/* Price */}
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-gray-800">TK{price.toFixed(2)}</span>
+          <span className="lg:text-xl text-1xl font-bold text-gray-800">TK{price.toFixed(2)}</span>
           <span className="text-gray-400 line-through text-base">TK{oldPrice.toFixed(2)}</span>
         </div>
       </div>

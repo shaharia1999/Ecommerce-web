@@ -22,7 +22,7 @@ const SpecialBrandsSection: React.FC<SpecialBrandsSectionProps> = ({ specialBran
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
         {/* Banner/CTA */}
         <div className="bg-pink-100 rounded-2xl flex flex-col justify-center items-start p-8 min-h-[400px] relative overflow-hidden">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 leading-tight">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">
             Make Your Fashion Look
             <br />
             More Changing

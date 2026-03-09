@@ -35,7 +35,7 @@ const NewArrivalsSection = ({ products }: NewArrivalsSectionProps) => {
     <section className="my-10 ">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="md:text-3xl font-bold">
+        <h2 className=" text-1xl md:text-3xl font-bold">
           <span className="relative">
             <span className="text-black">NEW </span>
             <span className="absolute left-0 -bottom-1 w-full h-2 bg-red-200 rounded-full -z-10"></span>
@@ -44,7 +44,7 @@ const NewArrivalsSection = ({ products }: NewArrivalsSectionProps) => {
         </h2>
         <div className="flex items-center gap-2 px-2  rounded-xl bg-orange-100 text-gray-800 shadow-sm w-fit">
           <div className="text-orange-500 text-lg">⏰</div>
-          <span className="font-medium text-[14px] ml-2 lg:text-[20px] md:text-[20px]">Limited Time Offer</span>
+          {/* <span className="font-medium text-[14px] ml-2 lg:text-[20px] md:text-[20px]">Limited Time Offer</span> */}
           <Link
             href={{
               pathname: '/Viewall',
