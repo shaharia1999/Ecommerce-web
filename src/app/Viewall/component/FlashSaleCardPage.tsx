@@ -148,7 +148,7 @@ return (
 
           {/* Loading Skeleton */}
           {isLoading && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {Array.from({ length: limit }).map((_, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden animate-pulse">
                   <div className="bg-gray-200 h-64"></div>
@@ -169,7 +169,7 @@ return (
 
           {/* Product Grid */}
           {!isLoading && products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {products.map((product) => (
                 <FlashSaleCard
                   key={product.id}
