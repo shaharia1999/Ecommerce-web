@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="w-full">
       <Link href="/FlashSaleCardDiscount">
-        <div className="relative w-full h-[55vh] md:h-[70vh] mt-6 lg:mt-0 rounded-lg overflow-hidden">
+        <div className="relative w-full h-[53vh] md:h-[70vh] mt-6 lg:mt-0 rounded-lg overflow-hidden">
           {/* Desktop Image */}
           <div className="hidden sm:block w-full h-full">
             <Image
