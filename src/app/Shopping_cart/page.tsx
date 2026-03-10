@@ -21,7 +21,7 @@ const CartPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
+      <h1 className="lg:text-2xl text-1xl font-bold mb-4">Shopping Cart</h1>
 
       {cart.length === 0 ? (
         <p className="text-gray-500 text-center py-10">Your cart is empty.</p>
@@ -50,7 +50,7 @@ const CartPage = () => {
 
                 {/* Product Info */}
                 <div>
-                  <div className="font-semibold text-lg">
+                  <div className="font-semibold lg:text-lg text-[14px]">
                     { item.title}
                   </div>
                   <div className="text-gray-500 text-sm">
@@ -110,7 +110,7 @@ const CartPage = () => {
 
       {/* Checkout Button */}
       <button
-        className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold transition mt-4"
+        className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 lg:py-3 rounded-lg font-bold transition mt-4"
         disabled={cart.length === 0}
         onClick={handleCheckout}
       >
